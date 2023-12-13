@@ -1,0 +1,55 @@
+<div id="close" class="transition-class mac-navigator-tab">
+  <div class="tab-header">
+    <div class="red-dot" (click)="closeElement()"></div>
+    <div class="yellow-dot" (click)="extendTab()"></div>
+  </div>
+  <div class="tab-content">
+    <ul class="tab-links">
+      <li class="active tab-design">Informations</li>
+    </ul>
+    <div class="tab-panels">
+      <div class="tab-panel active">
+        <div class="container mt-5">
+          <div class="row">
+
+            <div class="col-lg-6">
+              <h3><span class="tab-title">{{data.name}}</span></h3>
+              <p>{{data.description}}</p>
+              <p [hidden]="!data.exist"><span class="tab-description-element">Download Project on Github : </span><a  href="{{data.link}}"><i
+                class="icon ion-social-github icona"></i></a></p>
+            </div>
+
+            <div class="col-lg-6">
+              <img src="{{data.image}}" class="img-fluid" alt="Picture">
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Technologies</th>
+                  <th scope="col">Technologies Usage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let technology of data.technologies">
+                  <td>{{technology[0]}}</td>
+                  <td>{{star(technology[1])}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <div class="col-md-6">
+              <iframe *ngIf="data.demo_exist" src="{{data.video_link}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

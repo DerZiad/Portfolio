@@ -1,0 +1,76 @@
+/*
+  new design
+*/
+
+.text-color{
+  color: black;
+}
+
+.project-image{
+  height: 300px;
+  width: 100%;
+  padding: 18px;
+}
+
+.project-card{
+  box-shadow: 5px 5px 10px black;
+  transition: transform 0.3s ease;
+  height: auto;
+}
+
+.project-item-value{
+  font-family: Calibri,"Sans Serif Collection";
+  font-size: 15px;
+}
+
+.project-item-key{
+  font-family: Calibri,"Sans Serif Collection";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.card-footer-box{
+  background: none;
+  border-top: none;
+}
+
+.project-card:hover {
+  transform: scale(1.1); /* Increase the size by 20% */
+}
+
+
+.project-card-header{
+  background-color: black;
+}
+
+.project-card-header-title{
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+
+.project-card-show-more-btn{
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-family: Calibri,"Sans Serif Collection";
+  font-weight: bold;
+  width: 140px;
+}
+
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

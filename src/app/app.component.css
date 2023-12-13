@@ -1,0 +1,118 @@
+/*
+  Header
+*/
+
+.linear-background{
+  background: linear-gradient(to top, #000000 100%, #000000 100%);
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.header-element:hover{
+  border-bottom: 3px solid white;
+}
+
+.active-header{
+  border-bottom: 3px solid white;
+}
+
+
+
+.home-background{
+  background-image: url("https://i.pinimg.com/564x/b9/71/f2/b971f2f7bdbe38e0edbede6a80b6bc7b.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.padding-list{
+  padding-left: 15px;
+}
+
+
+.slide-down {
+  position: relative;
+  animation: slideDown 1s ease-in-out;
+}
+
+@keyframes slideDown {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+.slide-right {
+  position: relative;
+  animation: slideRight 1s ease-in-out;
+}
+
+@keyframes slideRight {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+/*
+  Introduction
+*/
+
+.website-intro{
+  border:1px solid white;
+  height: 600px;
+  align-content: center;
+  background-color: white;
+}
+
+.website-intro-text-box{
+  margin-top: 290px;
+}
+.website-intro-text{
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-out-in {
+  opacity: 1;
+  animation: fadeOut 1s ease-in;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/*
+  Footer
+*/
+
+.icona{
+  font-size: 25px;
+  padding-left: 4px;
+  padding-right: 4px;
+  color:black;
+}

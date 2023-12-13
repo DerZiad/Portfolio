@@ -1,0 +1,50 @@
+<section id="projects" class="portfolio-block" >
+  <div class="container">
+    <div class="heading" *ngIf="!showDataActive" >
+      <h2 class="text-color">Projects</h2>
+    </div>
+    <div class="row" style="margin-bottom: 25px;margin-left: 15px" *ngIf="!showDataActive">
+      <div class="col-md-2 label">
+        Project Type :
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" name="type" [(ngModel)]="selectedTypeOfProject">
+          <option value="Security">Security</option>
+          <option value="AI">Artificial Intelligent Projects + Studies</option>
+          <option value="Web" selected>Web Development Projects</option>
+          <option value="Robotics">Robotics Projects</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="container-fluid" *ngIf="!showDataActive">
+      <div class="row">
+        <div class="col-md-4 col-sm-12 box-height" *ngFor="let dataEntity of filter(data); let i = index" style="padding: 10px">
+          <div class="card project-card">
+            <div class="card-header project-card-header">
+              <h1 class="project-card-header-title">{{ dataEntity.name }}</h1>
+            </div>
+            <div class="card-img">
+              <img class="project-image" src="{{ dataEntity.image }}"/>
+            </div>
+            <div class="card-body">
+              <p class="data-items text-color" *ngFor="let i of getKeys(dataEntity.data)"><span class="data-items-span project-item-key">{{i}}
+                : </span><span class="project-item-value">{{getValue(dataEntity.data, i)}}</span></p>
+            </div>
+            <div class="card-footer card-footer-box">
+              <div class="row" style="justify-content: center">
+                <button class="btn project-card-show-more-btn" (click)="showMore(dataEntity)">
+                  Show More
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <app-projectdescription *ngIf="showDataActive" [data]="showData"
+                            (closeAction)="onChildCloseChanged($event)"></app-projectdescription>
+  </div>
+</section>

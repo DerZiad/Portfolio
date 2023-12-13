@@ -1,0 +1,30 @@
+.abstract-title{
+  color: black;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Calibri,"Sans Serif Collection";
+}
+
+.abstract-text{
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Calibri,"Sans Serif Collection";
+}
+
+.black-background{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/assets/img/avatars/avatar.png");
+}
+
+.black-background::before{
+  background: rgba(255, 255, 255, 1);
+}
+
+@media only screen and (max-width: 768px) {
+  .black-background{
+    height: 400px;
+    background-size: contain;
+  }
+}

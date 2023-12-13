@@ -1,0 +1,179 @@
+<div id="close" class="transition-class mac-navigator-tab">
+  <div class="tab-header">
+    <div class="red-dot" (click)="closeElement()"></div>
+    <div class="yellow-dot" (click)="extendTab()"></div>
+  </div>
+  <div class="tab-content">
+    <ul class="tab-links">
+      <li class="active tab-design">Career</li>
+    </ul>
+    <div class="tab-panels">
+      <div class="tab-panel active">
+        <div class="container mt-5">
+          <div class="card special-skill-item cancel-background card-education-box">
+            <div class="card-header card-education-image-university-moulay-ismail-meknes mx-auto">
+            </div>
+            <div class="card-body card-education-text">
+              <h3 class="card-title">University Moulay ismail Mèknes - Morocco</h3>
+              <p class="card-text text-color-gray">2019 - 2022</p>
+              <p class="text-color-black text-left"><b> Bachelor's degree</b>, Computer software engineering</p>
+              <p class="text-color-black text-left">During my final year at <b>University Moulay ismail Mèknes</b>, I
+                successfully acquired knowledge in various technologies and concepts. The following tables provide an
+                overview of the technologies and concepts I learned during my studies:</p>
+            </div>
+          </div>
+
+          <div class="heading">
+            <h1 class="card-education-concept-title text-left">Activities</h1>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <p><b>Robotics Club 2022</b> participated in the Afrika Robotic Brain Competition by University Ensam.</p>
+              <div id="roboticsclub" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                          *ngFor="let dataEntity of afrika_robotik_brains.slice(1,afrika_robotik_brains.length);let i = index"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of afrika_robotik_brains; let i = index" [class.active]="i === 0">
+
+                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                      <source src="{{dataEntity[0]}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-design">
+                      {{dataEntity[1]}}
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#roboticsclub" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#roboticsclub" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <p><b>Coding Day at University Moulay Ismail:</b> Developed a website during an 8-hour session.</p>
+              <div id="codingday" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                          *ngFor="let dataEntity of coding_day.slice(1,coding_day.length);let i = index"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of coding_day; let i = index" [class.active]="i === 0">
+
+                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                      <source src="{{dataEntity[0]}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-design">
+                      {{dataEntity[1]}}
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#codingday" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon carousel-text-color" aria-hidden="true"></span>
+                  <span class="visually-hidden carousel-text-color">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#codingday" data-bs-slide="next">
+                  <span class="carousel-control-next-icon carousel-text-color" aria-hidden="true"></span>
+                  <span class="visually-hidden carousel-text-color">Next</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <p><b>FSM Club at University Moulay Ismail:</b> Coaching for cyber security and web attacks.</p>
+              <div id="fsmcarousel" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                          *ngFor="let dataEntity of fsm.slice(1,fsm.length);let i = index"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of fsm; let i = index" [class.active]="i === 0">
+
+                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                      <source src="{{dataEntity[0]}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <div class="carousel-caption d-none d-md-block carousel-caption-design">
+                      {{dataEntity[1]}}
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#fsmcarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#fsmcarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+                <p><b>Coaching at University Moulay Ismail</b> the students of the next year for web developing using JEE.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="heading">
+                <h1 class="card-education-concept-title text-left">Learned Concepts</h1>
+              </div>
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th class="text-left" scope="col">Learned Concepts</th>
+                  <th class="text-left" scope="col">Scale ( {{star(5)}} )</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let concept of concepts">
+                  <td class="text-left">{{concept[0]}}</td>
+                  <td class="text-left">{{star(concept[1])}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="heading">
+                <h1 class="card-education-concept-title text-left">Learned Technologies</h1>
+              </div>
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th class="text-left" scope="col">Learned Technologies</th>
+                  <th class="text-left" scope="col">Scale ( {{star(5)}} )</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let technology of technologies">
+                  <td class="text-left">{{technology[0]}}</td>
+                  <td class="text-left">{{star(technology[1])}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+
+.linear-background{
+  background-color: white;
+  color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+.cancel-background{
+  background:none;
+}
+
+.move-left{
+  text-align: left;
+}
+
+.box-carre{
+  border: 1px solid white;
+
+}
+
+section{
+  color: black;
+}
+
+table{
+  border: 2px solid black;
+}
+td{
+  border: 2px solid black;
+}
+
+th{
+  border: 2px solid black;
+}
+
+.table-major-column{
+  text-align: center;
+}
+
+.table-column{
+  text-align: left;
+}
+
