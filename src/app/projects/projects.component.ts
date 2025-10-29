@@ -30,7 +30,7 @@ export class ProjectsComponent implements OnInit {
       },
       "exist": true,
       "demo_exist": false,
-      "technologies": [['Python 🐍',5], ['Mediapipe Library 👁️‍🗨️',5], ['OpenCV 📷',5], ['Numpy 🧮',5],["Pandas 🐼",5]],
+      "technologies": [['Python 🐍', 5], ['Mediapipe Library 👁️‍🗨️', 5], ['OpenCV 📷', 5], ['Numpy 🧮', 5], ["Pandas 🐼", 5]],
     }, {
       "name": "Pentest Me",
       "type": "Security",
@@ -74,7 +74,7 @@ export class ProjectsComponent implements OnInit {
       "image": "/assets/img/project/ecar.png",
       "exist": false,
       "demo_exist": false,
-      "technologies":[['Java 17 🚀', 5], ["Angular 🔧",5],['Typescript 🌐',5],["Spring Boot 🔧", 5], ['Spring Data 🛠️', 5], ['Spring Security 🔒', 5], ['Spring Mail 📧', 5], ['Spring Web / Rest 🌐', 5], ['Java Servlet Pages 📄', 5], ['MySQL 8 🐬', 5], ['HTML 🌐', 5], ["CSS 🌐", 5], ['Javascript 🌐', 5], ['JSTL 🌐', 5], ['Git 🔗', 5]],
+      "technologies": [['Java 17 🚀', 5], ["Angular 🔧", 5], ['Typescript 🌐', 5], ["Spring Boot 🔧", 5], ['Spring Data 🛠️', 5], ['Spring Security 🔒', 5], ['Spring Mail 📧', 5], ['Spring Web / Rest 🌐', 5], ['Java Servlet Pages 📄', 5], ['MySQL 8 🐬', 5], ['HTML 🌐', 5], ["CSS 🌐", 5], ['Javascript 🌐', 5], ['JSTL 🌐', 5], ['Git 🔗', 5]],
       "data": {
         "Context": "Reactive Web interface to control charging stations",
         "Date": "2023.02.01 - 2023.05.31",
@@ -120,14 +120,151 @@ export class ProjectsComponent implements OnInit {
       "image": "/assets/img/project/aibrain.jpg",
       "exist": true,
       "demo_exist": false,
-      "technologies": [["Tensorflow", 5], ['Scikit-learn', 5],["Pandas 🐼",5], ['Python', 5], ['Jupyter', 5], ["PyQT5", 5], ['Git', 5]],
+      "technologies": [["Tensorflow", 5], ['Scikit-learn', 5], ["Pandas 🐼", 5], ['Python', 5], ['Jupyter', 5], ["PyQT5", 5], ['Git', 5]],
       "data": {
         "Context": "Perform data science and data analytics of people.",
         "Date": "Winter 2022",
         "Type": "University Project"
       },
     },
-    {}
+    {
+      "name": "Line Tracker",
+      "type": "Robotics",
+      "description": "The Line Tracker project is designed to create a robot based on Arduino with the capability to autonomously follow a black line. The project utilizes various components, including the ARDUINO MEGA 2560, a complete 2-wheel chassis, mini-breadboard, assorted cables (MaM, MaF, etc.), HC-SR04 Ultrasonic Sensor, L298N dual H-bridge, 4 photoelectric sensor modules, RFID-RC522 module, Imax B6 Battery Charger, Multimeter, Rover 5, and is programmed using C++.",
+      "link": "https://github.com/DerZiad/LineTrackerArduino",
+      "image": "/assets/img/project/linetracker.jpg",
+      "data": {
+        "Context": "Building Line Tracker",
+        "Date": "Summer 2022",
+        "Type": "University Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Arduino Mega 2560", 5],
+        ["2-wheel chassis", 5],
+        ["Mini-breadboard", 5],
+        ["Assorted cables (MaM, MaF, etc.)", 5],
+        ["HC-SR04 Ultrasonic Sensor", 5],
+        ["L298N dual H-bridge", 5],
+        ["4 photoelectric sensor modules", 5],
+        ["RFID-RC522 module", 5],
+        ["Imax B6 Battery Charger", 5],
+        ["Multimeter", 5],
+        ["Rover 5", 5],
+        ["Programming Language: C++", 5]
+      ]
+    },
+    {
+      "name": "Rubber Ducky Using Arduino",
+      "type": "Security",
+      "description": "This project involves creating a functional simulation of a Rubber Ducky bad USB device using an Arduino Leonardo. In some regions, acquiring a Rubber Ducky or having it shipped might be restricted. To overcome these limitations, this undertaking leverages an Arduino Leonardo board. The Arduino Leonardo (or Arduino Micro) is powered by the ATmega32u4 processor. It operates akin to a keyboard by transmitting binary commands to the operating system, effectively emulating keyboard inputs. By capitalizing on this feature, the project aims to develop a script that emulates keyboard inputs to perform various actions, such as opening a command prompt, initiating HTTP requests, downloading payloads, and executing them automatically.",
+      "link": "https://github.com/DerZiad/ShellAutoExecuteUSB",
+      "image": "/assets/img/project/rubberducky.avif",
+      "data": {
+        "Context": "Auto execute code by inserting USB / Windows 7, 8, 8.1, 10, 11",
+        "Date": "Summer 2022",
+        "Type": "Personal Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Arduino Leonardo", 5],
+        ["Battery", 5],
+        ["Three buttons", 5],
+        ["Breadboard", 5],
+        ["Resistors", 5],
+        ["Cables", 5],
+        ["USB-to-Micro USB adapter", 5],
+        ["C++", 5]
+      ]
+    },
+    {
+      "name": "Car Location Website",
+      "type": "Web",
+      "description": "The Car Location project stands as a testament to my academic journey, delivering a sophisticated solution for car reservations within a day-long coding challenge at my university in Morocco. Built on the Spring Boot framework, this project features a secure and robust system with an administrator panel, a user panel, and seamless car reservation capabilities. It exemplifies my commitment to creating efficient and reliable applications, ensuring data integrity and security throughout its architecture.",
+      "link": "https://github.com/DerZiad/CarLocationWebsite",
+      "image": "/assets/img/project/carlocation.avif",
+      "data": {
+        "Context": "Build Platform for Car Location Agency",
+        "Date": "Winter 2022",
+        "Type": "University Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Spring Boot", 5],
+        ["Spring Security", 5],
+        ["Spring Data", 5],
+        ["Spring Validator", 5],
+        ["Java Servlet Pages", 5],
+        ["JSTL", 5],
+        ["MySQL", 5],
+        ["Java 17", 5],
+      ]
+    },
+    {
+      "name": "Virtual Mouse",
+      "type": "AI",
+      "description": "The Virtual Mouse project is a computer vision endeavor crafted using Python's Mediapipe library. This innovative project focuses on processing hand motions, enabling the creation of a virtual mouse interface that interacts with a camera. Leveraging the capabilities of Mediapipe, the project offers a dynamic solution for controlling the mouse cursor through hand gestures. This not only showcases the power of computer vision but also opens avenues for hands-free interaction with digital interfaces. Dive into the world of Virtual Mouse and explore the possibilities of intuitive and gesture-based computer control.",
+      "link": "https://github.com/DerZiad/VirtualMouse",
+      "image": "/assets/img/project/aivirtual.jpg",
+      "data": {
+        "Context": "The Virtual Mouse project  enables hands-free mouse control through intuitive hand gesture",
+        "Date": "Summer 2022",
+        "Type": "Personal Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Python 3", 5],
+        ["Mediapipe", 5],
+        ["Pynput", 5]
+      ]
+    },
+    {
+      "name": "Sound Manager",
+      "type": "AI",
+      "description": "The Sound Manager concept is designed to enhance the anime-watching experience on a monitor from a distance, offering the ability to adjust sound levels through finger motions, providing a convenient and interactive way to control audio settings.",
+      "link": "https://github.com/DerZiad/SoundManager",
+      "image": "/assets/img/project/artificial-intelligence.webp",
+      "data": {
+        "Context": "The Sound Manager project  enables hands-free mouse control through intuitive hand gesture for increasing or decreasing sound.",
+        "Date": "Summer 2022",
+        "Type": "Personal Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Python 3", 5],
+        ["Mediapipe", 3],
+        ["Pynput", 2],
+        ["Numpy",3]
+      ]
+    },
+    {
+      "name": "Deliberation",
+      "type": "Web",
+      "description": "Deliberation is a comprehensive project tailored for student management, facilitating grade checking for students, grade assignments by professors, administrative oversight of all grades, and a seamless process for deliberation and notification of final grades. Developed with Spring Boot, this project caters specifically to the needs of UMI Morocco, enhancing administrative efficiency and student engagement in the academic evaluation process.",
+      "link": "https://github.com/DerZiad/Deliberation",
+      "image": "/assets/img/project/citizen.png",
+      "data": {
+        "Context": "Deliberation is a student management project that streamlines the grading process for students, professors, and administrators.",
+        "Date": "Summer 2021",
+        "Type": "University Project"
+      },
+      "exist": true,
+      "demo_exist": false,
+      "technologies": [
+        ["Spring Framework", 5],
+        ["Java", 5],
+        ["Java Servlet Pages", 5],
+        ["Numpy",5],
+        ["JQuery",4],
+        ["Java Script",5],
+        ['HTML / CSS',5]
+      ]
+    }
 
 
   ]

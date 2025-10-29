@@ -20,6 +20,9 @@
           <a [hidden]="hidden" class="nav-link slide-down {{isActive(3)}} header-element" (click)="show(3); closeNavbar()">My Projects</a>
         </li>
         <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(7)}} header-element" (click)="show(7); closeNavbar()">Professional Experience</a>
+        </li>
+        <li class="nav-item">
           <a [hidden]="hidden" class="nav-link slide-down {{isActive(5)}} header-element" (click)="show(5); closeNavbar()">Skills</a>
         </li>
         <li class="nav-item">
@@ -46,8 +49,10 @@
   <app-abstract class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-abstract>
   <app-projects class="linear-background" [hidden]="hidden || (active_page_number != 3)"></app-projects>
   <app-education class="linear-background" [hidden]="hidden || (active_page_number != 4)"></app-education>
+  <app-languages class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-languages>
   <app-skills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-skills>
   <app-specialskills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-specialskills>
+  <app-professionalexperience class="linear-background" [hidden]="hidden || (active_page_number != 7)"></app-professionalexperience>
 </main>
 
 <div [hidden]="hidden" class="page-footer">
@@ -61,6 +66,10 @@
       <a href="https://github.com/DerZiad"><i class="icon ion-social-github icona slide-left"></i></a>
       <a href="https://www.linkedin.com/in/ziad-bougrine-9b94171a5/"><i
         class="icona ion-social-linkedin slide-left"></i></a>
+      <a href="mailto:ziadbougrine@gmail.com"><i
+        class="icona ion-email slide-left"></i></a>
+      <a href="tel:+4915209512199"><i
+        class="icona ion-ios-telephone slide-left"></i></a>
     </div>
   </div>
 </div>

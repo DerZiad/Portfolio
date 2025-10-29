@@ -17,8 +17,8 @@
               </thead>
               <tbody>
               <tr *ngFor="let element of getElement(domain,toolType)">
-                <td>{{element}}</td>
-                <td>⭐️⭐️⭐️⭐️⭐️</td>
+                <td style="text-align: left">{{element[0]}}</td>
+                <td style="text-align: left">{{star(element[1])}}</td>
               </tr>
               </tbody>
             </table>

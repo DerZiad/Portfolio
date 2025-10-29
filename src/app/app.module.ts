@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { CvComponent } from './cv/cv.component';
+import { LanguagesComponent } from './languages/languages.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { SpecialskillsComponent } from './specialskills/specialskills.component';
 import {FormsModule} from "@angular/forms";
@@ -16,12 +16,15 @@ import { SkillsComponent } from './skills/skills.component';
 import { EducationComponent } from './education/education.component';
 import { FhaacheninformationsComponent } from './education/fhaacheninformations/fhaacheninformations.component';
 import { UmiinformationsComponent } from './education/umiinformations/umiinformations.component';
+import { ProfessionalexperienceComponent } from './professionalexperience/professionalexperience.component';
+import { FhaachenwerkstudentComponent } from './professionalexperience/fhaachenwerkstudent/fhaachenwerkstudent.component';
+import { MgmwerkstudentComponent } from './professionalexperience/mgmwerkstudent/mgmwerkstudent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    CvComponent,
+    LanguagesComponent,
     ProjectsComponent,
     SpecialskillsComponent,
     ProjectdescriptionComponent,
@@ -31,6 +34,9 @@ import { UmiinformationsComponent } from './education/umiinformations/umiinforma
     EducationComponent,
     FhaacheninformationsComponent,
     UmiinformationsComponent,
+    ProfessionalexperienceComponent,
+    FhaachenwerkstudentComponent,
+    MgmwerkstudentComponent,
   ],
   imports: [
     BrowserModule,

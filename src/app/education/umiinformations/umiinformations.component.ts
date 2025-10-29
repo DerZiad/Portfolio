@@ -23,9 +23,9 @@ export class UmiinformationsComponent implements OnInit{
   ]
 
   coding_day = [
-    ["/assets/img/events/codingday/1.jpg", "Africa Robotics Brain Map","picture"],
-    ["/assets/img/events/codingday/2.jpg", "Demo Robot","picture"],
-    ["/assets/img/events/codingday/3.jpg", "Some Pictures Working On Mounting The Robot","picture"],
+    ["/assets/img/events/codingday/1.jpg", "Picture of the coding day","picture"],
+    ["/assets/img/events/codingday/2.jpg", "First Prize","picture"],
+    ["/assets/img/events/codingday/3.jpg", "Trophy","picture"],
   ]
 
   fsm = [
@@ -51,7 +51,7 @@ export class UmiinformationsComponent implements OnInit{
     ["Software Engineering 2 (UML)", 5],
     ["Database Oracle", 5],
     ["Statistics", 5],
-    ["Statistics Computer Practice Using R"],
+    ["Statistics Computer Practice Using R",4],
     ["Numerical Analysis 2", 5],
     ["Numerical Analysis 2, Computer practice using Python",5],
     ["Algorithms 2 using C", 5],

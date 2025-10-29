@@ -20,30 +20,38 @@
               <p class="text-color-black text-left">During my final year at <b>University Moulay ismail Mèknes</b>, I
                 successfully acquired knowledge in various technologies and concepts. The following tables provide an
                 overview of the technologies and concepts I learned during my studies:</p>
+              <h3 class="text-color-black text-left">Content</h3>
+              <ol class="text-color-black text-left">
+                <li class="links"><a class="links" href="#activities">Activities</a></li>
+                <li class="links"><a class="links" href="#learnedconcept">Learned Concept</a></li>
+                <li class="links"><a class="links" href="#learnedtechnologies">Learned Skills</a></li>
+              </ol>
             </div>
           </div>
 
           <div class="heading">
-            <h1 class="card-education-concept-title text-left">Activities</h1>
+            <h1 id="activities" class="card-education-concept-title text-left">Activities</h1>
           </div>
 
           <div class="row">
             <div class="col-md-6 col-sm-12">
-              <p><b>Robotics Club 2022</b> participated in the Afrika Robotic Brain Competition by University Ensam.</p>
+              <ul>
+                <li><b>Robotics Club 2022</b> participated in the Afrika Robotic Brain Competition by University ENSAM.</li>
+              </ul>
               <div id="roboticsclub" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
-                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                  <button type="button" data-bs-target="#roboticsclub" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#roboticsclub" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
                           *ngFor="let dataEntity of afrika_robotik_brains.slice(1,afrika_robotik_brains.length);let i = index"></button>
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of afrika_robotik_brains; let i = index" [class.active]="i === 0">
 
-                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 carousel-image-design" controls>
                       <source src="{{dataEntity[0]}}" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
-                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <img *ngIf="dataEntity[2]=='picture'" class="d-block w-100 carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
                     <div class="carousel-caption d-none d-md-block carousel-caption-design">
                       {{dataEntity[1]}}
                     </div>
@@ -60,21 +68,22 @@
               </div>
             </div>
             <div class="col-md-6 col-sm-12">
-              <p><b>Coding Day at University Moulay Ismail:</b> Developed a website during an 8-hour session.</p>
+              <ul>
+                <li><b>Coding Day at University Moulay Ismail:</b> Developed a website during an 8-hour session.</li>
+              </ul>
               <div id="codingday" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
-                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                  <button type="button" data-bs-target="#codingday" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#codingday" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
                           *ngFor="let dataEntity of coding_day.slice(1,coding_day.length);let i = index"></button>
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner align-items-center">
                   <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of coding_day; let i = index" [class.active]="i === 0">
-
-                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                    <video *ngIf="dataEntity[2]=='video'" class="d-block w-100 carousel-image-design" controls>
                       <source src="{{dataEntity[0]}}" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
-                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <img *ngIf="dataEntity[2]=='picture'" class="d-block w-100 carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
                     <div class="carousel-caption d-none d-md-block carousel-caption-design">
                       {{dataEntity[1]}}
                     </div>
@@ -90,22 +99,24 @@
                 </button>
               </div>
             </div>
-            <div class="col-md-12 col-sm-12">
-              <p><b>FSM Club at University Moulay Ismail:</b> Coaching for cyber security and web attacks.</p>
+            <div class="col-md-6 col-sm-12">
+              <ul>
+                <li><b>FSM Club at University Moulay Ismail:</b> Coaching for cyber security and web attacks.</li>
+              </ul>
               <div id="fsmcarousel" class="carousel carousel-dark slide carousel-design" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleDark" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
-                  <button type="button" class="carousel-buttons" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
+                  <button type="button" data-bs-target="#fsmcarousel" class="active carousel-buttons" aria-current="true" [attr.data-bs-slide-to]="0" aria-label="Slide 1"></button>
+                  <button type="button" class="carousel-buttons" data-bs-target="#fsmcarousel" [attr.data-bs-slide-to]="i + 1" [attr.aria-label]="'Slide ' + (i + 2)"
                           *ngFor="let dataEntity of fsm.slice(1,fsm.length);let i = index"></button>
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item" data-bs-interval="3000" *ngFor="let dataEntity of fsm; let i = index" [class.active]="i === 0">
 
-                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 video" controls>
+                    <video *ngIf="dataEntity[2]=='video'"  class="d-block w-100 carousel-image-design" controls>
                       <source src="{{dataEntity[0]}}" type="video/mp4">
                       Your browser does not support the video tag.
                     </video>
-                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
+                    <img class="d-block w-100" *ngIf="dataEntity[2]=='picture'" class="d-block w-100 carousel-image-design" src="{{ dataEntity[0] }}" alt="{{dataEntity[1]}}">
                     <div class="carousel-caption d-none d-md-block carousel-caption-design">
                       {{dataEntity[1]}}
                     </div>
@@ -125,13 +136,15 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-                <p><b>Coaching at University Moulay Ismail</b> the students of the next year for web developing using JEE.</p>
+              <ul>
+                <li><b>Coaching at University Moulay Ismail</b> the students of the next year for web developing using JEE.</li>
+              </ul>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <div class="heading">
-                <h1 class="card-education-concept-title text-left">Learned Concepts</h1>
+                <h1 id="learnedconcept" class="card-education-concept-title text-left">Learned Concepts</h1>
               </div>
               <table class="table">
                 <thead class="thead-light">
@@ -153,12 +166,12 @@
           <div class="row">
             <div class="col-md-12">
               <div class="heading">
-                <h1 class="card-education-concept-title text-left">Learned Technologies</h1>
+                <h1 id="learnedtechnologies" class="card-education-concept-title text-left">Learned Skills</h1>
               </div>
               <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th class="text-left" scope="col">Learned Technologies</th>
+                  <th class="text-left" scope="col">Learned Skills</th>
                   <th class="text-left" scope="col">Scale ( {{star(5)}} )</th>
                 </tr>
                 </thead>

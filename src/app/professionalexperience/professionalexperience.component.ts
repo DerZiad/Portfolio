@@ -1,14 +1,12 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-education',
-  templateUrl: './education.component.html',
-  styleUrls: ['./education.component.css']
+  selector: 'app-professionalexperience',
+  templateUrl: './professionalexperience.component.html',
+  styleUrls: ['./professionalexperience.component.css']
 })
-export class EducationComponent {
-
-  showDataActiveFHAachen: boolean = false
-  showDataActiveUMI:boolean = false
+export class ProfessionalexperienceComponent {
+  showData: boolean[] = [false, false]
 
   constructor() {
   }
@@ -58,20 +56,25 @@ export class EducationComponent {
   }
 
   showMore(dataEntity: string) {
-    if(dataEntity == "fh"){
-      this.showDataActiveFHAachen = true
-    }else {
-      this.showDataActiveUMI = true
+    switch (dataEntity) {
+      case "fhwerkstudent":
+        this.showData[0] = true
+        break
+      case "mgmwerkstudent":
+        this.showData[1] = true
+        break
     }
   }
 
 
-  onChildCloseChanged(university:string,close: boolean) {
-    if(university=="fh"){
-      this.showDataActiveFHAachen = close
-    }else{
-      this.showDataActiveUMI = close
+  onChildCloseChanged(university: string, close: boolean) {
+    switch (university) {
+      case "fhwerkstudent":
+        this.showData[0] = close
+        break
+      case "mgmwerkstudent":
+        this.showData[1] = close
+        break
     }
   }
-
 }

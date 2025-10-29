@@ -22,6 +22,12 @@
   background: rgba(255, 255, 255, 1);
 }
 
+.btn-download-black{
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
 @media only screen and (max-width: 768px) {
   .black-background{
     height: 400px;
