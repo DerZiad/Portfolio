@@ -1,57 +1,76 @@
-<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar linear-background">
+<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar" [class.intro-active]="hidden">
   <div class="container">
-    <a class="navbar-brand logo slide-right" href="#">Portfolio</a>
-    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
-      <span class="visually-hidden">Toggle navigation</span>
-      <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand logo" href="#" (click)="show(1); closeNavbar()" aria-label="Go to Home">
+      Portfolio
+      <span class="brand-dot" aria-hidden="true"></span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="hamburger" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(1)}} header-element" (click)="show(1); closeNavbar()">Home</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(1)}}" (click)="show(1); closeNavbar()">Home</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(2)}} header-element" (click)="show(2); closeNavbar()">About me</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(2)}}" (click)="show(2); closeNavbar()">Profile</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(4)}} header-element" (click)="show(4); closeNavbar()">Education</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(7)}}" (click)="show(7); closeNavbar()">Professional
+            Experience</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(3)}} header-element" (click)="show(3); closeNavbar()">My Projects</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(4)}}" (click)="show(4); closeNavbar()">Education</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(7)}} header-element" (click)="show(7); closeNavbar()">Professional Experience</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(3)}}" (click)="show(3); closeNavbar()">My Projects</a>
         </li>
+
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link slide-down {{isActive(5)}} header-element" (click)="show(5); closeNavbar()">Skills</a>
-        </li>
-        <li class="nav-item">
-          <a [hidden]="!hidden" class="nav-link slide-down {{isActive(5)}} header-element" (click)="skipIntro(); closeNavbar()">Skip</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(5)}}" (click)="show(5); closeNavbar()">Technical Stack</a>
         </li>
       </ul>
     </div>
+
+    <!-- Moved Skip out of the collapsed menu and make it a button so it's available
+         even when the burger menu is collapsed on mobile. -->
+    <button
+      type="button"
+      class="btn btn-link skip-link ms-2"
+      [hidden]="!hidden"
+      (click)="skipIntro(); closeNavbar()"
+      aria-label="Skip intro">
+      Skip
+    </button>
   </div>
 </nav>
 
 <main [class]="get_background()" class="page lanidng-page">
-
   <section [hidden]="!hidden" id="introduction" class="portfolio-block block-intro" xmlns="http://www.w3.org/1999/html">
     <div class="website-intro introduction-box">
-      <p *ngIf="position == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Hey there! 👋</span></p>
-      <p *ngIf="position == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">My name is Ziad Bougrine! 🚀</span></p>
-      <p *ngIf="position == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">I'm a backend developer with MGM Technologies Germany. 💻</span></p>
-      <p *ngIf="position == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">I speak 4 languages. 🌐</span></p>
-      <p *ngIf="position == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">I'm happy to see you on my website! 😊</span></p>
+      <p *ngIf="position == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Welcome! 👋</span></p>
+      <p *ngIf="position == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">I’m Ziad Bougrine. 💼</span></p>
+      <p *ngIf="position == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">Fullstack Developer at MGM Technologies, Germany. 💻</span></p>
+      <p *ngIf="position == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">Passionate about building reliable and scalable web solutions. ⚙️</span></p>
+      <p *ngIf="position == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">Thanks for visiting my portfolio. 🚀</span></p>
     </div>
   </section>
-
-  <app-personalinformations [hidden]="hidden || (active_page_number != 1)" (childEvent)="handleCustomEvent($event)"></app-personalinformations>
-  <app-abstract class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-abstract>
+  <app-home class="home-dark-host"
+    [hidden]="hidden || (active_page_number != 1)"
+    (childEvent)="handleCustomEvent($event)"
+    (goto)="show($event); closeNavbar()">
+  </app-home>
+  <app-profile class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-profile>
   <app-projects class="linear-background" [hidden]="hidden || (active_page_number != 3)"></app-projects>
   <app-education class="linear-background" [hidden]="hidden || (active_page_number != 4)"></app-education>
-  <app-languages class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-languages>
   <app-skills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-skills>
-  <app-specialskills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-specialskills>
   <app-professionalexperience class="linear-background" [hidden]="hidden || (active_page_number != 7)"></app-professionalexperience>
 </main>
 
@@ -59,19 +78,15 @@
   <div class="row">
     <div class="col-md-12">
       <a class="icona slide-down" href="https://web.facebook.com/ziad.bougrine.5"><i
-        class="ion-social-facebook icona slide-left"></i></a>
+          class="ion-social-facebook icona slide-left"></i></a>
       <a href="https://www.instagram.com/ziadbougrine.jar/"><i
-        class=" ion-social-instagram-outline icona slide-left"></i></a>
+          class=" ion-social-instagram-outline icona slide-left"></i></a>
       <a href="#"><i class=" ion-social-twitter icona slide-left"></i></a>
       <a href="https://github.com/DerZiad"><i class="icon ion-social-github icona slide-left"></i></a>
       <a href="https://www.linkedin.com/in/ziad-bougrine-9b94171a5/"><i
-        class="icona ion-social-linkedin slide-left"></i></a>
-      <a href="mailto:ziadbougrine@gmail.com"><i
-        class="icona ion-email slide-left"></i></a>
-      <a href="tel:+4915209512199"><i
-        class="icona ion-ios-telephone slide-left"></i></a>
+          class="icona ion-social-linkedin slide-left"></i></a>
+      <a href="mailto:ziadbougrine@gmail.com"><i class="icona ion-email slide-left"></i></a>
+      <a href="tel:+4915209512199"><i class="icona ion-ios-telephone slide-left"></i></a>
     </div>
   </div>
 </div>
-
-

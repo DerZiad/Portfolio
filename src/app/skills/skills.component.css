@@ -1,22 +1,169 @@
-section{
+section.portfolio-block.skills{
+  padding: 48px 0;
+  background: #f7f9fb;
+  color: #222;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.container .heading{
+  margin-bottom: 1.25rem;
+}
+.container .heading h2{
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+  color: #0b2545;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+/* Major skill cards */
+.card.skill-card{
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(14,30,37,0.06);
+  background: #ffffff;
+  padding: 18px;
+  margin-bottom: 16px;
+  height: 100%;
+}
+.card.skill-card .card-title{
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 8px;
+}
+
+/* Languages */
+.languages-section .table{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: none;
+  background: transparent;
+}
+.languages-section .table tbody{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.languages-section .table-column{
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+.language-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: #0b2545;
+  font-weight:600;
+  box-shadow: inset 0 -2px 0 rgba(11,37,69,0.03);
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+/* Skill list table replaced by cards but keep table fallback styles */
+.table{
+  width:100%;
+  background: transparent;
+  border-collapse: collapse;
+}
+
+/* Professional special-skill cards */
+.special-skill-item{
+  margin-bottom: 16px;
+}
+
+/* Card header for types */
+.card-header .card-title{
+  font-size: 1rem;
+  color: #0b2545;
+  margin:0;
+}
+
+/* Progress bars */
+.skill-row{
+  display:flex;
+  align-items:center;
+  /* align everything to the left instead of spaced apart */
+  justify-content:flex-start;
+  gap:12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(11,37,69,0.06);
+}
+.skill-row:last-child{ border-bottom: none; }
+
+.skill-name{
+  /* allow name to take natural width and keep left aligned */
+  flex: 0 0 auto;
+  color:#163b67;
+  font-weight:600;
+}
+
+/* move progress and labels to the left, next to the name */
+.skill-meta{
+  flex: 1 1 auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content:flex-start;
+}
+
+.progress {
+  height: 10px;
+  background-color: #e9eef6;
+  border-radius: 99px;
+  overflow: hidden;
+  width: 180px;
+}
+
+.progress > .progress-bar {
+  background: linear-gradient(90deg,#2b79ff,#00c0ff);
+  box-shadow: none;
+}
+
+/* small star fallback */
+.skill-stars{
+  font-size: 0.9rem;
+  color: #ffb400;
+  margin-left: 6px;
+}
+
+/* Utilities */
+.move-left{ text-align:left; }
+.box-carre{ border-radius:8px; }
+
+/* Responsive tweaks */
+@media (min-width: 992px){
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:18px;
+  }
+}
+
+/* merged styles from specialskills.component.css */
+.linear-background{
+  background-color: white;
   color: black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-table{
-  border: 2px solid black;
-}
-td{
-  border: 2px solid black;
+.cancel-background{
+  background:none;
 }
 
-th{
-  border: 2px solid black;
+.move-left{
+  text-align: left;
 }
 
-.table-major-column{
-  text-align: center;
+.box-carre{
+  border: 1px solid white;
 }
 
-.table-column{
+/* merged languages styles: keep language table columns left-aligned */
+.languages-section .table-column{
   text-align: left;
 }

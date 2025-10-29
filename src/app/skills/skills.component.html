@@ -1,44 +1,101 @@
+<section class="portfolio-block skills languages-section" id="languages">
+  <div class="container">
+    <div class="heading">
+      <h2>Languages</h2>
+      <p class="text-muted">Clear communication is essential — here are the languages I use professionally.</p>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table">
+          <tbody>
+            <tr>
+              <td class="table-column">
+                <span class="language-badge">🇫🇷 French <small class="text-muted" style="margin-left:6px">Native</small></span>
+                <span class="language-badge">🌍 Arabic <small class="text-muted" style="margin-left:6px">Native</small></span>
+                <span class="language-badge">🇩🇪 German <small class="text-muted" style="margin-left:6px">Fluent</small></span>
+                <span class="language-badge">🇬🇧 English <small class="text-muted" style="margin-left:6px">Fluent</small></span>
+              </td>
+            </tr>
+          </tbody>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="portfolio-block skills" id="skills">
   <div class="container">
     <div class="heading">
-      <h2>Skills</h2>
+      <h2>Core Strengths</h2>
+      <p class="text-muted">A concise summary of my major technical focuses and professional strengths.</p>
     </div>
+
+    <div class="row skills-grid">
+      <div class="col-12">
+        <div class="card skill-card">
+          <h3 class="card-title">🚀 Frontend Developer</h3>
+          <p class="mb-0 text-muted">Creating responsive, accessible and performant interfaces. Angular + Bootstrap + modern JS.</p>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card skill-card">
+          <h3 class="card-title">💻 Backend Developer</h3>
+          <p class="mb-0 text-muted">API design, Spring Boot, JEE, and reliable backend architectures for scalable systems.</p>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card skill-card">
+          <h3 class="card-title">🤖 Machine Learning / Data Science</h3>
+          <p class="mb-0 text-muted">Modeling, evaluation and deployment experience, Python-based tooling and research background.</p>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card skill-card">
+          <h3 class="card-title">🔒 Security / Ethical Hacking</h3>
+          <p class="mb-0 text-muted">Focused on secure-by-design systems and practical vulnerability analysis using ethical methods.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Domains rendered as polished cards -->
+<section class="portfolio-block skills linear-background" *ngFor="let domain of getDomainList()">
+  <div class="container">
+    <div class="heading">
+      <h2>{{domain}}</h2>
+    </div>
+
     <div class="row">
-      <div class="col-md-12">
-        <table class="table">
-          <thead class="thead-light">
-          <tr>
-            <th scope="col" class="table-major-column">My Major Skills</th>
-            <th scope="col" class="table-major-column">Description</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>🚀 Frontend Developer</td>
-            <td>
-              I specialize in creating engaging and responsive web interfaces that captivate users. Leveraging the power of Angular 12 and the versatility of Bootstrap 5 Framework, I bring interactive and dynamic designs to life. With a keen eye for user experience, I ensure that every web application I develop not only meets but exceeds expectations, providing seamless and enjoyable interactions for users.
-            </td>
-          </tr>
-          <tr>
-            <td>💻 Backend Developer</td>
-            <td>
-              I am a seasoned Backend server developer with a robust three-year experience in Java development. My expertise lies in crafting dynamic websites and APIs using cutting-edge technologies such as Spring Boot and J2EE. Committed to delivering high-quality solutions, I bring a wealth of knowledge and skills to streamline and enhance backend systems.
-            </td>
-          </tr>
-          <tr>
-            <td>🤖 Machine Learning / Datascience</td>
-            <td>
-              With a rich academic background, I've spent two years immersed in the world of machine learning and deep learning during my tenure at the university. My hands-on experience includes studying, deploying, and refining various models. Additionally, at FH Aachen, I've delved into the realm of data science, gaining comprehensive insights into data studies. Passionate about leveraging data-driven insights, I am eager to apply my knowledge to real-world challenges and contribute meaningfully to the field.
-            </td>
-          </tr>
-          <tr>
-            <td>🔒 Security / Ethical Hacking</td>
-            <td>
-              I am excited to share my passion for ethical hacking and cybersecurity, where my enthusiasm stems from a deep curiosity about understanding the intricacies of systems and discovering vulnerabilities. My keen interest lies in deciphering how things work and, more importantly, in fortifying systems against potential cyber threats. By embracing ethical hacking, I contribute to the proactive pursuit of cybersecurity, ensuring the resilience and integrity of digital environments.
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="col-12">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6" *ngFor="let toolType of getDomainTypes(domain)">
+                <div class="card special-skill-item">
+                  <div class="card-header cancel-background">
+                    <h3 class="card-title move-left">{{toolType}}</h3>
+                  </div>
+                  <div class="card-body">
+                    <div *ngFor="let element of getElement(domain,toolType)" class="skill-row">
+                      <div class="skill-name">{{element[0]}}</div>
+                      <div class="skill-meta">
+                        <div class="progress" role="progressbar" [attr.aria-valuenow]="skillPercent(element[1])" aria-valuemin="0" aria-valuemax="100">
+                          <div class="progress-bar" [style.width.%]="skillPercent(element[1])"></div>
+                        </div>
+                        <small class="text-muted">{{ratingLabel(element[1])}}</small>
+                        <div class="skill-stars" title="{{star(element[1])}}">{{star(element[1])}}</div>
+                      </div>
+                    </div> <!-- skill-row -->
+                  </div>
+                </div>
+              </div> <!-- col for toolType -->
+            </div> <!-- row for types -->
+          </div>
+        </div>
       </div>
     </div>
   </div>

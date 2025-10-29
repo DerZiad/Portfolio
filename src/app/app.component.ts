@@ -1,50 +1,92 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { AfterViewInit, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit,AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'ziadbougrine';
 
-  mouseclickSound = new Audio('/assets/mp3/normal-click.wav');
-  mouseenterSound = new Audio('/assets/mp3/mousemove.wav');
+  hidden = true;
 
-  hidden = true
+  first_name: string = "";
+  email: string = "";
+  phone: string = "";
+  duringThread: boolean = true;
 
+  active_page_number: number = 1;
+  position = 0;
+  number_of_elements: number = 5;
 
-  first_name: string = ""
-  email: string = ""
-  phone: string = ""
-  duringThread: boolean = true
+  private documentClickListener: (() => void) | null = null;
+  private documentTouchListener: (() => void) | null = null;
+  private collapseObserver: MutationObserver | null = null;
 
-  active_page_number:number = 1
-  position = 0
-  number_of_elements: number = 5
-
-
-  constructor(private http:HttpClient) {
-
-  }
-
+  constructor(private http: HttpClient, private renderer: Renderer2) { }
 
   ngOnInit(): void {
-    this.changePosition(0)
+    this.changePosition(0);
   }
 
-
   ngAfterViewInit(): void {
+    // listen for clicks/touches on the whole document to detect outside clicks
+    this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => {
+      this.handleOutsideClick(event);
+    });
+    this.documentTouchListener = this.renderer.listen('document', 'touchstart', (event: Event) => {
+      this.handleOutsideClick(event);
+    });
 
+    // observe the collapse element to toggle a "menu-open" class on the navbar when the menu is shown
+    const collapseEl = document.querySelector('.collapse.navbar-collapse');
+    const navbarRoot = document.querySelector('.portfolio-navbar');
+    if (collapseEl && navbarRoot) {
+      // set initial state
+      if ((collapseEl as Element).classList.contains('show')) {
+        navbarRoot.classList.add('menu-open');
+      } else {
+        navbarRoot.classList.remove('menu-open');
+      }
+
+      this.collapseObserver = new MutationObserver(() => {
+        if ((collapseEl as Element).classList.contains('show')) {
+          navbarRoot.classList.add('menu-open');
+        } else {
+          navbarRoot.classList.remove('menu-open');
+        }
+      });
+      this.collapseObserver.observe(collapseEl, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.documentClickListener) {
+      this.documentClickListener();
+      this.documentClickListener = null;
+    }
+    if (this.documentTouchListener) {
+      this.documentTouchListener();
+      this.documentTouchListener = null;
+    }
+    if (this.collapseObserver) {
+      this.collapseObserver.disconnect();
+      this.collapseObserver = null;
+    }
   }
 
   downloadFile(type: number): void {
-    this.http.get("/assets/pdf/" + (type==1?"CV-Ziad-BOUGRINE-2023-EN.pdf":"CV-Ziad-BOUGRINE-2023-DE.pdf"), { responseType: 'blob' }).subscribe((response: Blob) => {
+    // Only English CV is provided now
+    this.http.get("/assets/pdf/CV-Ziad-BOUGRINE-2023-EN.pdf", { responseType: 'blob' }).subscribe((response: Blob) => {
       const downloadLink = document.createElement('a');
       downloadLink.href = URL.createObjectURL(response);
-      downloadLink.download = (type==1?"CV":"Lebenslauf") + "_Ziad_Bougrine"
+      downloadLink.download = "CV_Ziad_Bougrine_EN.pdf";
       downloadLink.click();
+      // revoke object URL shortly after to free memory
+      setTimeout(() => URL.revokeObjectURL(downloadLink.href), 1000);
+    }, err => {
+      console.error('Failed to download CV', err);
     });
   }
 
@@ -52,47 +94,59 @@ export class AppComponent implements OnInit,AfterViewInit {
     this.hidden = message;
   }
 
-
-
-  get_background():String{
-    return this.hidden ? "black-background":"linear-gradient"
+  get_background(): String {
+    return this.hidden ? "black-background" : "linear-gradient";
   }
 
-
-  show(shadow:number){
-    this.active_page_number = shadow
+  show(shadow: number) {
+    this.active_page_number = shadow;
   }
 
-  isActive(shadow:number):String{
-    return shadow == this.active_page_number?"active active-header":""
+  isActive(shadow: number): String {
+    return shadow == this.active_page_number ? "active active-header" : "";
   }
 
-  skipIntro(){
-    this.hidden = false
+  skipIntro() {
+    this.hidden = false;
   }
-
 
   changePosition(position: number) {
     if (position < this.number_of_elements) {
       setTimeout(() => {
-        this.changePosition(++this.position)
-      }, 2000)
+        this.changePosition(++this.position);
+      }, 3000); // adjusted from 2400 -> 3000 to match slightly slower fade timings
     } else {
-      this.hidden = false
+      this.hidden = false;
     }
   }
 
   show_me(): boolean {
-    return this.position == this.number_of_elements
+    return this.position == this.number_of_elements;
   }
 
+  private handleOutsideClick(event: Event): void {
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarRoot = document.querySelector('.navbar');
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      if (navbarRoot && !navbarRoot.contains(event.target as Node)) {
+        this.closeNavbar();
+      }
+    }
+  }
 
   closeNavbar(): void {
     const navbar = document.querySelector('.navbar-collapse');
     if (navbar != null && navbar.classList.contains('show')) {
       navbar.classList.remove('show');
+      const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
+      if (toggler != null) {
+        toggler.setAttribute('aria-expanded', 'false');
+      }
+      const navbarRoot = document.querySelector('.portfolio-navbar');
+      if (navbarRoot) {
+        navbarRoot.classList.remove('menu-open');
+      }
     }
   }
-
 }
 
