@@ -786,3 +786,128 @@
   width: 100%;
   max-width: none; /* let items use full card width */
 }
+
+/* ====== Skills / Progress UI improvements (friendly, compact) ====== */
+.portfolio-block.skills {
+  padding: 18px 0 6px;
+}
+
+.card.special-skill-item {
+  border-radius: 10px;
+  border: 1px solid rgba(16,24,32,0.05);
+  box-shadow: 0 6px 18px rgba(16,24,32,0.04);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.card.special-skill-item .card-header {
+  background: linear-gradient(90deg, rgba(11,84,166,0.06), rgba(255,255,255,0));
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(16,24,32,0.03);
+}
+
+.card.special-skill-item .card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f1720;
+  margin: 0;
+}
+
+/* details/summary visual improve */
+.skill-group {
+  padding: 8px 0;
+}
+
+.skill-summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0b63d6;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  display: block;
+}
+
+/* individual skill row */
+.skill-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(16,24,32,0.03);
+  flex-wrap: wrap;
+}
+
+.skill-name {
+  flex: 1 1 40%;
+  min-width: 140px;
+  color: #0f1720;
+  font-weight: 600;
+}
+
+/* meta area with progress and numeric label */
+.skill-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* progress container */
+.progress {
+  width: 220px;
+  background: #eef2ff;
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(11,84,166,0.06);
+}
+
+/* inner bar */
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a 0%, #059669 100%);
+  width: 0%;
+  transition: width 600ms cubic-bezier(.2,.8,.2,1);
+  border-radius: 999px;
+}
+
+/* numeric percent and small label */
+.progress-value {
+  min-width: 44px;
+  text-align: right;
+  font-weight: 700;
+  color: #0f1720;
+  font-size: 13px;
+}
+
+.skill-row small.text-muted {
+  color: #475569;
+  font-weight: 600;
+  margin-left: 6px;
+  display: inline-block;
+}
+
+/* ensure progress shrinks on small screens */
+@media (max-width: 768px) {
+  .progress {
+    width: 140px;
+    height: 10px;
+  }
+  .skill-name {
+    flex-basis: 100%;
+  }
+  .skill-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* small visual polish for empty lists */
+.skill-list:empty::before {
+  content: "No items";
+  color: #6b7280;
+  font-style: italic;
+  display: block;
+  padding: 6px 0;
+}
