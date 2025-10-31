@@ -76,20 +76,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  downloadFile(type: number): void {
-    // Only English CV is provided now
-    this.http.get("/assets/pdf/CV-Ziad-BOUGRINE-2023-EN.pdf", { responseType: 'blob' }).subscribe((response: Blob) => {
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(response);
-      downloadLink.download = "CV_Ziad_Bougrine_EN.pdf";
-      downloadLink.click();
-      // revoke object URL shortly after to free memory
-      setTimeout(() => URL.revokeObjectURL(downloadLink.href), 1000);
-    }, err => {
-      console.error('Failed to download CV', err);
-    });
-  }
-
   handleCustomEvent(message: boolean) {
     this.hidden = message;
   }

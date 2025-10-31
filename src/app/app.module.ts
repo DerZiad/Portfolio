@@ -8,7 +8,6 @@ import { ProjectdescriptionComponent } from './projects/projectdescription/proje
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SkillsComponent } from './skills/skills.component';
 import { EducationComponent } from './education/education.component';
 import { FhaacheninformationsComponent } from './education/fhaacheninformations/fhaacheninformations.component';
 import { UmiinformationsComponent } from './education/umiinformations/umiinformations.component';
@@ -23,7 +22,6 @@ import { MgmwerkstudentComponent } from './professionalexperience/mgmwerkstudent
     ProjectdescriptionComponent,
     HomeComponent,
     ProfileComponent,
-    SkillsComponent,
     EducationComponent,
     FhaacheninformationsComponent,
     UmiinformationsComponent,

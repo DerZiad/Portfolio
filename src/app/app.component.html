@@ -20,7 +20,7 @@
           <a [hidden]="hidden" class="nav-link {{isActive(1)}}" (click)="show(1); closeNavbar()">Home</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(2)}}" (click)="show(2); closeNavbar()">Profile</a>
+          <a [hidden]="hidden" class="nav-link {{isActive(2)}}" (click)="show(2); closeNavbar()">About Me</a>
         </li>
         <li class="nav-item">
           <a [hidden]="hidden" class="nav-link {{isActive(7)}}" (click)="show(7); closeNavbar()">Professional
@@ -31,10 +31,6 @@
         </li>
         <li class="nav-item">
           <a [hidden]="hidden" class="nav-link {{isActive(3)}}" (click)="show(3); closeNavbar()">My Projects</a>
-        </li>
-
-        <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(5)}}" (click)="show(5); closeNavbar()">Technical Stack</a>
         </li>
       </ul>
     </div>
@@ -70,7 +66,6 @@
   <app-profile class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-profile>
   <app-projects class="linear-background" [hidden]="hidden || (active_page_number != 3)"></app-projects>
   <app-education class="linear-background" [hidden]="hidden || (active_page_number != 4)"></app-education>
-  <app-skills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-skills>
   <app-professionalexperience class="linear-background" [hidden]="hidden || (active_page_number != 7)"></app-professionalexperience>
 </main>
 

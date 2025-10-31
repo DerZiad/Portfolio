@@ -1,913 +1,175 @@
-/* Typography: calmer, more professional */
 .abstract-title {
   color: #0f1720;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
-  margin: 0 0 12px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  margin: 0 0 8px 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, serif;
 }
 
 .abstract-text {
-  color: #24303a;
-  font-size: 16px;
+  color: #334155;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.6;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   margin: 0 0 18px 0;
-  /* increased bottom margin */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, serif;
 }
 
-/* Technical stack list */
-.tech-list {
-  margin: 8px 0 0 0;
-  padding-left: 18px;
-  color: #24303a;
-  font-size: 15px;
-  line-height: 1.5;
-}
+.tech-list { margin:8px 0 0 0; padding-left:18px; color:#334155; font-size:15px; line-height:1.5 }
+.tech-list li { margin:6px 0 }
 
-.tech-list li {
-  margin: 6px 0;
-}
+.abstract-card { background:#ffffff; border-radius:10px; padding:22px; box-shadow:0 6px 24px rgba(18,30,43,0.06); border:1px solid rgba(16,24,32,0.04) }
 
-/* Card holding the abstract text for a clean panel */
-.abstract-card {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 22px;
-  box-shadow: 0 6px 24px rgba(18, 30, 43, 0.06);
-  border: 1px solid rgba(16, 24, 32, 0.04);
-}
-
-/* Avatar wrapper: neutral ring and subtle background */
-.avatar-wrapper {
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f5f7fa;
-  box-shadow: 0 8px 28px rgba(16, 24, 32, 0.06);
-  border: 1px solid rgba(16, 24, 32, 0.04);
-  margin-bottom: 12px;
-  /* add space below avatar to separate image from the meta/languages */
-}
-
-/* Avatar image */
-.avatar {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  border: 2px solid rgba(255, 255, 255, 0.6);
-}
-
-/* Professional button */
-.btn-download {
-  background: linear-gradient(180deg, #0b63d6 0%, #074bb3 100%);
-  color: #fff;
-  font-weight: 600;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  border: none;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
-  box-shadow: 0 6px 18px rgba(11, 99, 214, 0.12);
-  font-family: inherit;
-}
-
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(11, 99, 214, 0.14);
-}
-
-.btn-download:active {
-  transform: translateY(0);
-}
-
-.btn-download:focus {
-  outline: 3px solid rgba(11, 99, 214, 0.18);
-  outline-offset: 2px;
-}
-
-/* Profile card container */
 .profile-card {
   background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  border: 1px solid rgba(16, 24, 32, 0.04);
+  border: 1px solid rgba(16,24,32,0.04);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(16, 24, 32, 0.06);
+  box-shadow: 0 10px 30px rgba(16,24,32,0.06);
   max-width: 980px;
-  margin: 0 auto 24px auto;
+  margin: 0 auto 24px;
 }
 
-/* Grid: avatar left, content right */
-.profile-grid {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
+.profile-grid { display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap }
+.profile-left { flex:0 0 220px; width:220px; display:flex; flex-direction:column; align-items:center; gap:14px; flex-shrink:0 }
+.profile-right { flex:1 1 0; min-width:0 }
 
-/* Left column */
-.profile-left {
-  width: 220px;
-  /* slightly narrower column so avatar appears more prominent */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
+.avatar-wrapper {
+  width:200px; height:200px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:#ffffff; box-shadow:0 8px 18px rgba(16,24,32,0.06); border:1px solid rgba(16,24,32,0.04); margin-bottom:12px;
 }
+.avatar { width:186px; height:186px; border-radius:50%; object-fit:cover; display:block; border:2px solid rgba(255,255,255,0.6) }
 
-/* Quick meta under avatar */
-.quick-meta {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* stack items vertically as cards */
-  gap: 10px;
-  text-align: left;
-  align-items: stretch;
-  /* make cards full width */
-  padding-left: 0;
-}
-
-/* Grouped info card that holds all meta rows */
 .info-card {
-  /* keep container but make it look like a compact business card */
   background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
-  border: 1px solid rgba(11, 84, 166, 0.08);
+  border: 1px solid rgba(11,84,166,0.08);
   border-radius: 12px;
   padding: 10px;
-  box-shadow: 0 8px 20px rgba(16, 24, 32, 0.06);
-  width: 100%;
-  display: block;
+  box-shadow: 0 8px 20px rgba(16,24,32,0.06);
+  width:100%;
 }
 
-/* internal visit card layout */
-.visit-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.visit-card { display:flex; flex-direction:column; gap:8px }
+.visit-top { padding:6px 8px; border-bottom:1px dashed rgba(16,24,32,0.04) }
+.visit-name { font-size:16px; font-weight:700; color:#0f1720 }
+.visit-title { font-size:12px; font-weight:600; color:#475569; margin-top:4px }
 
-/* top area with name and title */
-.visit-top {
-  padding: 6px 8px;
-  border-bottom: 1px dashed rgba(16, 24, 32, 0.04);
-}
-
-.visit-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #0f1720;
-}
-
-.visit-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #475569;
-  margin-top: 4px;
-}
-
-/* contact rows: allow value to wrap and grow */
 .visit-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  align-items: center;
-  padding: 6px 8px;
-  border-radius: 8px;
-  transition: background .12s ease;
-  flex-wrap: wrap;
-  /* allow label/value to wrap on narrow screens */
+  display:flex; justify-content:space-between; gap:8px; align-items:center; padding:6px 8px; border-radius:8px;
+  transition:background .12s ease; flex-wrap:wrap;
 }
+.visit-label { font-size:12px; color:#0f1720; font-weight:700; flex:0 0 auto }
+.visit-value { font-size:12px; color:#334155; font-weight:600; text-align:right; flex:1 1 auto; white-space:normal; overflow:visible }
+.visit-value a { color:#0d6efd; text-decoration:none }
+.visit-value a:hover { text-decoration:underline }
 
-.visit-label {
-  font-size: 12px;
-  color: #0f1720;
-  font-weight: 700;
-  flex: 0 0 auto;
-  /* label keeps its size */
-}
-
-.visit-value {
-  font-size: 12px;
-  color: #334155;
-  font-weight: 600;
-  text-align: right;
-  flex: 1 1 auto;
-  /* value can grow/shrink and wrap */
-  white-space: normal;
-  /* allow wrapping */
-  overflow: visible;
-  text-overflow: unset;
-}
-
-/* links */
-.visit-value a {
-  color: #0d6efd;
-  text-decoration: none;
-}
-
-.visit-value a:hover {
-  text-decoration: underline;
-}
-
-/* Bigger avatar wrapper and image (override previous sizes) */
-.avatar-wrapper {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  box-shadow: 0 8px 18px rgba(16, 24, 32, 0.06);
-  border: 1px solid rgba(16, 24, 32, 0.04);
-  margin-bottom: 12px;
-  /* add space below avatar to separate image from the meta/languages */
-}
-
-.avatar {
-  width: 186px;
-  height: 186px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Right column */
-.profile-right {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Headings and text tweaks */
-.abstract-title {
-  font-size: 24px;
-  margin: 0 0 8px 0;
-  color: #0f1720;
-}
-
-.abstract-text {
-  margin: 0 0 18px 0;
-  color: #334155;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-/* Tech categories */
-.tech-categories {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.tech-category {
-  display: block;
-}
-
-.cat-title {
-  font-weight: 600;
-  color: #0f1720;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-/* Chips */
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.chip {
-  display: inline-block;
-  background: #f1f5f9;
-  color: #0f1720;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 13px;
-  border: 1px solid rgba(16, 24, 32, 0.04);
-}
-
-/* Actions (button placement) */
-.actions {
-  margin-top: 12px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-/* Button refinement */
 .btn-download {
-  background: #0d6efd;
-  color: #fff;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.12);
-  cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+  background: linear-gradient(180deg,#0b63d6 0%,#074bb3 100%);
+  color:#fff; font-weight:600; padding:10px 16px; border-radius:8px; border:none;
+  box-shadow:0 6px 18px rgba(11,99,214,0.12); cursor:pointer; transition:transform .12s ease,box-shadow .12s ease,background-color .12s ease;
+}
+.btn-download:hover { transform:translateY(-2px); box-shadow:0 10px 26px rgba(11,99,214,0.14); background:#0b5ed7 }
+.btn-download:focus { outline:3px solid rgba(11,99,214,0.18); outline-offset:2px }
+
+.languages { margin:12px 0 6px 0; width:100%; display:flex; flex-direction:column; gap:8px; align-items:flex-start }
+.languages-title { font-size:14px; font-weight:700; color:#0f1720; margin:0 0 6px 0 }
+.language-item { width:90%; max-width:220px }
+.lang-label { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#0f1720; margin-bottom:6px; width:100% }
+.lang-level { color:#475569; font-weight:600; font-size:12px; margin-left:8px }
+.lang-bar { width:100%; height:10px; background:#e6f4ea; border-radius:999px; overflow:hidden; border:1px solid rgba(16,24,32,0.03) }
+.lang-fill { height:100%; background:linear-gradient(90deg,#16a34a 0%,#059669 100%); border-radius:999px; transition:width .7s cubic-bezier(.2,.8,.2,1) }
+
+.personal-card { background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%); border:1px solid rgba(16,24,32,0.06); border-radius:12px; padding:18px; box-shadow:0 12px 30px rgba(16,24,32,0.06) }
+.section-header { display:flex; align-items:center; gap:12px; margin-bottom:12px }
+.section-header .badge { background:#eef2ff; color:#0b5ed7; font-weight:700; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(11,94,215,0.08) }
+
+.personal-grid { display:flex; flex-direction:column; gap:18px; align-items:flex-start; margin-bottom:14px }
+.personal-main { flex:1; width:100%; min-width:0 }
+.section-subtitle { font-size:15px; font-weight:700; color:#0f1720; margin:10px 0 8px 0 }
+.edu-list { list-style:disc; margin-left:18px; color:#334155; font-size:14px; line-height:1.5 }
+
+.experience-list { display:flex; flex-direction:column; gap:12px }
+.company-card { background:#ffffff; border:1px solid rgba(16,24,32,0.05); border-radius:10px; padding:10px 12px; box-shadow:0 6px 14px rgba(16,24,32,0.04) }
+.company-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
+.company-name { font-weight:700; color:#0f1720; font-size:13px }
+.company-period { font-size:12px; color:#475569; font-weight:600 }
+.role-title { font-weight:700; color:#0f1720; font-size:13px; margin-bottom:6px }
+.role-period { font-weight:600; color:#475569; font-size:12px; margin-left:6px }
+.company-bullets { margin:0 0 8px 16px; padding:0; color:#334155; font-size:13px; line-height:1.45 }
+.company-bullets li { margin:6px 0 }
+.company-tech { font-size:12px; color:#475569; font-weight:600; margin-top:6px; background:#f8fafc; padding:8px; border-radius:8px; border:1px solid rgba(16,24,32,0.03) }
+
+.tech-categories { display:flex; flex-direction:column; gap:10px; margin-bottom:14px }
+.cat-title { font-weight:600; color:#0f1720; font-size:13px; margin-bottom:6px }
+.chips { display:flex; flex-wrap:wrap; gap:8px }
+.chip { display:inline-block; background:#f1f5f9; color:#0f1720; padding:6px 10px; border-radius:999px; font-size:13px; border:1px solid rgba(16,24,32,0.04) }
+
+.portfolio-block.skills { padding:18px 0 6px }
+
+.card.special-skill-item { border-radius:10px; border:1px solid rgba(16,24,32,0.05); box-shadow:0 6px 18px rgba(16,24,32,0.04); overflow:hidden; margin-bottom:12px }
+.card.special-skill-item .card-header { background:linear-gradient(90deg, rgba(11,84,166,0.06), rgba(255,255,255,0)); padding:10px 12px; border-bottom:1px solid rgba(16,24,32,0.03) }
+.card.special-skill-item .card-title { font-size:14px; font-weight:700; color:#0f1720; margin:0 }
+
+.skill-group { padding:8px 0 }
+.skill-summary { cursor:pointer; font-weight:600; color:#0b63d6; background:none; border:none; padding:6px 0; display:block }
+.skill-row { display:flex; gap:12px; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(16,24,32,0.03); flex-wrap:wrap }
+.skill-name { flex:1 1 40%; min-width:140px; color:#0f1720; font-weight:600 }
+.skill-meta { display:flex; gap:12px; align-items:center; flex:0 0 auto }
+
+.progress { width:220px; background:#eef2ff; border-radius:999px; height:12px; overflow:hidden; border:1px solid rgba(11,84,166,0.06) }
+.progress-bar { height:100%; background:linear-gradient(90deg,#16a34a 0%,#059669 100%); width:0; transition:width 600ms cubic-bezier(.2,.8,.2,1); border-radius:999px }
+.progress-value { min-width:44px; text-align:right; font-weight:700; color:#0f1720; font-size:13px }
+
+.skill-row small.text-muted { color:#475569; font-weight:600; margin-left:6px; display:inline-block }
+.skill-list:empty::before { content:"No items"; color:#6b7280; font-style:italic; display:block; padding:6px 0 }
+
+.lang-flag { display:inline-block; width:20px; text-align:center; margin-right:8px; font-size:18px; line-height:1; vertical-align:middle }
+.lang-flag img { width:20px; height:14px; object-fit:cover; display:inline-block; vertical-align:middle; border-radius:2px }
+
+@media (max-width:880px) {
+  .personal-grid { flex-direction:column }
+  .company-tech { font-size:12px }
 }
 
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(13, 110, 253, 0.16);
-  background: #0b5ed7;
-}
-
-.btn-download:focus {
-  outline: 3px solid rgba(13, 110, 253, 0.18);
-  outline-offset: 2px;
-}
-
-/* Languages block */
-.languages {
-  margin: 12px 0 6px 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-start;
-  /* changed: left align language block items */
-}
-
-.languages-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f1720;
-  margin: 0 0 6px 0;
-}
-
-.language-item {
-  width: 90%;
-  max-width: 220px;
-}
-
-/* keep progress bars compact under avatar */
-
-/* Label row */
-.lang-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: #0f1720;
-  margin-bottom: 6px;
-  width: 100%;
-}
-
-.lang-level {
-  color: #475569;
-  font-weight: 600;
-  font-size: 12px;
-  margin-left: 8px;
-}
-
-/* Progress bar */
-.lang-bar {
-  width: 100%;
-  height: 10px;
-  background: #e6f4ea;
-  /* pale green background */
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid rgba(16, 24, 32, 0.03);
-}
-
-.lang-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #16a34a 0%, #059669 100%);
-  /* green gradient */
-  border-radius: 999px;
-  transition: width 700ms cubic-bezier(.2, .8, .2, 1);
-}
-
-/* New styles for Personal Informations layout */
-
-.personal-card {
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  border: 1px solid rgba(16, 24, 32, 0.06);
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 12px 30px rgba(16, 24, 32, 0.06);
-}
-
-/* header row */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.section-header .badge {
-  background: #eef2ff;
-  color: #0b5ed7;
-  font-weight: 700;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(11, 94, 215, 0.08);
-}
-
-/* layout: single column (all info in one column) */
-.personal-grid {
-  display: flex;
-  flex-direction: column;
-  /* changed: single column layout */
-  gap: 18px;
-  align-items: flex-start;
-  margin-bottom: 14px;
-}
-
-/* ensure main column uses full width */
-.personal-main {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
-}
-
-/* remove fixed aside width (no aside used) */
-/* .personal-aside rules removed */
-
-/* section subtitles */
-.section-subtitle {
-  font-size: 15px;
-  font-weight: 700;
-  color: #0f1720;
-  margin: 10px 0 8px 0;
-}
-
-/* education list */
-.edu-list {
-  list-style: disc;
-  margin-left: 18px;
-  color: #334155;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* experience / company card */
-.experience-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.company-card {
-  background: #ffffff;
-  border: 1px solid rgba(16, 24, 32, 0.05);
-  border-radius: 10px;
-  padding: 10px 12px;
-  box-shadow: 0 6px 14px rgba(16, 24, 32, 0.04);
-}
-
-.company-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.company-name {
-  font-weight: 700;
-  color: #0f1720;
-  font-size: 13px;
-}
-
-.company-period {
-  font-size: 12px;
-  color: #475569;
-  font-weight: 600;
-}
-
-/* role and bullets */
-.role-title {
-  font-weight: 700;
-  color: #0f1720;
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
-.role-period {
-  font-weight: 600;
-  color: #475569;
-  font-size: 12px;
-  margin-left: 6px;
-}
-
-.company-bullets {
-  margin: 0 0 8px 16px;
-  padding: 0;
-  color: #334155;
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.company-bullets li {
-  margin: 6px 0;
-}
-
-/* tech line inside company */
-.company-tech {
-  font-size: 12px;
-  color: #475569;
-  font-weight: 600;
-  margin-top: 6px;
-  background: #f8fafc;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(16, 24, 32, 0.03);
-}
-
-/* small screens: stack layout */
-@media (max-width: 880px) {
-  .personal-grid {
-    flex-direction: column;
-  }
-
-  .personal-aside {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-  }
-
-  .company-tech {
-    font-size: 12px;
-  }
-}
-
-/* subtle refinements to match existing theme */
-.personal-card .abstract-text {
-  color: #334155;
-}
-
-.personal-card .tech-categories {
-  margin-top: 8px;
-}
-
-/* Small screens: tighten spacing */
 @media (max-width:768px) {
-  .lang-label {
-    font-size: 13px;
-  }
-
-  .lang-level {
-    font-size: 12px;
-  }
+  .profile-grid { flex-direction:column; align-items:flex-start; text-align:left }
+  .profile-left { width:100%; order:0; align-items:flex-start; text-align:left }
+  .profile-right { width:100%; text-align:left }
+  .avatar-wrapper { margin:0 auto 10px }
+  .chips { justify-content:flex-start }
+  .quick-meta { flex-direction:column; align-items:flex-start; text-align:left; padding-left:0; gap:6px }
+  .language-item { max-width:260px }
+  .progress { width:140px; height:10px }
+  .skill-name { flex-basis:100% }
+  .skill-meta { width:100%; justify-content:space-between }
 }
 
-/* Responsive: stack layout */
-@media (max-width: 768px) {
-
-  /* changed: left-align texts on mobile while preserving layout */
-  .profile-grid {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .profile-left {
-    width: 100%;
-    order: 0;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .profile-right {
-    width: 100%;
-    text-align: left;
-  }
-
-  .avatar-wrapper {
-    /* keep avatar visually centered but not force all text centered */
-    margin: 0 auto 10px;
-  }
-
-  .chips {
-    justify-content: flex-start;
-  }
-
-  .quick-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    padding-left: 0;
-    gap: 6px;
-  }
-
-  .language-item {
-    max-width: 260px;
-  }
-}
-
-/* ============= Mobile-specific improvements (<=480px) ============= */
-/* These overrides prioritize readability, touch targets and stacking */
-@media (max-width: 480px) {
-
-  /* overall spacing */
-  .profile-card {
-    padding: 14px;
-    margin-bottom: 18px;
-  }
-
-  /* changed: left-align text; keep avatar centered */
-  .profile-left {
-    width: 100%;
-    align-items: flex-start;
-    /* left align texts */
-    text-align: left;
-    padding-bottom: 8px;
-  }
-
-  .avatar-wrapper {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto 12px;
-    /* center avatar while texts remain left */
-  }
-
-  .avatar {
-    width: 120px;
-    height: 120px;
-  }
-
-  /* make contact rows stack: label above value for better wrapping */
-  .visit-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 8px 6px;
-  }
-
-  .visit-top {
-    text-align: left;
-    width: 100%;
-  }
-
-  .visit-label {
-    font-size: 13px;
-    font-weight: 700;
-    text-align: left;
-  }
-
-  .visit-value {
-    font-size: 14px;
-    text-align: left;
-    width: 100%;
-    white-space: normal;
-    overflow: visible;
-  }
-
-  .visit-value a {
-    word-break: break-word;
-  }
-
-  /* Actions: full-width button and larger tap area */
-  .actions {
-    margin-top: 12px;
-    justify-content: center;
-    width: 100%;
-    padding: 6px 0;
-  }
-
-  .btn-download {
-    width: 100%;
-    min-height: 48px;
-    padding: 12px 14px;
-    font-size: 15px;
-    border-radius: 10px;
-    box-shadow: 0 8px 22px rgba(13, 110, 253, 0.12);
-  }
-
-  /* Languages: make bars taller and use full width */
-  .languages {
-    width: 100%;
-    align-items: stretch;
-  }
-
-  .language-item {
-    width: 100%;
-    max-width: none;
-  }
-
-  .lang-bar {
-    height: 14px;
-  }
-
-  .lang-fill {
-    transition: width 500ms ease;
-  }
-
-  .lang-level {
-    font-size: 12px;
-  }
-
-  /* Chips: make them wrap and easier to tap */
-  .chips {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-
-  .chip {
-    font-size: 13px;
-    padding: 8px 10px;
-    border-radius: 10px;
-    min-width: 96px;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  /* Text scaling for narrow screens */
-  .abstract-title {
-    font-size: 20px;
-    text-align: left;
-  }
-
-  .abstract-text {
-    font-size: 14px;
-    line-height: 1.5;
-    text-align: left;
-  }
-
-  .section-subtitle {
-    font-size: 14px;
-    text-align: left;
-  }
-
-  /* Experience cards: reduce padding for compactness but keep readable */
-  .company-card {
-    padding: 10px;
-  }
-
-  .company-bullets {
-    font-size: 13px;
-    line-height: 1.45;
-  }
-
-  /* ensure visit-top keeps name/title readable */
-  .visit-top {
-    padding: 8px 6px;
-  }
-
-  .visit-name {
-    font-size: 17px;
-    text-align: left;
-  }
-
-  .visit-title {
-    font-size: 13px;
-    text-align: left;
-  }
-
-  /* minor: allow tech-categories to wrap vertically */
-  .tech-categories {
-    gap: 8px;
-  }
-}
-
-/* Languages presented inside an info-card (match Ziad Bougrine card) */
-.info-card.languages {
-  /* use the info-card appearance; slight tweak to spacing for languages */
-  padding: 12px;
-  display: block;
-}
-.info-card.languages .languages-title {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-.info-card.languages .language-item {
-  width: 100%;
-  max-width: none; /* let items use full card width */
-}
-
-/* ====== Skills / Progress UI improvements (friendly, compact) ====== */
-.portfolio-block.skills {
-  padding: 18px 0 6px;
-}
-
-.card.special-skill-item {
-  border-radius: 10px;
-  border: 1px solid rgba(16,24,32,0.05);
-  box-shadow: 0 6px 18px rgba(16,24,32,0.04);
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.card.special-skill-item .card-header {
-  background: linear-gradient(90deg, rgba(11,84,166,0.06), rgba(255,255,255,0));
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(16,24,32,0.03);
-}
-
-.card.special-skill-item .card-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f1720;
-  margin: 0;
-}
-
-/* details/summary visual improve */
-.skill-group {
-  padding: 8px 0;
-}
-
-.skill-summary {
-  cursor: pointer;
-  font-weight: 600;
-  color: #0b63d6;
-  background: none;
-  border: none;
-  padding: 6px 0;
-  display: block;
-}
-
-/* individual skill row */
-.skill-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px dashed rgba(16,24,32,0.03);
-  flex-wrap: wrap;
-}
-
-.skill-name {
-  flex: 1 1 40%;
-  min-width: 140px;
-  color: #0f1720;
-  font-weight: 600;
-}
-
-/* meta area with progress and numeric label */
-.skill-meta {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex: 0 0 auto;
-}
-
-/* progress container */
-.progress {
-  width: 220px;
-  background: #eef2ff;
-  border-radius: 999px;
-  height: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(11,84,166,0.06);
-}
-
-/* inner bar */
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #16a34a 0%, #059669 100%);
-  width: 0%;
-  transition: width 600ms cubic-bezier(.2,.8,.2,1);
-  border-radius: 999px;
-}
-
-/* numeric percent and small label */
-.progress-value {
-  min-width: 44px;
-  text-align: right;
-  font-weight: 700;
-  color: #0f1720;
-  font-size: 13px;
-}
-
-.skill-row small.text-muted {
-  color: #475569;
-  font-weight: 600;
-  margin-left: 6px;
-  display: inline-block;
-}
-
-/* ensure progress shrinks on small screens */
-@media (max-width: 768px) {
-  .progress {
-    width: 140px;
-    height: 10px;
-  }
-  .skill-name {
-    flex-basis: 100%;
-  }
-  .skill-meta {
-    width: 100%;
-    justify-content: space-between;
-  }
-}
-
-/* small visual polish for empty lists */
-.skill-list:empty::before {
-  content: "No items";
-  color: #6b7280;
-  font-style: italic;
-  display: block;
-  padding: 6px 0;
+@media (max-width:480px) {
+  .profile-card { padding:14px; margin-bottom:18px }
+  .profile-left { width:100%; align-items:flex-start; text-align:left; padding-bottom:8px }
+  .avatar-wrapper { width:140px; height:140px; margin:0 auto 12px }
+  .avatar { width:120px; height:120px }
+  .visit-item { flex-direction:column; align-items:flex-start; gap:6px; padding:8px 6px }
+  .visit-top { text-align:left; width:100% }
+  .visit-label { font-size:13px; font-weight:700; text-align:left }
+  .visit-value { font-size:14px; text-align:left; width:100%; white-space:normal; overflow:visible }
+  .visit-value a { word-break:break-word }
+  .actions { margin-top:12px; justify-content:center; width:100%; padding:6px 0 }
+  .btn-download { width:100%; min-height:48px; padding:12px 14px; font-size:15px; border-radius:10px; box-shadow:0 8px 22px rgba(13,110,253,0.12) }
+  .languages { width:100%; align-items:stretch }
+  .language-item { width:100%; max-width:none }
+  .lang-bar { height:14px }
+  .lang-fill { transition:width .5s ease }
+  .lang-level { font-size:12px }
+  .chips { justify-content:flex-start; gap:8px }
+  .chip { font-size:13px; padding:8px 10px; border-radius:10px; min-width:96px; text-align:center; white-space:nowrap }
+  .abstract-title { font-size:20px; text-align:left }
+  .abstract-text { font-size:14px; line-height:1.5; text-align:left }
+  .section-subtitle { font-size:14px; text-align:left }
+  .company-card { padding:10px }
+  .company-bullets { font-size:13px; line-height:1.45 }
+  .visit-top { padding:8px 6px }
+  .visit-name { font-size:17px; text-align:left }
+  .visit-title { font-size:13px; text-align:left }
+  .tech-categories { gap:8px }
 }

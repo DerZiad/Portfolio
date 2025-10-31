@@ -8,9 +8,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ProfileComponent {
 
-  constructor(private http:HttpClient){
-
-  }
+  constructor(private http:HttpClient){}
 
   downloadFile(): void {
     this.http.get("/assets/pdf/CV_Ziad_Bougrine_EN.pdf", { responseType: 'blob' }).subscribe((response: Blob) => {
