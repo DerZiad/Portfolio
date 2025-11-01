@@ -1,0 +1,188 @@
+:root{
+  --bg-from: #2f2f2f;
+  --bg-to:   #2f2f2f;
+  --text:    #ffffff;
+  --muted:   #bfc9d4;
+  --shadow:  rgba(0,0,0,0.6);
+  --soft-shadow: rgba(0,0,0,0.45);
+  --gap: 48px;
+  --home-offset-x: 36px;
+  font-family: "Inter", "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+:host, :host(.home-dark-host) {
+  display: block;
+  min-height: 100vh;
+  margin-top: calc(-1 * var(--navbar-height, 64px));
+  padding-top: var(--navbar-height, 64px);
+  background-color: #2f2f2f;
+  color: #ffffff;
+  box-sizing: border-box;
+  --hacker-green: #29b81f;
+}
+
+.hero{
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text);
+  padding: 18px 18px 32px 18px;
+  box-sizing: border-box;
+}
+
+.hero-inner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding-top: 0;
+  max-height: calc(100vh - 24px);
+  transform: translateX(var(--home-offset-x));
+}
+
+.hero-content{
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2;
+  margin-left: 0;
+  padding: 10px;
+  color: var(--text);
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.hero-media{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.portrait{
+  width: min(48vw, 520px);
+  height: min(70vh, calc(100vh - 200px));
+  max-height: 760px;
+  object-fit: cover;
+  border-radius: 8%;
+  display: block;
+  box-shadow:
+    0 30px 80px var(--shadow),
+    0 10px 28px var(--soft-shadow);
+  opacity: 1;
+  transform: none;
+}
+
+.headline{
+  margin: 0 0 6px 0;
+  font-size: clamp(34px, 6.2vw, 72px);
+  line-height: 1.02;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  opacity: 1;
+  transform: none;
+}
+
+.subheadline{
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: clamp(16px, 2.4vw, 22px);
+  font-weight: 500;
+  opacity: 1;
+}
+
+.role{
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(18px, 2.6vw, 28px);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  opacity: 1;
+  transform: none;
+}
+.role-prefix{ color: var(--muted); font-weight: 500; }
+
+.actions{ display:flex; gap: 16px; margin-top: 12px; }
+.btn{
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text);
+}
+
+.btn-primary{
+  background: #0d6efd; /* Bootstrap primary blue */
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(13,110,253,0.16);
+  border: none;
+  text-decoration: none;
+}
+.btn-primary:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(13,110,253,0.18);
+}
+.btn-secondary{
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.btn-secondary:hover{ transform: translateY(-2px); }
+
+.role .hacker-color,
+.hero .role .hacker-color {
+  color: var(--hacker-green, #29b81f);
+  font-weight: 700;
+}
+
+.caret.hacker-color,
+.hero .caret.hacker-color {
+  color: var(--hacker-green, #29b81f);
+  opacity: 1;
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid rgba(41,184,31,0.18);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+[aria-live] { outline: none; }
+
+@media (max-width: 900px){
+  .hero-inner{ flex-direction: column-reverse; gap: 20px; padding: 8px; }
+  .hero-content{ text-align: center; align-items: center; max-width: none; }
+  .headline{ font-size: clamp(28px, 8.5vw, 44px); }
+  .subheadline{ font-size: clamp(14px, 3.2vw, 18px); }
+  .role{ font-size: clamp(16px, 3.2vw, 20px); }
+  .portrait{
+    width: min(88vw, 420px);
+    height: auto;
+    max-height: 70vh;
+
+    object-fit: contain;
+  }
+  .hero-inner {
+    transform: none;
+  }
+}
+
+@media (max-height: 700px){
+  .portrait {
+    max-height: 60vh;
+    width: min(84vw, 380px);
+  }
+}
