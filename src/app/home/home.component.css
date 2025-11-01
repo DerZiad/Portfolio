@@ -1,0 +1,251 @@
+/* Premium Apple-style dark theme */
+:root{
+  --bg-from: #2f2f2f;
+  --bg-to:   #2f2f2f;     /* solid gray background for everything */
+  --text:    #ffffff;     /* ensure text white */
+  --muted:   #bfc9d4;
+  --shadow:  rgba(0,0,0,0.6);
+  --soft-shadow: rgba(0,0,0,0.45);
+  --gap: 48px; /* increased gap between content and portrait */
+  --home-offset-x: 36px; /* small nudge to the right; reduce/expand as needed */
+  font-family: "Inter", "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* REMOVED global html, body rules so background doesn't leak to other components.
+   Instead apply a scoped dark background and white text to this component only. */
+:host, :host(.home-dark-host) {
+  display: block;
+  /* make host cover full viewport (including the area under the fixed navbar) */
+  min-height: 100vh;
+
+  /* pull the host up so its background sits behind the fixed navbar,
+     then add equivalent top padding so content isn't covered by the navbar */
+  margin-top: calc(-1 * var(--navbar-height, 64px));
+  padding-top: var(--navbar-height, 64px);
+
+  background-color: #2f2f2f; /* dark gray background for Home only */
+  color: #ffffff;            /* ensure text white inside Home */
+  box-sizing: border-box;
+
+  /* ensure hacker-green is available to descendant elements */
+  --hacker-green: #29b81f;
+}
+
+/* Ensure hero fills viewport but allows content below to be reached */
+.hero{
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  align-items: center;           /* center content vertically */
+  justify-content: center;       /* center content horizontally */
+  background: transparent; /* ...existing rule preserved ... */
+  color: var(--text);
+  padding: 18px 18px 32px 18px;  /* keep some bottom padding, smaller top feel */
+  box-sizing: border-box;
+}
+
+/* Inner layout: keep centered and constrained */
+.hero-inner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding-top: 0;    /* remove top nudge so content sits centered */
+  max-height: calc(100vh - 24px); /* tighter cap so content never overflows viewport */
+  /* nudge the whole inner block slightly to the right */
+  transform: translateX(var(--home-offset-x));
+  transition: transform 240ms ease;
+}
+
+/* Content block (text) */
+.hero-content{
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2;
+  margin-left: 0;              /* remove negative margin that caused overflow */
+  padding: 10px;
+  color: var(--text);         /* force white text */
+  justify-content: center; /* vertical center text block when space is tight */
+  text-align: center; /* center text horizontally */
+  align-items: center; /* center children horizontally within the column */
+}
+
+/* Media block (portrait) */
+.hero-media{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Portrait: constrain by viewport height so it never forces scrolling */
+.portrait{
+  width: auto;
+  height: min(52vh, calc(100vh - 180px));
+  max-width: 44vw;
+  max-height: calc(100vh - 180px);
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  box-shadow:
+    0 40px 100px var(--shadow),
+    0 12px 32px var(--soft-shadow);
+  transition: transform 520ms cubic-bezier(.2,.9,.2,1), box-shadow 420ms ease, opacity 420ms ease;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Typographic hierarchy */
+.headline{
+  margin: 0 0 6px 0;
+  font-size: clamp(34px, 6.2vw, 72px); /* larger min/max */
+  line-height: 1.02;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  opacity: 1;       /* entrance animations still apply; ensure visible sizing */
+  transform: none;
+}
+
+.subheadline{
+  margin: 0 0 8px 0;
+  color: var(--muted);
+  font-size: clamp(16px, 2.4vw, 22px);
+  font-weight: 500;
+  opacity: 1;
+}
+
+/* Role/typewriter line */
+.role{
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(18px, 2.6vw, 28px);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  opacity: 1;
+  transform: none;
+}
+.role-prefix{ color: var(--muted); font-weight: 500; }
+
+/* Buttons minimal, monochrome */
+.actions{ display:flex; gap: 16px; margin-top: 12px; }
+.btn{
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+}
+/* make primary button use Bootstrap primary blue and ensure readable text */
+.btn-primary{
+  background: #0d6efd; /* Bootstrap primary blue */
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(13,110,253,0.16);
+  border: none;
+  text-decoration: none;
+}
+.btn-primary:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(13,110,253,0.18);
+}
+.btn-secondary{
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.btn-secondary:hover{ transform: translateY(-2px); }
+
+/* Text accent & caret: use the host-declared variable and provide a fallback.
+   Slightly increase specificity so this wins over inherited rules. */
+.role .hacker-color,
+.hero .role .hacker-color {
+  color: var(--hacker-green, #29b81f);
+  font-weight: 700;
+  transition: color 180ms ease;
+}
+
+/* caret: same treatment, ensure visible and fallback */
+.caret.hacker-color,
+.hero .caret.hacker-color {
+  color: var(--hacker-green, #29b81f);
+  opacity: 1;
+}
+
+/* Entrance animation */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* staggered entrance helpers */
+.animate-item{ animation: fadeSlideUp 540ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 120ms; }
+.animate-item:nth-of-type(1){ animation-delay: 140ms; }
+.animate-item:nth-of-type(2){ animation-delay: 220ms; }
+.animate-item:nth-of-type(3){ animation-delay: 300ms; }
+.animate-item:nth-of-type(4){ animation-delay: 380ms; }
+
+.animate-avatar{ animation: fadeSlideUp 640ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 260ms; }
+/* animate the portrait when its container has the class */
+.animate-avatar .portrait{ opacity: 1; transform: translateY(0) scale(1); }
+
+/* subtle floating after entrance and hover effect */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+/* disable hover movement on portrait (remove floating/translate on hover) */
+.hero-media:hover .portrait { transform: translateY(0) scale(1); box-shadow: 0 40px 100px var(--shadow); }
+
+/* Accessibility / focus */
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus { outline: none; }
+:focus-visible {
+  outline: 3px solid rgba(41,184,31,0.18);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+[aria-live] { outline: none; }
+
+/* Responsive */
+@media (max-width: 900px){
+  .hero-inner{ flex-direction: column-reverse; gap: 20px; padding: 8px; }
+  .hero-content{ text-align: center; align-items: center; max-width: none; }
+  .headline{ font-size: clamp(28px, 8.5vw, 44px); }
+  .subheadline{ font-size: clamp(14px, 3.2vw, 18px); }
+  .role{ font-size: clamp(16px, 3.2vw, 20px); }
+  .portrait{
+    height: min(48vh, calc(100vh - 180px));
+    max-width: 80vw;
+  }
+  .hero-inner {
+    transform: none;
+  }
+}
+
+/* If viewport height is small, cap portrait size to avoid vertical scroll */
+@media (max-height: 700px){
+  .portrait{ height: calc(100vh - 220px); width: auto; }
+}
+
+/* If viewport height is small, cap portrait size to avoid vertical scroll */
+@media (max-height: 700px){
+  .portrait{ height: calc(100vh - 220px); width: auto; }
+}
+@media (max-height: 700px){
+  .portrait{ height: calc(100vh - 220px); width: auto; }
+}
+
+/* If viewport height is small, cap portrait size to avoid vertical scroll */
+@media (max-height: 700px){
+  .portrait{ height: calc(100vh - 220px); width: auto; }
+}

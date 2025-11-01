@@ -1,65 +1,68 @@
-section{
-  font-family: Calibri,"Sans Serif Collection";
-}
-.close{
-  transition: all 3s ease-in-out;
+section {
+  /* single, consistent font stack for this component */
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+  color: #111;
+  line-height: 1.45;
 }
 
+.close {
+  transition: all 0.22s ease-in-out;
+}
 
+/* mac style tab */
 .mac-navigator-tab {
-  background-color: #f0f0f0;
+  background-color: #f7f7f8;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   max-width: 500px;
   margin: 0 auto;
+  padding: 8px;
 }
 
+/* header dots */
 .tab-header {
   display: flex;
   justify-content: flex-start;
-  padding: 10px;
+  padding: 8px 10px;
+  gap: 6px;
 }
 
-.red-dot, .yellow-dot {
+.red-dot,
+.yellow-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  margin-right: 5px;
+  margin-right: 6px;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.18s ease, background-color 0.18s ease;
 }
 
-.red-dot {
-  background-color: #f75959;
-}
+.red-dot { background-color: #f75959; }
+.red-dot:hover { background-color: #c94343; transform: scale(1.06); }
 
-.red-dot:hover{
-  background-color: #8b0000;
-}
+.yellow-dot { background-color: #fdbc40; }
+.yellow-dot:hover { background-color: #e59a1a; transform: scale(1.06); }
 
-.yellow-dot {
-  background-color: #fdbc40;
-}
-
-.yellow-dot:hover{
-  background-color: #e67e00;
-}
-
-.tab-content {
-  padding: 10px;
-}
+.tab-content { padding: 8px 12px; }
 
 .tab-links {
   list-style: none;
   display: flex;
   padding: 0;
-  margin: 0;
+  margin: 0 0 12px 0;
 }
 
 .tab-links li {
-  cursor: pointer;
-  padding: 10px 20px;
-  border: 1px solid #e1e1e1;
+  cursor: default;
+  padding: 8px 14px;
+  border: 1px solid #e9e9ea;
   border-bottom: none;
-  border-radius: 5px 5px 0 0;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  font-weight: 700;
+  color: #222;
 }
 
 .tab-links li.active {
@@ -70,138 +73,125 @@ section{
 }
 
 .tab-panels {
-  border: 1px solid #e1e1e1;
-  border-radius: 0 0 5px 5px;
-  padding: 20px;
-  background-color: white;
+  border: 1px solid #e9e9ea;
+  border-radius: 0 0 8px 8px;
+  padding: 16px;
+  background-color: #fff;
 }
 
-.tab-panel {
-  display: none;
-  color:black;
-}
+.tab-panel { display: none; color: #111; }
+.tab-panel.active { display: block; }
 
-.tab-panel.active {
-  display: block;
-}
-
-
-.icona{
-  color:purple;
+/* icons */
+.icona {
+  color: purple;
   font-size: 25px;
 }
 
+/* close container */
 #close {
-  overflow: hidden; /* Hide any content outside the container */
+  overflow: hidden;
   width: 100%;
+  transition: max-width 0.22s ease;
 }
 
-.swipe-left-class{
-  animation: swipeLeftAnimation 0.3s ease-in-out;
-}
-
-.transition-class{
-  transition: 0.3s ease-in-out;
-}
+.swipe-left-class { animation: swipeLeftAnimation 0.28s ease-in-out forwards; }
+.transition-class { transition: 0.22s ease-in-out; }
 
 @keyframes swipeLeftAnimation {
-  0% {
-    transform: translateX(0); /* Starting position (no movement) */
-  }
-  100% {
-    transform: translateX(-100%); /* Ending position (100% left) */
-  }
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
 }
 
-/*
-  Text Placement Design
-*/
-
-.tab-design{
-  color: black;
-  font-weight: bold;
-  font-family: Calibri,"Sans Serif Collection";
+/* Text Placement Design: use inherited font from section; avoid repetition */
+.tab-design,
+.tab-title,
+.tab-description-element {
+  color: #111;
+  font-weight: 700;
+  font-family: inherit;
 }
 
-.tab-title{
-  color: black;
-  font-weight: bold;
-  font-family: Calibri,"Sans Serif Collection";
-}
-
-.tab-description-element{
-  color: black;
-  font-weight: bold;
-  font-family: Calibri,"Sans Serif Collection";
-}
-
-
-/*
-  FH Aachen
-*/
-.card-education-box{
-  border:none;
+/* Card and content */
+.card-education-box {
+  border: none;
   text-align: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  background: transparent;
+  padding: 12px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
 }
 
-.card-education-text{
-  text-align: center;
+.card-education-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(16, 24, 40, 0.06);
+}
+
+.card-education-text {
+  text-align: left;
   word-wrap: break-word;
+  flex: 1 1 auto;
 }
 
-.card-education-image-mgm{
-  background-image:url('/assets/img/logo/mgm.jpg');
+.card-education-image-mgm {
+  background-image: url('/assets/img/logo/mgm.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  height: 200px;
-  width: 200px;
+  height: 120px;
+  width: 120px;
   border-radius: 50%;
-  box-shadow: 5px 5px 10px black;
+  box-shadow: 2px 6px 12px rgba(0,0,0,0.12);
+  flex-shrink: 0;
 }
 
-.card-education-concept-title{
-  font-size: 25px;
-  font-weight: bold;
+/* headings & metadata */
+.card-education-concept-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 8px;
 }
 
-.text-color-black{
-  color: black;
+.text-color-black { color: #0f172a; }
+.text-color-gray  { color: #6b7280; font-size: 0.92rem; }
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e6e6e6;
+  background: #fff;
 }
 
-.text-color-gray{
-  color: dimgray;
-  font-size: 13px;
+.table thead {
+  background: #fafafa;
+  font-weight: 700;
 }
 
-.text-center{
-  text-align: center;
-}
-
-.text-left{
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f1f1;
   text-align: left;
+  vertical-align: middle;
 }
 
-table{
-  border: 2px solid black;
-}
-td{
-  border: 2px solid black;
-}
+.table tbody tr:last-child td { border-bottom: none; }
 
-th{
-  border: 2px solid black;
-}
+.table-major-column { text-align: center; }
+.table-column { text-align: left; }
 
-.table-major-column{
-  text-align: center;
-}
+.links { color: #0b6efd; font-weight: 700; text-decoration: none; }
+.links:hover { text-decoration: underline; }
 
-.table-column{
-  text-align: left;
-}
-
-.links{
-  color: black;
-  font-weight: bold;
+/* responsive */
+@media (max-width: 767px) {
+  .card-education-box { flex-direction: row; gap: 10px; padding: 10px; }
+  .card-education-image-mgm { height: 88px; width: 88px; }
+  .card-education-concept-title { font-size: 18px; }
 }
