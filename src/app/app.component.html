@@ -1,0 +1,77 @@
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar linear-background">
+  <div class="container">
+    <a class="navbar-brand logo slide-right" href="#">Portfolio</a>
+    <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+      <span class="visually-hidden">Toggle navigation</span>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(1)}} header-element" (click)="show(1); closeNavbar()">Home</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(2)}} header-element" (click)="show(2); closeNavbar()">About me</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(4)}} header-element" (click)="show(4); closeNavbar()">Education</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(3)}} header-element" (click)="show(3); closeNavbar()">My Projects</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(7)}} header-element" (click)="show(7); closeNavbar()">Professional Experience</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="hidden" class="nav-link slide-down {{isActive(5)}} header-element" (click)="show(5); closeNavbar()">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a [hidden]="!hidden" class="nav-link slide-down {{isActive(5)}} header-element" (click)="skipIntro(); closeNavbar()">Skip</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main [class]="get_background()" class="page lanidng-page">
+
+  <section [hidden]="!hidden" id="introduction" class="portfolio-block block-intro" xmlns="http://www.w3.org/1999/html">
+    <div class="website-intro introduction-box">
+      <p *ngIf="position == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Hey there! 👋</span></p>
+      <p *ngIf="position == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">My name is Ziad Bougrine! 🚀</span></p>
+      <p *ngIf="position == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">I'm a backend developer with MGM Technologies Germany. 💻</span></p>
+      <p *ngIf="position == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">I speak 4 languages. 🌐</span></p>
+      <p *ngIf="position == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">I'm happy to see you on my website! 😊</span></p>
+    </div>
+  </section>
+
+  <app-personalinformations [hidden]="hidden || (active_page_number != 1)" (childEvent)="handleCustomEvent($event)"></app-personalinformations>
+  <app-abstract class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-abstract>
+  <app-projects class="linear-background" [hidden]="hidden || (active_page_number != 3)"></app-projects>
+  <app-education class="linear-background" [hidden]="hidden || (active_page_number != 4)"></app-education>
+  <app-languages class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-languages>
+  <app-skills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-skills>
+  <app-specialskills class="linear-background" [hidden]="hidden || (active_page_number != 5)"></app-specialskills>
+  <app-professionalexperience class="linear-background" [hidden]="hidden || (active_page_number != 7)"></app-professionalexperience>
+</main>
+
+<div [hidden]="hidden" class="page-footer">
+  <div class="row">
+    <div class="col-md-12">
+      <a class="icona slide-down" href="https://web.facebook.com/ziad.bougrine.5"><i
+        class="ion-social-facebook icona slide-left"></i></a>
+      <a href="https://www.instagram.com/ziadbougrine.jar/"><i
+        class=" ion-social-instagram-outline icona slide-left"></i></a>
+      <a href="#"><i class=" ion-social-twitter icona slide-left"></i></a>
+      <a href="https://github.com/DerZiad"><i class="icon ion-social-github icona slide-left"></i></a>
+      <a href="https://www.linkedin.com/in/ziad-bougrine-9b94171a5/"><i
+        class="icona ion-social-linkedin slide-left"></i></a>
+      <a href="mailto:ziadbougrine@gmail.com"><i
+        class="icona ion-email slide-left"></i></a>
+      <a href="tel:+4915209512199"><i
+        class="icona ion-ios-telephone slide-left"></i></a>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,23 @@
+section{
+  color: black;
+}
+
+table{
+  border: 2px solid black;
+}
+td{
+  border: 2px solid black;
+}
+
+th{
+  border: 2px solid black;
+}
+
+.table-major-column{
+  text-align: center;
+}
+
+.table-column{
+  text-align: center;
+}
+

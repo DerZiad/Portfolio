@@ -1,0 +1,43 @@
+#education{
+  color: black;
+}
+.card-education-box{
+  border:none;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card-education-box:hover {
+  transform: scale(1.1); /* Increase the size by 20% */
+}
+
+.card-education-text{
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.card-education-image-fh-aachen{
+  background-image:url('/assets/img/logo/fh-aachen.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 10px black;
+}
+
+.card-education-image-mgm{
+  background-image:url('/assets/img/logo/mgm.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 10px black;
+}
+
+.text-color{
+  color: black;
+}
+
+

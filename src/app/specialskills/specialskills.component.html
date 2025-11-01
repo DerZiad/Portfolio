@@ -1,0 +1,31 @@
+<section class="portfolio-block skills linear-background" *ngFor="let domain of getDomainList()">
+  <div class="container">
+    <div class="heading">
+      <h2>{{domain}} <i class="fa-solid fa-fire"></i></h2>
+    </div>
+    <div class="row" *ngFor="let toolType of getDomainTypes(domain)">
+      <div class="col-md-12 cancel-background box-carre">
+        <div class="card special-skill-item border-0 cancel-background">
+          <div class="card-header cancel-background border-0 "><h3 class="card-title move-left">{{toolType}}</h3></div>
+          <div class="card-body">
+            <table class="table">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col" class="table-major-column">Skills</th>
+                <th scope="col" class="table-major-column">Scale (⭐️⭐️⭐️⭐️⭐️)</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let element of getElement(domain,toolType)">
+                <td style="text-align: left">{{element[0]}}</td>
+                <td style="text-align: left">{{star(element[1])}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
