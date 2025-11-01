@@ -20,6 +20,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   position = 0;
   number_of_elements: number = 5;
 
+  // new: control collapse state via Angular
+  navbarExpanded: boolean = false;
+
   private documentClickListener: (() => void) | null = null;
   private documentTouchListener: (() => void) | null = null;
   private collapseObserver: MutationObserver | null = null;
@@ -43,18 +46,22 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     const collapseEl = document.querySelector('.collapse.navbar-collapse');
     const navbarRoot = document.querySelector('.portfolio-navbar');
     if (collapseEl && navbarRoot) {
-      // set initial state
+      // set initial state based on DOM (helps if server-rendered or bootstrap left state)
       if ((collapseEl as Element).classList.contains('show')) {
         navbarRoot.classList.add('menu-open');
+        this.navbarExpanded = true;
       } else {
         navbarRoot.classList.remove('menu-open');
+        this.navbarExpanded = false;
       }
 
       this.collapseObserver = new MutationObserver(() => {
         if ((collapseEl as Element).classList.contains('show')) {
           navbarRoot.classList.add('menu-open');
+          this.navbarExpanded = true;
         } else {
           navbarRoot.classList.remove('menu-open');
+          this.navbarExpanded = false;
         }
       });
       this.collapseObserver.observe(collapseEl, { attributes: true, attributeFilter: ['class'] });
@@ -120,19 +127,39 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  closeNavbar(): void {
-    const navbar = document.querySelector('.navbar-collapse');
-    if (navbar != null && navbar.classList.contains('show')) {
-      navbar.classList.remove('show');
-      const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
-      if (toggler != null) {
-        toggler.setAttribute('aria-expanded', 'false');
-      }
-      const navbarRoot = document.querySelector('.portfolio-navbar');
-      if (navbarRoot) {
-        navbarRoot.classList.remove('menu-open');
+  // new: Toggle handler used by the template
+  toggleNavbar(): void {
+    this.navbarExpanded = !this.navbarExpanded;
+    const navbarRoot = document.querySelector('.portfolio-navbar');
+    if (navbarRoot) {
+      navbarRoot.classList.toggle('menu-open', this.navbarExpanded);
+    }
+    // Keep DOM class in sync for any third-party CSS that checks .show
+    const collapseEl = document.querySelector('.collapse.navbar-collapse');
+    if (collapseEl) {
+      if (this.navbarExpanded) {
+        collapseEl.classList.add('show');
+      } else {
+        collapseEl.classList.remove('show');
       }
     }
   }
-}
 
+  closeNavbar(): void {
+    // ensure Angular state reflects closed panel
+    this.navbarExpanded = false;
+
+    const navbar = document.querySelector('.navbar-collapse');
+    if (navbar != null && navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+    const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
+    if (toggler != null) {
+      toggler.setAttribute('aria-expanded', 'false');
+    }
+    const navbarRoot = document.querySelector('.portfolio-navbar');
+    if (navbarRoot) {
+      navbarRoot.classList.remove('menu-open');
+    }
+  }
+}

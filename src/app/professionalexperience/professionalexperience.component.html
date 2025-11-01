@@ -26,6 +26,17 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6 col-sm-12" (click)="showMore('mgmwerkstudent')">
+        <div class="card special-skill-item cancel-background card-education-box">
+          <div class="card-header card-education-image-mgm mx-auto">
+          </div>
+          <div class="card-body card-education-text">
+            <h3 class="card-title">MGM Technology Partners - Germany</h3>
+            <p class="card-text text-color">Oct, 2023 - Feb, 2024</p>
+            <p class="text-color"><b> Working Student</b>, Enabling model-based of pawment providers in a low-code process automation platform</p>
+          </div>
+        </div>
+      </div>
     </div>
     <app-fhaachenwerkstudent *ngIf="showData[0]"
                              (closeAction)="onChildCloseChanged('fhwerkstudent',false)"></app-fhaachenwerkstudent>

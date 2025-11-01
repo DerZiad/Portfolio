@@ -1,5 +1,6 @@
 #education{
   color: black;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 .card-education-box{
   border:none;
@@ -14,6 +15,14 @@
 .card-education-text{
   text-align: center;
   word-wrap: break-word;
+  font-family: inherit;
+}
+
+/* ensure titles and meta use the same family */
+.card-title,
+.card-text,
+.text-color {
+  font-family: inherit;
 }
 
 .card-education-image-fh-aachen{
@@ -39,5 +48,3 @@
 .text-color{
   color: black;
 }
-
-

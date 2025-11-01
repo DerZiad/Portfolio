@@ -7,10 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
 
-  selectedTypeOfProject: string = "Web"
+  // changed: default to show all project types
+  selectedTypeOfProject: string = "All"
 
-  showData = {}
-  showDataActive: boolean = false
+  // new: dynamic list of project types (includes 'All')
+  projectTypes: string[] = [];
 
   data = [
     {
@@ -273,6 +274,15 @@ export class ProjectsComponent implements OnInit {
   constructor() {
   }
 
+  ngOnInit(): void {
+    // compute unique types from data and add 'All' at start
+    const types = Array.from(new Set(this.data
+      .map(item => item.type)
+      .filter(t => typeof t === 'string' && t.trim().length > 0)
+    ));
+    this.projectTypes = ['All', ...types];
+  }
+
   goToLink(dataEntity: any): void {
     document.location.replace(dataEntity.link)
   }
@@ -289,10 +299,6 @@ export class ProjectsComponent implements OnInit {
         element.style.backgroundImage = "url('" + dataEntity.image + "');"
       }
     }
-  }
-
-  ngOnInit(): void {
-
   }
 
   isActive(index: number) {
@@ -318,17 +324,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   filter(dict: any) {
+    // defensive: ensure list is an array
+    if (!Array.isArray(dict)) return [];
+    // when "All" is selected, return full list
+    if (this.selectedTypeOfProject === 'All') return dict;
     return dict.filter((element: any) => element.type === this.selectedTypeOfProject)
-  }
-
-  showMore(dataEntity: any) {
-    this.showDataActive = true
-    this.showData = dataEntity
-
-  }
-
-  onChildCloseChanged(close: boolean) {
-    this.showDataActive = close;
   }
 
   isPhone() {

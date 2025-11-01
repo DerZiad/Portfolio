@@ -1,3 +1,16 @@
+<!--
+Copilot prompt (for reference):
+Create a modern, accessible, responsive matte-black navbar for an Angular app (Angular 12+). Requirements:
+- Matte black background, subtle bottom border and soft drop shadow.
+- Responsive: desktop horizontal links, mobile collapsible panel with an elevated panel style (no full-screen backdrop).
+- Animated, modern hamburger icon. Smooth open/close transitions.
+- Full keyboard support and ARIA: toggler has aria-expanded, focus-visible styles, links are focusable.
+- No external JS: provide component HTML, SCSS/CSS, and TypeScript that works with Angular bindings (control collapse via a boolean state; do not rely on Bootstrap JS data attributes).
+- Clean markup and BEM-like classes; minimal CSS variables for colors and durations.
+- Include examples of: toggler button, collapse panel, active link styling, and close-on-outside-click integration for Angular.
+Return only the component HTML, CSS and TS (or show diffs for an existing Angular app).
+-->
+
 <nav class="navbar navbar-expand-lg fixed-top portfolio-navbar" [class.intro-active]="hidden">
   <div class="container">
     <a class="navbar-brand logo" href="#" (click)="show(1); closeNavbar()" aria-label="Go to Home">
@@ -5,8 +18,14 @@
       <span class="brand-dot" aria-hidden="true"></span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Replaced Bootstrap data attributes with Angular binding + click handler -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toggleNavbar()"
+      [attr.aria-expanded]="navbarExpanded"
+      aria-controls="navbarNav"
+      aria-label="Toggle navigation">
       <span class="hamburger" aria-hidden="true">
         <span></span>
         <span></span>
@@ -14,7 +33,8 @@
       </span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <!-- Use Angular class binding to control .show instead of relying on Bootstrap JS -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav" [class.show]="navbarExpanded">
       <ul class="navbar-nav align-items-center">
         <li class="nav-item">
           <a [hidden]="hidden" class="nav-link {{isActive(1)}}" (click)="show(1); closeNavbar()">Home</a>

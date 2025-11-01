@@ -1,22 +1,21 @@
-<div id="close" class="transition-class mac-navigator-tab">
+<div id="close" class="transition-class mac-navigator-tab" role="region" aria-label="MGM Experience">
   <div class="tab-header">
-    <div class="red-dot" (click)="closeElement()"></div>
-    <div class="yellow-dot" (click)="extendTab()"></div>
+    <div class="red-dot" (click)="closeElement()" role="button" aria-label="Close"></div>
+    <div class="yellow-dot" (click)="extendTab()" role="button" aria-label="Toggle width"></div>
   </div>
   <div class="tab-content">
-    <ul class="tab-links">
-      <li class="active tab-design">Career</li>
+    <ul class="tab-links" role="tablist">
+      <li class="active tab-design" role="tab" aria-selected="true">Career</li>
     </ul>
     <div class="tab-panels">
-      <div class="tab-panel active">
+      <div class="tab-panel active" role="tabpanel">
         <div class="container-fluid mt-5">
           <div class="card special-skill-item cancel-background card-education-box">
-            <div class="card-header card-education-image-mgm mx-auto">
-            </div>
+            <div class="card-header card-education-image-mgm mx-auto" aria-hidden="true"></div>
             <div class="card-body card-education-text">
               <h3 class="card-title">mgm technology partners - Germany</h3>
               <p class="card-text text-color-gray">Oct, 2023 - Feb, 2024</p>
-              <p class="text-color-black text-left"><b> Intern and working student for Bachelor's degree thesis</b></p>
+              <p class="text-color-black text-left"><b>Intern and working student for Bachelor's degree thesis</b></p>
               <p class="text-color-black text-left">
                 Beginning my role as a <b>working student at MGM in October</b>, I committed myself to grasping the intricacies
                 of MGM's tools, technologies, and frameworks. Initially, I immersed myself in learning <b>Kotlin</b>, the
@@ -71,13 +70,19 @@
                 <thead class="thead-light">
                 <tr>
                   <th class="text-left" scope="col">Applied Concepts</th>
-                  <th class="text-left" scope="col">Scale ( {{star(5)}} )</th>
+                  <th class="text-left" scope="col">Scale (
+                    <!-- render 5 stars inline for header -->
+                    <ng-container *ngFor="let _ of [1,2,3,4,5]">⭐️</ng-container>
+                  )</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let concept of concepts">
                   <td class="text-left">{{concept[0]}}</td>
-                  <td class="text-left">{{star(concept[1])}}</td>
+                  <td class="text-left">
+                    <!-- render concept[1] stars using slice on a 10-item array -->
+                    <ng-container *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10] | slice:0:concept[1]">⭐️</ng-container>
+                  </td>
                 </tr>
                 </tbody>
               </table>
@@ -93,13 +98,19 @@
                 <thead class="thead-light">
                 <tr>
                   <th class="text-left" scope="col">Applied Technologies</th>
-                  <th class="text-left" scope="col">Scale ( {{star(5)}} )</th>
+                  <th class="text-left" scope="col">Scale (
+                    <!-- render 5 stars inline for header -->
+                    <ng-container *ngFor="let _ of [1,2,3,4,5]">⭐️</ng-container>
+                  )</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let technology of technologies">
                   <td class="text-left">{{technology[0]}}</td>
-                  <td class="text-left">{{star(technology[1])}}</td>
+                  <td class="text-left">
+                    <!-- render technology[1] stars using slice on a 10-item array -->
+                    <ng-container *ngFor="let _ of [1,2,3,4,5,6,7,8,9,10] | slice:0:technology[1]">⭐️</ng-container>
+                  </td>
                 </tr>
                 </tbody>
               </table>
