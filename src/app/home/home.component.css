@@ -1,49 +1,37 @@
-/* Premium Apple-style dark theme */
 :root{
   --bg-from: #2f2f2f;
-  --bg-to:   #2f2f2f;     /* solid gray background for everything */
-  --text:    #ffffff;     /* ensure text white */
+  --bg-to:   #2f2f2f;
+  --text:    #ffffff;
   --muted:   #bfc9d4;
   --shadow:  rgba(0,0,0,0.6);
   --soft-shadow: rgba(0,0,0,0.45);
-  --gap: 48px; /* increased gap between content and portrait */
-  --home-offset-x: 36px; /* small nudge to the right; reduce/expand as needed */
+  --gap: 48px;
+  --home-offset-x: 36px;
   font-family: "Inter", "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* REMOVED global html, body rules so background doesn't leak to other components.
-   Instead apply a scoped dark background and white text to this component only. */
 :host, :host(.home-dark-host) {
   display: block;
-  /* make host cover full viewport (including the area under the fixed navbar) */
   min-height: 100vh;
-
-  /* pull the host up so its background sits behind the fixed navbar,
-     then add equivalent top padding so content isn't covered by the navbar */
   margin-top: calc(-1 * var(--navbar-height, 64px));
   padding-top: var(--navbar-height, 64px);
-
-  background-color: #2f2f2f; /* dark gray background for Home only */
-  color: #ffffff;            /* ensure text white inside Home */
+  background-color: #2f2f2f;
+  color: #ffffff;
   box-sizing: border-box;
-
-  /* ensure hacker-green is available to descendant elements */
   --hacker-green: #29b81f;
 }
 
-/* Ensure hero fills viewport but allows content below to be reached */
 .hero{
   min-height: calc(100vh - var(--navbar-height, 64px));
   display: flex;
-  align-items: center;           /* center content vertically */
-  justify-content: center;       /* center content horizontally */
-  background: transparent; /* ...existing rule preserved ... */
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   color: var(--text);
-  padding: 18px 18px 32px 18px;  /* keep some bottom padding, smaller top feel */
+  padding: 18px 18px 32px 18px;
   box-sizing: border-box;
 }
 
-/* Inner layout: keep centered and constrained */
 .hero-inner{
   display: flex;
   align-items: center;
@@ -52,29 +40,26 @@
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  padding-top: 0;    /* remove top nudge so content sits centered */
-  max-height: calc(100vh - 24px); /* tighter cap so content never overflows viewport */
-  /* nudge the whole inner block slightly to the right */
+  padding-top: 0;
+  max-height: calc(100vh - 24px);
   transform: translateX(var(--home-offset-x));
   transition: transform 240ms ease;
 }
 
-/* Content block (text) */
 .hero-content{
   max-width: 760px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   z-index: 2;
-  margin-left: 0;              /* remove negative margin that caused overflow */
+  margin-left: 0;
   padding: 10px;
-  color: var(--text);         /* force white text */
-  justify-content: center; /* vertical center text block when space is tight */
-  text-align: center; /* center text horizontally */
-  align-items: center; /* center children horizontally within the column */
+  color: var(--text);
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
-/* Media block (portrait) */
 .hero-media{
   display: flex;
   align-items: center;
@@ -82,7 +67,6 @@
   z-index: 1;
 }
 
-/* Portrait: constrain by viewport height so it never forces scrolling */
 .portrait{
   width: auto;
   height: min(52vh, calc(100vh - 180px));
@@ -99,15 +83,14 @@
   transform: translateY(0) scale(1);
 }
 
-/* Typographic hierarchy */
 .headline{
   margin: 0 0 6px 0;
-  font-size: clamp(34px, 6.2vw, 72px); /* larger min/max */
+  font-size: clamp(34px, 6.2vw, 72px);
   line-height: 1.02;
   font-weight: 900;
   color: var(--text);
   letter-spacing: -0.02em;
-  opacity: 1;       /* entrance animations still apply; ensure visible sizing */
+  opacity: 1;
   transform: none;
 }
 
@@ -119,7 +102,6 @@
   opacity: 1;
 }
 
-/* Role/typewriter line */
 .role{
   margin: 0;
   color: var(--text);
@@ -132,7 +114,6 @@
 }
 .role-prefix{ color: var(--muted); font-weight: 500; }
 
-/* Buttons minimal, monochrome */
 .actions{ display:flex; gap: 16px; margin-top: 12px; }
 .btn{
   padding: 12px 20px;
@@ -145,7 +126,7 @@
   color: var(--text);
   transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
 }
-/* make primary button use Bootstrap primary blue and ensure readable text */
+
 .btn-primary{
   background: #0d6efd; /* Bootstrap primary blue */
   color: #ffffff;
@@ -164,8 +145,6 @@
 }
 .btn-secondary:hover{ transform: translateY(-2px); }
 
-/* Text accent & caret: use the host-declared variable and provide a fallback.
-   Slightly increase specificity so this wins over inherited rules. */
 .role .hacker-color,
 .hero .role .hacker-color {
   color: var(--hacker-green, #29b81f);
@@ -173,20 +152,17 @@
   transition: color 180ms ease;
 }
 
-/* caret: same treatment, ensure visible and fallback */
 .caret.hacker-color,
 .hero .caret.hacker-color {
   color: var(--hacker-green, #29b81f);
   opacity: 1;
 }
 
-/* Entrance animation */
 @keyframes fadeSlideUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* staggered entrance helpers */
 .animate-item{ animation: fadeSlideUp 540ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 120ms; }
 .animate-item:nth-of-type(1){ animation-delay: 140ms; }
 .animate-item:nth-of-type(2){ animation-delay: 220ms; }
@@ -194,19 +170,17 @@
 .animate-item:nth-of-type(4){ animation-delay: 380ms; }
 
 .animate-avatar{ animation: fadeSlideUp 640ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 260ms; }
-/* animate the portrait when its container has the class */
+
 .animate-avatar .portrait{ opacity: 1; transform: translateY(0) scale(1); }
 
-/* subtle floating after entrance and hover effect */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
   100% { transform: translateY(0px); }
 }
-/* disable hover movement on portrait (remove floating/translate on hover) */
+
 .hero-media:hover .portrait { transform: translateY(0) scale(1); box-shadow: 0 40px 100px var(--shadow); }
 
-/* Accessibility / focus */
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus { outline: none; }
 :focus-visible {
@@ -216,7 +190,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 [aria-live] { outline: none; }
 
-/* Responsive */
 @media (max-width: 900px){
   .hero-inner{ flex-direction: column-reverse; gap: 20px; padding: 8px; }
   .hero-content{ text-align: center; align-items: center; max-width: none; }
@@ -232,12 +205,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
-/* If viewport height is small, cap portrait size to avoid vertical scroll */
 @media (max-height: 700px){
   .portrait{ height: calc(100vh - 220px); width: auto; }
 }
 
-/* If viewport height is small, cap portrait size to avoid vertical scroll */
 @media (max-height: 700px){
   .portrait{ height: calc(100vh - 220px); width: auto; }
 }
@@ -245,7 +216,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .portrait{ height: calc(100vh - 220px); width: auto; }
 }
 
-/* If viewport height is small, cap portrait size to avoid vertical scroll */
 @media (max-height: 700px){
   .portrait{ height: calc(100vh - 220px); width: auto; }
 }
