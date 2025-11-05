@@ -1,24 +1,9 @@
-<!--
-Copilot prompt (for reference):
-Create a modern, accessible, responsive matte-black navbar for an Angular app (Angular 12+). Requirements:
-- Matte black background, subtle bottom border and soft drop shadow.
-- Responsive: desktop horizontal links, mobile collapsible panel with an elevated panel style (no full-screen backdrop).
-- Animated, modern hamburger icon. Smooth open/close transitions.
-- Full keyboard support and ARIA: toggler has aria-expanded, focus-visible styles, links are focusable.
-- No external JS: provide component HTML, SCSS/CSS, and TypeScript that works with Angular bindings (control collapse via a boolean state; do not rely on Bootstrap JS data attributes).
-- Clean markup and BEM-like classes; minimal CSS variables for colors and durations.
-- Include examples of: toggler button, collapse panel, active link styling, and close-on-outside-click integration for Angular.
-Return only the component HTML, CSS and TS (or show diffs for an existing Angular app).
--->
-
-<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar" [class.intro-active]="hidden">
+<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar" [class.intro-active]="introVisible">
   <div class="container">
-    <a class="navbar-brand logo" href="#" (click)="show(1); closeNavbar()" aria-label="Go to Home">
+    <a class="navbar-brand logo" routerLink="/" (click)="closeNavbar()" aria-label="Go to Home">
       Portfolio
       <span class="brand-dot" aria-hidden="true"></span>
     </a>
-
-    <!-- Replaced Bootstrap data attributes with Angular binding + click handler -->
     <button
       class="navbar-toggler"
       type="button"
@@ -33,34 +18,32 @@ Return only the component HTML, CSS and TS (or show diffs for an existing Angula
       </span>
     </button>
 
-    <!-- Use Angular class binding to control .show instead of relying on Bootstrap JS -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav" [class.show]="navbarExpanded">
-      <ul class="navbar-nav align-items-center">
+      <ul [hidden]="introVisible" class="navbar-nav align-items-center">
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(1)}}" (click)="show(1); closeNavbar()">Home</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active active-header"
+             [routerLinkActiveOptions]="{ exact: true }"
+             (click)="closeNavbar()">Home</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(2)}}" (click)="show(2); closeNavbar()">About Me</a>
+          <a class="nav-link" routerLink="/abstract" routerLinkActive="active active-header" (click)="closeNavbar()">About Me</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(7)}}" (click)="show(7); closeNavbar()">Professional
-            Experience</a>
+          <a class="nav-link" routerLink="/professional-experience" routerLinkActive="active active-header" (click)="closeNavbar()">Professional Experience</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(4)}}" (click)="show(4); closeNavbar()">Education</a>
+          <a class="nav-link" routerLink="/education" routerLinkActive="active active-header" (click)="closeNavbar()">Education</a>
         </li>
         <li class="nav-item">
-          <a [hidden]="hidden" class="nav-link {{isActive(3)}}" (click)="show(3); closeNavbar()">My Projects</a>
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active active-header" (click)="closeNavbar()">My Projects</a>
         </li>
       </ul>
     </div>
 
-    <!-- Moved Skip out of the collapsed menu and make it a button so it's available
-         even when the burger menu is collapsed on mobile. -->
     <button
       type="button"
       class="btn btn-link skip-link ms-2"
-      [hidden]="!hidden"
+      [hidden]="!introVisible"
       (click)="skipIntro(); closeNavbar()"
       aria-label="Skip intro">
       Skip
@@ -68,40 +51,34 @@ Return only the component HTML, CSS and TS (or show diffs for an existing Angula
   </div>
 </nav>
 
-<main [class]="get_background()" class="page lanidng-page">
-  <section [hidden]="!hidden" id="introduction" class="portfolio-block block-intro" xmlns="http://www.w3.org/1999/html">
+<main [class]="get_background()" class="page landing-page">
+  <section [hidden]="!introVisible" id="introduction" class="portfolio-block block-intro" xmlns="http://www.w3.org/1999/html">
     <div class="website-intro introduction-box">
-      <p *ngIf="position == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Welcome! 👋</span></p>
-      <p *ngIf="position == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">I’m Ziad Bougrine. 💼</span></p>
-      <p *ngIf="position == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">Fullstack Developer at MGM Technologies, Germany. 💻</span></p>
-      <p *ngIf="position == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">Passionate about building reliable and scalable web solutions. ⚙️</span></p>
-      <p *ngIf="position == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">Thanks for visiting my portfolio. 🚀</span></p>
+      <p *ngIf="introIndex == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Welcome! 👋</span></p>
+      <p *ngIf="introIndex == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">I’m Ziad Bougrine. 💼</span></p>
+      <p *ngIf="introIndex == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">Fullstack Developer at MGM Technologies, Germany. 💻</span></p>
+      <p *ngIf="introIndex == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">Passionate about building reliable and scalable web solutions. ⚙️</span></p>
+      <p *ngIf="introIndex == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">Thanks for visiting my portfolio. 🚀</span></p>
     </div>
   </section>
-  <app-home class="home-dark-host"
-    [hidden]="hidden || (active_page_number != 1)"
-    (childEvent)="handleCustomEvent($event)"
-    (goto)="show($event); closeNavbar()">
-  </app-home>
-  <app-profile class="linear-background" [hidden]="hidden || (active_page_number != 2)"></app-profile>
-  <app-projects class="linear-background" [hidden]="hidden || (active_page_number != 3)"></app-projects>
-  <app-education class="linear-background" [hidden]="hidden || (active_page_number != 4)"></app-education>
-  <app-professionalexperience class="linear-background" [hidden]="hidden || (active_page_number != 7)"></app-professionalexperience>
+
+  <section [hidden]="introVisible" class="content">
+    <router-outlet></router-outlet>
+  </section>
 </main>
 
-<div [hidden]="hidden" class="page-footer">
+<div [hidden]="introVisible" class="page-footer">
   <div class="row">
     <div class="col-md-12">
-      <a class="icona slide-down" href="https://web.facebook.com/ziad.bougrine.5"><i
-          class="ion-social-facebook icona slide-left"></i></a>
+      <a class="icon slide-down" href="https://web.facebook.com/ziad.bougrine.5"><i
+          class="ion-social-facebook icon slide-left"></i></a>
       <a href="https://www.instagram.com/ziadbougrine.jar/"><i
-          class=" ion-social-instagram-outline icona slide-left"></i></a>
-      <a href="#"><i class=" ion-social-twitter icona slide-left"></i></a>
-      <a href="https://github.com/DerZiad"><i class="icon ion-social-github icona slide-left"></i></a>
+          class=" ion-social-instagram-outline icon slide-left"></i></a>
+      <a href="#"><i class=" ion-social-twitter icon slide-left"></i></a>
+      <a href="https://github.com/DerZiad"><i class="icon ion-social-github icon slide-left"></i></a>
       <a href="https://www.linkedin.com/in/ziad-bougrine-9b94171a5/"><i
-          class="icona ion-social-linkedin slide-left"></i></a>
-      <a href="mailto:ziadbougrine@gmail.com"><i class="icona ion-email slide-left"></i></a>
-      <a href="tel:+4915209512199"><i class="icona ion-ios-telephone slide-left"></i></a>
+          class="icon ion-social-linkedin slide-left"></i></a>
+      <a href="mailto:ziadbougrine@gmail.com"><i class="icon ion-email slide-left"></i></a>
     </div>
   </div>
 </div>

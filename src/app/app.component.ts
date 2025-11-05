@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,112 +10,96 @@ import { HttpClient } from "@angular/common/http";
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'ziadbougrine';
 
-  hidden = true;
+  // intro overlay state
+  introVisible = true;
+  introIndex = 0;
+  readonly introStepsCount = 5;
 
-  first_name: string = "";
-  email: string = "";
-  phone: string = "";
-  duringThread: boolean = true;
-
-  active_page_number: number = 1;
-  position = 0;
-  number_of_elements: number = 5;
-
-  // new: control collapse state via Angular
-  navbarExpanded: boolean = false;
+  // navbar state
+  navbarExpanded = false;
 
   private documentClickListener: (() => void) | null = null;
   private documentTouchListener: (() => void) | null = null;
   private collapseObserver: MutationObserver | null = null;
+  private introTimer: any = null;
 
-  constructor(private http: HttpClient, private renderer: Renderer2) { }
+  private readonly INTRO_SEEN_KEY = 'introSeen';
+
+  constructor(private renderer: Renderer2, private router: Router) { }
 
   ngOnInit(): void {
-    this.changePosition(0);
+    const seen = localStorage.getItem(this.INTRO_SEEN_KEY);
+    if (seen === 'true') {
+      this.introVisible = false;
+      this.introIndex = this.introStepsCount;
+      return;
+    }
+    this.startIntroSequence();
   }
 
   ngAfterViewInit(): void {
     // listen for clicks/touches on the whole document to detect outside clicks
-    this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => {
-      this.handleOutsideClick(event);
-    });
-    this.documentTouchListener = this.renderer.listen('document', 'touchstart', (event: Event) => {
-      this.handleOutsideClick(event);
-    });
+    this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => this.handleOutsideClick(event));
+    this.documentTouchListener = this.renderer.listen('document', 'touchstart', (event: Event) => this.handleOutsideClick(event));
 
-    // observe the collapse element to toggle a "menu-open" class on the navbar when the menu is shown
+    // observe collapse element to mirror its "show" state into the navbar root
     const collapseEl = document.querySelector('.collapse.navbar-collapse');
     const navbarRoot = document.querySelector('.portfolio-navbar');
     if (collapseEl && navbarRoot) {
-      // set initial state based on DOM (helps if server-rendered or bootstrap left state)
-      if ((collapseEl as Element).classList.contains('show')) {
-        navbarRoot.classList.add('menu-open');
-        this.navbarExpanded = true;
-      } else {
-        navbarRoot.classList.remove('menu-open');
-        this.navbarExpanded = false;
-      }
-
+      this.navbarExpanded = (collapseEl as Element).classList.contains('show');
       this.collapseObserver = new MutationObserver(() => {
-        if ((collapseEl as Element).classList.contains('show')) {
-          navbarRoot.classList.add('menu-open');
-          this.navbarExpanded = true;
-        } else {
-          navbarRoot.classList.remove('menu-open');
-          this.navbarExpanded = false;
-        }
+        this.navbarExpanded = (collapseEl as Element).classList.contains('show');
+        navbarRoot.classList.toggle('menu-open', this.navbarExpanded);
       });
       this.collapseObserver.observe(collapseEl, { attributes: true, attributeFilter: ['class'] });
     }
   }
 
   ngOnDestroy(): void {
-    if (this.documentClickListener) {
-      this.documentClickListener();
-      this.documentClickListener = null;
-    }
-    if (this.documentTouchListener) {
-      this.documentTouchListener();
-      this.documentTouchListener = null;
-    }
-    if (this.collapseObserver) {
-      this.collapseObserver.disconnect();
-      this.collapseObserver = null;
-    }
+    if (this.documentClickListener) { this.documentClickListener(); this.documentClickListener = null; }
+    if (this.documentTouchListener) { this.documentTouchListener(); this.documentTouchListener = null; }
+    if (this.collapseObserver) { this.collapseObserver.disconnect(); this.collapseObserver = null; }
+    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
   }
 
-  handleCustomEvent(message: boolean) {
-    this.hidden = message;
+  get_background(): string {
+    return this.introVisible ? "black-background" : "linear-gradient";
   }
 
-  get_background(): String {
-    return this.hidden ? "black-background" : "linear-gradient";
+  skipIntro(): void {
+    this.markIntroSeen();
+    this.finishIntro();
+    this.router.navigate(['/']);
   }
 
-  show(shadow: number) {
-    this.active_page_number = shadow;
+  private startIntroSequence(): void {
+    this.introIndex = 0;
+    this.advanceIntro();
   }
 
-  isActive(shadow: number): String {
-    return shadow == this.active_page_number ? "active active-header" : "";
-  }
-
-  skipIntro() {
-    this.hidden = false;
-  }
-
-  changePosition(position: number) {
-    if (position < this.number_of_elements) {
-      setTimeout(() => {
-        this.changePosition(++this.position);
-      }, 3000); // adjusted from 2400 -> 3000 to match slightly slower fade timings
+  private advanceIntro(): void {
+    if (this.introIndex < this.introStepsCount) {
+      this.introTimer = setTimeout(() => {
+        this.introIndex++;
+        this.advanceIntro();
+      }, 3000);
     } else {
-      this.hidden = false;
+      this.finishIntro();
     }
   }
 
-  show_me(): boolean {
-    return this.position == this.number_of_elements;
+  private finishIntro(): void {
+    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
+    this.introVisible = false;
+    this.markIntroSeen();
+  }
+
+  private markIntroSeen(): void {
+    try {
+      localStorage.setItem(this.INTRO_SEEN_KEY, 'true');
+    } catch {
+      // ignore storage errors
+    }
   }
 
   private handleOutsideClick(event: Event): void {
@@ -127,39 +112,29 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // new: Toggle handler used by the template
   toggleNavbar(): void {
     this.navbarExpanded = !this.navbarExpanded;
     const navbarRoot = document.querySelector('.portfolio-navbar');
     if (navbarRoot) {
       navbarRoot.classList.toggle('menu-open', this.navbarExpanded);
     }
-    // Keep DOM class in sync for any third-party CSS that checks .show
     const collapseEl = document.querySelector('.collapse.navbar-collapse');
     if (collapseEl) {
-      if (this.navbarExpanded) {
-        collapseEl.classList.add('show');
-      } else {
-        collapseEl.classList.remove('show');
-      }
+      collapseEl.classList.toggle('show', this.navbarExpanded);
+    }
+    const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
+    if (toggler) {
+      toggler.setAttribute('aria-expanded', String(this.navbarExpanded));
     }
   }
 
   closeNavbar(): void {
-    // ensure Angular state reflects closed panel
     this.navbarExpanded = false;
-
     const navbar = document.querySelector('.navbar-collapse');
-    if (navbar != null && navbar.classList.contains('show')) {
-      navbar.classList.remove('show');
-    }
+    if (navbar && navbar.classList.contains('show')) { navbar.classList.remove('show'); }
     const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
-    if (toggler != null) {
-      toggler.setAttribute('aria-expanded', 'false');
-    }
+    if (toggler) { toggler.setAttribute('aria-expanded', 'false'); }
     const navbarRoot = document.querySelector('.portfolio-navbar');
-    if (navbarRoot) {
-      navbarRoot.classList.remove('menu-open');
-    }
+    if (navbarRoot) { navbarRoot.classList.remove('menu-open'); }
   }
 }

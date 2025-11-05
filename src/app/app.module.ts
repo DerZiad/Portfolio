@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { ProjectdescriptionComponent } from './projects/projectdescription/projectdescription.component';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EducationComponent } from './education/education.component';
@@ -14,6 +15,7 @@ import { UmiinformationsComponent } from './education/umiinformations/umiinforma
 import { ProfessionalexperienceComponent } from './professionalexperience/professionalexperience.component';
 import { FhaachenwerkstudentComponent } from './professionalexperience/fhaachenwerkstudent/fhaachenwerkstudent.component';
 import { MgmwerkstudentComponent } from './professionalexperience/mgmwerkstudent/mgmwerkstudent.component';
+import { routes } from "./Routes";
 
 @NgModule({
   declarations: [
@@ -33,9 +35,11 @@ import { MgmwerkstudentComponent } from './professionalexperience/mgmwerkstudent
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
