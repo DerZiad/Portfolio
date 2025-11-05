@@ -1,27 +1,60 @@
-# Ziadbougrine
+# Ziad Bougrine — Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.5.
+Personal portfolio site built with Angular. Contains projects, about, and contact sections. Designed for fast, accessible presentation and easy deployment.
 
-## Development server
+## Quick start
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Prerequisites
+- Node.js (16+ recommended)
+- npm
 
-## Code scaffolding
+Install dependencies:
+```bash
+npm install
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run development server:
+```bash
+npm start
+# opens on http://localhost:4200 by default
+```
 
-## Build
+Build for production:
+```bash
+npm run build
+# output placed in the `public/` folder (configurable in angular.json)
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Watch build (development):
+```bash
+npm run watch
+```
 
-## Running unit tests
+Note: This project does not include or require running tests.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Project structure (high level)
+- src/ — application source
+  - app/ — Angular components and modules
+  - assets/ — images and static assets
+  - styles.css — global styles
+- public/ — production build output
 
-## Running end-to-end tests
+## Scripts (from package.json)
+- npm start — runs `ng serve`
+- npm run build — builds the app for production
+- npm run watch — builds in watch mode for development
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Technologies
+- Angular
+- TypeScript
+- Bootstrap (CSS)
+- Zone.js
 
-## Further help
+## Contributing
+Open to improvements; create issues or send PRs. Keep changes small and focused.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
+This project is licensed under the MIT License — see the included LICENSE file for details.
+
+## Contact
+- Email: ziadbougrine@gmail.com
