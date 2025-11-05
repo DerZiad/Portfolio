@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { FormsModule } from "@angular/forms";
-import { ProjectdescriptionComponent } from './projects/projectdescription/projectdescription.component';
 import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { ResumeComponent } from './resume/resume.component';
@@ -18,7 +17,6 @@ import { routes } from "./Routes";
   declarations: [
     AppComponent,
     ProjectsComponent,
-    ProjectdescriptionComponent,
     HomeComponent,
     ResumeComponent,
     EducationComponent,
