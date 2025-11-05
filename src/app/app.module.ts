@@ -1,41 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
-import {FormsModule} from "@angular/forms";
-import { ProjectdescriptionComponent } from './projects/projectdescription/projectdescription.component';
-import {HttpClientModule} from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import { ResumeComponent } from './resume/resume.component';
 import { EducationComponent } from './education/education.component';
 import { FhaacheninformationsComponent } from './education/fhaacheninformations/fhaacheninformations.component';
 import { UmiinformationsComponent } from './education/umiinformations/umiinformations.component';
-import { ProfessionalexperienceComponent } from './professionalexperience/professionalexperience.component';
-import { FhaachenwerkstudentComponent } from './professionalexperience/fhaachenwerkstudent/fhaachenwerkstudent.component';
-import { MgmwerkstudentComponent } from './professionalexperience/mgmwerkstudent/mgmwerkstudent.component';
+import { routes } from "./Routes";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent,
-    ProjectdescriptionComponent,
     HomeComponent,
-    ProfileComponent,
+    ResumeComponent,
     EducationComponent,
     FhaacheninformationsComponent,
-    UmiinformationsComponent,
-    ProfessionalexperienceComponent,
-    FhaachenwerkstudentComponent,
-    MgmwerkstudentComponent,
+    UmiinformationsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    NgOptimizedImage
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

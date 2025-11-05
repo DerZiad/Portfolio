@@ -1,6 +1,6 @@
 /* Header / globals -------------------------------------------------------- */
 .linear-background{
-  background: #ffffff; /* white background for Career, Projects, Education, Skills, etc. */
+  background: #ffffff;
   color: #111111;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -58,7 +58,7 @@
 @keyframes fadeOutAnim { from { opacity: 1; } to { opacity: 0; } }
 
 /* Footer icons */
-.icona{
+.icon{
   font-size: 25px;
   padding-left: 4px;
   padding-right: 4px;
@@ -69,8 +69,6 @@
 .portfolio-navbar{
   background: #0b0b0b;
   color: #fff;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 4px 12px rgba(0,0,0,0.55);
   transition: background-color 450ms ease, transform 450ms ease; /* was 300ms -> 450ms */
@@ -79,6 +77,7 @@
 }
 .portfolio-navbar.scrolled { background: #0a0a0a; transform: translateY(-1px); }
 
+/* Branding */
 .navbar-brand.logo{
   font-weight: 700;
   letter-spacing: 0.2px;
@@ -91,6 +90,7 @@
 }
 .brand-dot{ width:8px; height:8px; background: #222; border-radius:50%; display:inline-block; box-shadow: 0 1px 4px rgba(0,0,0,0.6); }
 
+/* Toggler / hamburger */
 .navbar-toggler{ border: none; padding: 0.25rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
 .hamburger{ display: inline-block; width: 20px; height: 14px; position: relative; }
 .hamburger span{ position: absolute; left: 0; right: 0; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
@@ -128,210 +128,10 @@
 
 .skip-link{ color: rgba(255,255,255,0.75); font-weight: 600; }
 
-/* Mobile collapse panel adjustments */
-@media (max-width: 991.98px) {
-  .collapse.navbar-collapse { 
-    transition: transform 320ms ease, opacity 320ms ease; /* was 200ms -> 320ms */
-    background: #0b0b0b; padding: 1rem; border-radius: 8px; margin-top: 0.6rem; box-shadow: 0 10px 24px rgba(0,0,0,0.6); 
-  }
-  .navbar-nav .nav-link{ padding: 0.65rem 1rem; }
-  .collapse.navbar-collapse { position: absolute; top: 56px; left: 0; right: 0; z-index: 2050; margin: 0; border-radius: 0; padding: 1rem 1.25rem; transform-origin: top center; transition: transform 320ms ease, opacity 320ms ease; opacity: 0; pointer-events: none; }
-  .collapse.navbar-collapse.show { opacity: 1; pointer-events: auto; box-shadow: 0 18px 40px rgba(0,0,0,0.55); }
-  .collapse.navbar-collapse.show::before{ content: none; }
-  .navbar-nav { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
-  .navbar-nav .nav-link{ padding: 0.9rem 1rem; font-size: 1.05rem; border-radius: 8px; }
-}
-
-/* Hide hamburger and collapsed panel on small screens while intro is active */
-@media (max-width: 991.98px) {
-  .portfolio-navbar.intro-active .navbar-toggler {
-    display: none !important;
-  }
-
-  /* If the collapse panel was accidentally open, ensure it's hidden while intro is active */
-  .portfolio-navbar.intro-active .collapse.navbar-collapse {
-    display: none !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-}
-
-/* Hamburger open-state (uses aria-expanded toggle) */
-.navbar-toggler .hamburger { transition: transform 320ms ease; z-index: 2100; } /* was 220ms -> 320ms */
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-/* keep hamburger present and consistent if you prefer no X-animation */
-.navbar-toggler[aria-expanded="true"] .hamburger span { transform: none !important; opacity: 1 !important; transition: none !important; }
-
-/* Desktop layout fixes */
-@media (min-width: 992px) {
-  .navbar-toggler { display: none !important; }
-  .collapse.navbar-collapse { display: flex !important; flex-basis: auto; flex-grow: 0; visibility: visible !important; opacity: 1 !important; height: auto !important; pointer-events: auto !important; position: static !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
-  .navbar-nav { flex-direction: row; gap: 0.25rem; }
-  .navbar-nav .nav-item { display: flex; align-items: center; }
-  .navbar-nav .nav-link { padding: 0.5rem 0.8rem; }
-}
-
-/* Center included component hosts and their inner content ---------------- */
-:root { --navbar-height: 64px; }
-.page.lanidng-page { display: block; }
-
-/* Apply centering for component hosts */
-.page.lanidng-page > app-personalinformations,
-.page.lanidng-page > app-abstract,
-.page.lanidng-page > app-projects,
-.page.lanidng-page > app-education,
-.page.lanidng-page > app-languages,
-.page.lanidng-page > app-skills,
-.page.lanidng-page > app-specialskills,
-.page.lanidng-page > app-professionalexperience {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - var(--navbar-height));
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1.25rem;
-}
-
-/* Also ensure .linear-background centers its inner content */
-.linear-background {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - var(--navbar-height));
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1.25rem;
-}
-
-/* Slight responsive tweak for short viewports */
-@media (max-height: 600px) {
-  .page.lanidng-page > app-personalinformations,
-  .page.lanidng-page > app-abstract,
-  .page.lanidng-page > app-projects,
-  .page.lanidng-page > app-education,
-  .page.lanidng-page > app-languages,
-  .page.lanidng-page > app-skills,
-  .page.lanidng-page > app-specialskills,
-  .page.lanidng-page > app-professionalexperience,
-  .linear-background {
-    min-height: calc(100vh - (var(--navbar-height) * 0.9));
-    padding: 0.75rem;
-  }
-}
-
-/* Also ensure .linear-background centers its inner content */
-.linear-background {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - var(--navbar-height));
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1.25rem;
-}
-
-/* Slight responsive tweak for short viewports */
-@media (max-height: 600px) {
-  .page.lanidng-page > app-personalinformations,
-  .page.lanidng-page > app-abstract,
-  .page.lanidng-page > app-projects,
-  .page.lanidng-page > app-education,
-  .page.lanidng-page > app-languages,
-  .page.lanidng-page > app-skills,
-  .page.lanidng-page > app-specialskills,
-  .page.lanidng-page > app-professionalexperience,
-  .linear-background {
-    min-height: calc(100vh - (var(--navbar-height) * 0.9));
-    padding: 0.75rem;
-  }
-}
-/* hover and focus states */
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus{
-  color: #fff;
-  text-decoration: none;
-  background: rgba(255,255,255,0.02);
-}
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link:focus::after{
-  transform: scaleX(1);
-}
-
-/* active state (preserve existing .active-header behavior but make it modern) */
-.active-header,
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link.active.active-header{
-  color: #fff;
-  font-weight: 700;
-}
-.active-header::after,
-.navbar-nav .nav-link.active::after{
-  transform: scaleX(1);
-}
-
-/* subtle hover for the Skip link */
-.skip-link{
-  color: rgba(255,255,255,0.75);
-  font-weight: 600;
-}
-
-/* Mobile: make collapsed menu slightly elevated and readable */
+/* Responsive rules consolidated */
 @media (max-width: 991.98px) {
   .collapse.navbar-collapse {
-    background: #0b0b0b; /* match matte navbar */
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 0.6rem;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.6);
-  }
-
-  .navbar-nav .nav-link{
-    padding: 0.65rem 1rem;
-  }
-}
-
-/* Modern hamburger transform when menu is open (uses aria-expanded set by Bootstrap) */
-.navbar-toggler .hamburger {
-  transition: transform 320ms ease; /* was 220ms -> 320ms */
-  z-index: 2100;
-}
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* Ensure hamburger stays as three bars even when menu is open */
-.navbar-toggler[aria-expanded="true"] .hamburger span {
-  transform: none !important;
-  opacity: 1 !important;
-  transition: none !important; /* optional: disable X-animation */
-}
-
-/* keep spacing consistent when open */
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(1),
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(2),
-.navbar-toggler[aria-expanded="true"] .hamburger span:nth-child(3) {
-  top: auto;
-  /* reset any translated positions */
-  transform: none !important;
-}
-
-/* Mobile: make collapsed menu a prominent panel with backdrop */
-@media (max-width: 991.98px) {
-  .collapse.navbar-collapse {
-    transition: transform 320ms ease, opacity 320ms ease; /* was 200ms -> 320ms */
+    transition: transform 320ms ease, opacity 320ms ease;
     position: absolute;
     top: 56px;
     left: 0;
@@ -343,157 +143,42 @@
     transform-origin: top center;
     opacity: 0;
     pointer-events: none;
-    background: #0b0b0b; /* keep same matte black, do not darken further */
+    background: #0b0b0b;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.6);
   }
-
   .collapse.navbar-collapse.show {
     opacity: 1;
     pointer-events: auto;
     box-shadow: 0 18px 40px rgba(0,0,0,0.55);
-    background: #0b0b0b;
   }
-
-  /* remove semi-opaque pseudo-backdrop so page doesn't darken when menu opens */
-  .collapse.navbar-collapse.show::before{
-    content: none;
-  }
-
-  /* center and enlarge links for touch */
-  .navbar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    align-items: stretch;
-  }
-
-  .navbar-nav .nav-link{
-    padding: 0.9rem 1rem;
-    font-size: 1.05rem;
-    border-radius: 8px;
-  }
+  .navbar-nav { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+  .navbar-nav .nav-link{ padding: 0.9rem 1rem; font-size: 1.05rem; border-radius: 8px; }
+  .portfolio-navbar.intro-active .navbar-toggler { display: none !important; }
+  .portfolio-navbar.intro-active .collapse.navbar-collapse { display: none !important; opacity: 0 !important; pointer-events: none !important; }
 }
 
-/* apply hover effects only on devices that actually support hover (avoid touch devices) */
-@media (hover: hover) and (pointer: fine) {
-  .header-element:hover{
-    border-bottom: 3px solid white;
-    cursor: pointer;
-  }
-
-  .navbar-nav .nav-link:hover,
-  .navbar-nav .nav-link:focus{
-    color: #fff;
-    text-decoration: none;
-    background: rgba(255,255,255,0.02);
-  }
-  .navbar-nav .nav-link:hover::after,
-  .navbar-nav .nav-link:focus::after{
-    transform: scaleX(1);
-  }
-}
-
-/* Keep a default cursor for nav links on touch devices (no hover) */
-.header-element{
-  cursor: pointer;
-}
-/* apply hover effects only on devices that actually support hover (avoid touch devices) */
-@media (hover: hover) and (pointer: fine) {
-  .header-element:hover{
-    border-bottom: 3px solid white;
-    cursor: pointer;
-  }
-
-  .navbar-nav .nav-link:hover,
-  .navbar-nav .nav-link:focus{
-    color: #fff;
-    text-decoration: none;
-    background: rgba(255,255,255,0.02);
-  }
-  .navbar-nav .nav-link:hover::after,
-  .navbar-nav .nav-link:focus::after{
-    transform: scaleX(1);
-  }
-}
-
-/* Keep a default cursor for nav links on touch devices (no hover) */
-.header-element{
-  cursor: pointer;
-}
-
-/* Desktop (computer) layout: hide hamburger and force collapsed menu visible */
+/* Desktop defaults (>=992px) */
 @media (min-width: 992px) {
-  /* hide toggler on desktop */
-  .navbar-toggler {
-    display: none !important;
-  }
-
-  /* ensure collapse is visible and behaves like a normal navbar on desktop */
-  .collapse.navbar-collapse {
-    display: flex !important;
-    flex-basis: auto;
-    flex-grow: 0;
-    visibility: visible !important;
-    opacity: 1 !important;
-    height: auto !important;
-    pointer-events: auto !important;
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-  }
-
-  /* layout nav items horizontally on desktop */
-  .navbar-nav {
-    flex-direction: row;
-    gap: 0.25rem;
-  }
-
-  .navbar-nav .nav-item {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-nav .nav-link {
-    padding: 0.5rem 0.8rem;
-  }
+  .navbar-toggler { display: none !important; }
+  .collapse.navbar-collapse { display: flex !important; position: static !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; opacity: 1 !important; pointer-events: auto !important; }
+  .navbar-nav { flex-direction: row; gap: 0.25rem; }
+  .navbar-nav .nav-item { display: flex; align-items: center; }
+  .navbar-nav .nav-link { padding: 0.5rem 0.8rem; }
 }
 
-/* Center included component hosts and their inner content
-   - Account for fixed navbar height so centering is within remaining viewport.
-   - Apply to both host element selectors (app-*) and to the .linear-background class used on many components.
-*/
-:root {
-  --navbar-height: 64px; /* adjust if your navbar has a different height (common values: 56, 64) */
-}
+/* Page layout helpers ---------------------------------------------------- */
+:root { --navbar-height: 64px; }
+.page.landing-page { display: block; }
 
-/* Ensure main page behaves as a full-height column */
-.page.lanidng-page {
-  display: block; /* keep default flow for intro overlay and footer; individual components will use flex */
-}
-
-/* Center the component host elements when they are visible */
-.page.lanidng-page > app-personalinformations,
-.page.lanidng-page > app-abstract,
-.page.lanidng-page > app-projects,
-.page.lanidng-page > app-education,
-.page.lanidng-page > app-languages,
-.page.lanidng-page > app-skills,
-.page.lanidng-page > app-specialskills,
-.page.lanidng-page > app-professionalexperience {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - var(--navbar-height));
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1.25rem;
-}
-
-/* Also ensure .linear-background components center their inner content */
+/* Center included component hosts and their inner content */
+.page.landing-page > app-personalinformations,
+.page.landing-page > app-abstract,
+.page.landing-page > app-projects,
+.page.landing-page > app-education,
+.page.landing-page > app-languages,
+.page.landing-page > app-skills,
+.page.landing-page > app-specialskills,
+.page.landing-page > app-professionalexperience,
 .linear-background {
   display: flex;
   flex-direction: column;
@@ -505,25 +190,25 @@
   padding: 1.25rem;
 }
 
-/* Responsive tweak for very small viewports: reduce min-height so content isn't forced out of view */
+/* Responsive tweak for very short viewports */
 @media (max-height: 600px) {
-  .page.lanidng-page > app-personalinformations,
-  .page.lanidng-page > app-abstract,
-  .page.lanidng-page > app-projects,
-  .page.lanidng-page > app-education,
-  .page.lanidng-page > app-languages,
-  .page.lanidng-page > app-skills,
-  .page.lanidng-page > app-specialskills,
-  .page.lanidng-page > app-professionalexperience,
+  .page.landing-page > app-personalinformations,
+  .page.landing-page > app-abstract,
+  .page.landing-page > app-projects,
+  .page.landing-page > app-education,
+  .page.landing-page > app-languages,
+  .page.landing-page > app-skills,
+  .page.landing-page > app-specialskills,
+  .page.landing-page > app-professionalexperience,
   .linear-background {
     min-height: calc(100vh - (var(--navbar-height) * 0.9));
     padding: 0.75rem;
   }
 }
 
-/* Fixed-size footer to avoid varying heights across tabs */
+/* Footer and host layout ------------------------------------------------- */
 .page-footer{
-  height: 64px;        /* fixed height */
+  height: 64px;
   min-height: 64px;
   max-height: 64px;
   display: flex;
@@ -531,62 +216,25 @@
   justify-content: center;
   padding: 0 1.25rem;
   box-sizing: border-box;
-  overflow: hidden;    /* prevent children from increasing footer size */
+  overflow: hidden;
   background: transparent;
 }
-
-/* Ensure the bootstrap row/col inside the footer do not add extra spacing */
 .page-footer .row { width: 100%; margin: 0; }
-.page-footer .col-md-12 {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
+.page-footer .col-md-12 { display: flex; gap: 8px; align-items: center; justify-content: center; padding: 0; }
+.page-footer .icon { font-size: 22px; line-height: 1; display: inline-block; vertical-align: middle; }
 
-/* Slightly reduce footer icon size so they reliably fit in fixed height */
-.page-footer .icona {
-  font-size: 22px; /* previously 25px, reduced for consistent fit */
-  line-height: 1;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-/* Small-screen adjustments: allow icons to wrap and increase height if needed */
 @media (max-width: 400px) {
-  .page-footer {
-    height: 80px;      /* allow a bit more room on very small screens */
-    min-height: 80px;
-    padding: 0 0.75rem;
-  }
-  .page-footer .col-md-12 {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .page-footer .icona {
-    font-size: 20px;
-  }
+  .page-footer { height: 80px; min-height: 80px; padding: 0 0.75rem; }
+  .page-footer .col-md-12 { flex-wrap: wrap; gap: 6px; }
+  .page-footer .icon { font-size: 20px; }
 }
 
-/* Make the app root behave as a column so footer can stick to the bottom */
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+/* Host layout helpers */
+:host { display: flex; flex-direction: column; min-height: 100vh; }
+main.page.landing-page { flex: 1 0 auto; }
+.page-footer { flex-shrink: 0; }
 
-/* Let main content grow to fill available space and push footer down */
-main.page.lanidng-page {
-  flex: 1 0 auto;
-}
-
-/* Ensure footer does not shrink and remains at bottom */
-.page-footer {
-  flex-shrink: 0;
-}
-
-/* Ensure interactive navbar elements use the pointer (hand) cursor instead of text caret */
+/* Interactive cursor hints */
 .navbar-brand.logo,
 .navbar-nav .nav-link,
 .navbar-toggler,
@@ -595,3 +243,5 @@ main.page.lanidng-page {
 .portfolio-navbar .brand-dot {
   cursor: pointer !important;
 }
+
+/* ...existing code... (preserve any other project-specific rules) ... */
