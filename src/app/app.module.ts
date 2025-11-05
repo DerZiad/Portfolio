@@ -12,6 +12,7 @@ import { EducationComponent } from './education/education.component';
 import { FhaacheninformationsComponent } from './education/fhaacheninformations/fhaacheninformations.component';
 import { UmiinformationsComponent } from './education/umiinformations/umiinformations.component';
 import { routes } from "./Routes";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { routes } from "./Routes";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgOptimizedImage
   ],
   providers: [
   ],

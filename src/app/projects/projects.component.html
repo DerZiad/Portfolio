@@ -1,45 +1,60 @@
 <section id="projects" class="portfolio-block" >
-  <div class="container">
-    <div class="heading">
-      <h2 class="text-color">Projects</h2>
-    </div>
-    <div class="row" style="margin-bottom: 25px;margin-left: 15px">
-      <div class="col-md-2 label">
-        Project Type :
-      </div>
-      <div class="col-md-6">
-        <select class="form-select" name="type" [(ngModel)]="selectedTypeOfProject">
-          <!-- changed: generate options from component.projectTypes -->
-          <option *ngFor="let t of projectTypes" [value]="t">{{ t === 'All' ? 'All Projects' : t }}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-4 col-sm-12 box-height" *ngFor="let dataEntity of filter(data); let i = index" style="padding: 10px">
-          <div class="card project-card">
-            <div class="card-header project-card-header">
-              <h1 class="project-card-header-title">{{ dataEntity.name }}</h1>
-            </div>
-            <div class="card-img">
-              <img class="project-image" src="{{ dataEntity.image }}"/>
-            </div>
-            <div class="card-body">
-              <p class="data-items text-color" *ngFor="let i of getKeys(dataEntity.data)"><span class="data-items-span project-item-key">{{i}}
-                : </span><span class="project-item-value">{{getValue(dataEntity.data, i)}}</span></p>
-            </div>
-            <div class="card-footer card-footer-box">
-              <div class="row" style="justify-content: center">
-                <button class="project-card-show-more-btn" (click)="goToLink(dataEntity)" [disabled]="!dataEntity.link" aria-label="Open project link">
-                  <span class="visually-hidden">Open project</span>
-                  <span class="btn-arrow">&gt;</span>
-                </button>
+   <div class="container">
+     <div class="row" style="margin-bottom: 20px; margin-left: 15px; align-items: center;">
+       <div class="col-md-12">
+         <div class="type-tabs" role="tablist" aria-label="Project types">
+           <button *ngFor="let t of projectTypes"
+                   class="type-tab"
+                   [class.active]="selectedTypeOfProject === t"
+                   (click)="selectType(t)"
+                   type="button"
+                   role="tab"
+                   [attr.aria-selected]="selectedTypeOfProject === t">
+             {{ t === 'All' ? 'All' : t }}
+           </button>
+         </div>
+       </div>
+     </div>
+     <div class="container-fluid">
+       <div class="row">
+         <div class="col-md-4 col-sm-12 box-height" *ngFor="let dataEntity of filter(data); let i = index" style="padding: 10px">
+          <div class="project-block" (click)="goToLink(dataEntity)" role="button" tabindex="0" (keydown.enter)="goToLink(dataEntity)">
+            <div class="image-wrap">
+              <img ngSrc="/assets/img/project.png" alt="{{dataEntity.name}} thumbnail" class="project-image" loading="lazy"
+                   height="1031" width="1900"/>
+              <div class="eye-icon" role="link" tabindex="0" (click)="openInNewTab(dataEntity, $event)" (keydown.enter)="openInNewTab(dataEntity, $event)" aria-hidden="false">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                </svg>
               </div>
+            </div>
+            <div class="title-row">
+              <div class="project-title">{{ dataEntity.name }}</div>
+            </div>
+            <div class="project-type">
+              <ng-container [ngSwitch]="dataEntity.type">
+                <svg *ngSwitchCase="'AI'" class="type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M12 2a2 2 0 0 0-2 2v1H8a2 2 0 0 0-2 2v1H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-0V8a2 2 0 0 0-2-2h-2V4a2 2 0 0 0-2-2zm0 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-4 8a4 4 0 0 0 8 0H8z"/>
+                </svg>
+                <svg *ngSwitchCase="'Security'" class="type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zM11 11h2v5h-2v-5z"/>
+                </svg>
+                <svg *ngSwitchCase="'Web'" class="type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-3.07a15.9 15.9 0 0 1-1.12 4.24A8 8 0 0 0 17 13zm-5 7c-.7 0-1.38-.07-2.03-.2.43-1.1.86-2.68 1.13-4.8H12c1.1 0 2 .9 2 2s-.9 2-2 2h.05c-.15.99-.35 1.93-.6 2.99C12.39 20.98 12.2 21 12 21zm-4.9-2.76A15.9 15.9 0 0 1 8.93 13H6a8 8 0 0 0 1.1 5.24zM6 11h3.07c.2-2.12.67-3.7 1.09-4.8A8 8 0 0 0 6 11z"/>
+                </svg>
+                <svg *ngSwitchCase="'Robotics'" class="type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M20 8h-1V6a2 2 0 0 0-2-2h-2V3H9v1H7a2 2 0 0 0-2 2v2H4a1 1 0 0 0-1 1v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a1 1 0 0 0-1-1zM8 6h8v2H8V6zM7 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <svg *ngSwitchDefault class="type-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M9 3v2H5v14h14V5h-4V3h-6zM7 7h10v10H7V7z"/>
+                </svg>
+              </ng-container>
+              <span class="type-text">{{ dataEntity.type }}</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+       </div>
+     </div>
+   </div>
+ </section>
