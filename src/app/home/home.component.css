@@ -43,7 +43,6 @@
   padding-top: 0;
   max-height: calc(100vh - 24px);
   transform: translateX(var(--home-offset-x));
-  transition: transform 240ms ease;
 }
 
 .hero-content{
@@ -78,9 +77,8 @@
   box-shadow:
     0 40px 100px var(--shadow),
     0 12px 32px var(--soft-shadow);
-  transition: transform 520ms cubic-bezier(.2,.9,.2,1), box-shadow 420ms ease, opacity 420ms ease;
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
 
 .headline{
@@ -124,7 +122,6 @@
   border: none;
   background: transparent;
   color: var(--text);
-  transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
 }
 
 .btn-primary{
@@ -149,7 +146,6 @@
 .hero .role .hacker-color {
   color: var(--hacker-green, #29b81f);
   font-weight: 700;
-  transition: color 180ms ease;
 }
 
 .caret.hacker-color,
@@ -157,29 +153,6 @@
   color: var(--hacker-green, #29b81f);
   opacity: 1;
 }
-
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.animate-item{ animation: fadeSlideUp 540ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 120ms; }
-.animate-item:nth-of-type(1){ animation-delay: 140ms; }
-.animate-item:nth-of-type(2){ animation-delay: 220ms; }
-.animate-item:nth-of-type(3){ animation-delay: 300ms; }
-.animate-item:nth-of-type(4){ animation-delay: 380ms; }
-
-.animate-avatar{ animation: fadeSlideUp 640ms cubic-bezier(.2,.9,.2,1) forwards; animation-delay: 260ms; }
-
-.animate-avatar .portrait{ opacity: 1; transform: translateY(0) scale(1); }
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
-}
-
-.hero-media:hover .portrait { transform: translateY(0) scale(1); box-shadow: 0 40px 100px var(--shadow); }
 
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus { outline: none; }
@@ -203,17 +176,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .hero-inner {
     transform: none;
   }
-}
-
-@media (max-height: 700px){
-  .portrait{ height: calc(100vh - 220px); width: auto; }
-}
-
-@media (max-height: 700px){
-  .portrait{ height: calc(100vh - 220px); width: auto; }
-}
-@media (max-height: 700px){
-  .portrait{ height: calc(100vh - 220px); width: auto; }
 }
 
 @media (max-height: 700px){

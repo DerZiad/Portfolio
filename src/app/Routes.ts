@@ -5,6 +5,6 @@ import {ProjectsComponent} from "./projects/projects.component";
 
 export const routes:Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'abstract', component: ResumeComponent },
+  { path: 'resume', component: ResumeComponent },
   { path: 'projects', component: ProjectsComponent }
 ];

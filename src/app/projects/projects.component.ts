@@ -15,7 +15,7 @@ export class ProjectsComponent implements OnInit {
       "name": "Sound Manager",
       "type": "AI",
       "link": "https://github.com/DerZiad/SoundManager",
-      "exist_on_github": true
+      "exist_on_github": false
     },
     {
       "name": "Pentest Me",
@@ -69,13 +69,13 @@ export class ProjectsComponent implements OnInit {
       "name": "Virtual Mouse",
       "type": "AI",
       "link": "https://github.com/DerZiad/VirtualMouse",
-      "exist_on_github": true
+      "exist_on_github": false
     },
     {
       "name": "Sound Manager",
       "type": "AI",
       "link": "https://github.com/DerZiad/SoundManager",
-      "exist_on_github": true
+      "exist_on_github": false
     },
     {
       "name": "Deliberation",
@@ -89,9 +89,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const types = Array.from(new Set(this.data
-      .map(item => item.type)
-      .filter(t => typeof t === 'string' && t.trim().length > 0)
+    const types = Array.from(new Set(
+      this.data
+        .filter(item => item.exist_on_github)
+        .map(item => item.type)
+        .filter(t => t.trim().length > 0)
     ));
     this.projectTypes = ['All', ...types];
   }
@@ -112,7 +114,8 @@ export class ProjectsComponent implements OnInit {
 
   filter(dict: any) {
     if (!Array.isArray(dict)) return [];
-    if (this.selectedTypeOfProject === 'All') return dict;
-    return dict.filter((element: any) => element.type === this.selectedTypeOfProject)
+    // always exclude projects that do not exist on GitHub
+    if (this.selectedTypeOfProject === 'All') return dict.filter((element: any) => element.exist_on_github);
+    return dict.filter((element: any) => element.type === this.selectedTypeOfProject && element.exist_on_github)
   }
 }

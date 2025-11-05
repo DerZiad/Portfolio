@@ -1,23 +1,24 @@
 <section id="home" class="hero" aria-label="Home">
   <div class="hero-inner">
     <div class="hero-content">
-      <h1 class="headline animate-item">Hello,</h1>
-      <h1 class="headline animate-item">I'm Ziad Bougrine</h1>
-      <p class="subheadline animate-item">Full‑stack developer building fast, accessible web experiences</p>
+      <h1 class="headline">Hello,</h1>
+      <h1 class="headline">I'm Ziad Bougrine</h1>
+      <p class="subheadline">Full‑stack developer building fast, accessible web experiences</p>
 
-      <p class="role animate-item">
+      <p class="role">
         <span class="role-prefix">I am a</span>
         <span class="hacker-color" aria-live="polite" role="status">{{animatedText}}</span><span class="caret hacker-color" aria-hidden="true">{{cursor}}</span>
       </p>
 
-      <div class="actions animate-item" role="group" aria-label="Primary actions">
+      <div class="actions" role="group" aria-label="Primary actions">
         <a class="btn btn-primary" href="mailto:ziadbougrine@gmail.com" aria-label="Contact Ziad">Contact</a>
-        <button class="btn btn-secondary" (click)="navigateToProfile($event)" aria-label="View profile">View Resume</button>
+        <a class="btn btn-secondary" routerLink="/resume" aria-label="View resume">View Resume</a>
       </div>
     </div>
 
-    <div class="hero-media animate-avatar" aria-hidden="false" aria-label="Portrait of Ziad">
-      <img src="/assets/img/avatars/avatar_no_background.png" alt="Ziad Bougrine portrait" class="portrait" loading="lazy" decoding="async">
+    <div class="hero-media" aria-hidden="false" aria-label="Portrait of Ziad">
+      <img ngSrc="/assets/img/avatars/avatar_no_background.png" alt="Ziad Bougrine portrait" class="portrait" loading="lazy" decoding="async"
+           height="4032" width="4188">
     </div>
   </div>
 </section>
