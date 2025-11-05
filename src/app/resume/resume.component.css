@@ -142,34 +142,97 @@
   .progress { width:140px; height:10px }
   .skill-name { flex-basis:100% }
   .skill-meta { width:100%; justify-content:space-between }
+
+  .quick-meta {
+    align-self: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .quick-meta .info-card {
+    width: auto;
+  }
+
+  .profile-card {
+    max-width: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+
+  .quick-meta .info-card,
+  .profile-left > .info-card {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+
+  .visit-card {
+    width: 100%;
+  }
+  .visit-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 @media (max-width:480px) {
   .profile-card { padding:14px; margin-bottom:18px }
   .profile-left { width:100%; align-items:flex-start; text-align:left; padding-bottom:8px }
-  .avatar-wrapper { width:140px; height:140px; margin:0 auto 12px }
-  .avatar { width:120px; height:120px }
+  .avatar-wrapper { width:192px; height:192px; margin:0 auto 12px }
+  .avatar { width:172px; height:172px }
   .visit-item { flex-direction:column; align-items:flex-start; gap:6px; padding:8px 6px }
+  .visit-top { text-align: center; }
+  .visit-name, .visit-title { text-align: center; }
   .visit-top { text-align:left; width:100% }
   .visit-label { font-size:13px; font-weight:700; text-align:left }
   .visit-value { font-size:14px; text-align:left; width:100%; white-space:normal; overflow:visible }
   .visit-value a { word-break:break-word }
   .actions { margin-top:12px; justify-content:center; width:100%; padding:6px 0 }
   .btn-download { width:100%; min-height:48px; padding:12px 14px; font-size:15px; border-radius:10px; box-shadow:0 8px 22px rgba(13,110,253,0.12) }
-  .languages { width:100%; align-items:stretch }
-  .language-item { width:100%; max-width:none }
-  .lang-bar { height:14px }
-  .lang-fill { transition:width .5s ease }
-  .lang-level { font-size:12px }
-  .chips { justify-content:flex-start; gap:8px }
-  .chip { font-size:13px; padding:8px 10px; border-radius:10px; min-width:96px; text-align:center; white-space:nowrap }
-  .abstract-title { font-size:20px; text-align:left }
-  .abstract-text { font-size:14px; line-height:1.5; text-align:left }
-  .section-subtitle { font-size:14px; text-align:left }
-  .company-card { padding:10px }
-  .company-bullets { font-size:13px; line-height:1.45 }
-  .visit-top { padding:8px 6px }
-  .visit-name { font-size:17px; text-align:left }
-  .visit-title { font-size:13px; text-align:left }
-  .tech-categories { gap:8px }
+  .languages { width:100%; align-items:stretch; align-items: center; text-align: center }
+  .languages-title { text-align: center; width: 100% }
+  .language-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .lang-label { justify-content: center; gap: 8px; width: 100% }
+  .lang-bar { width: 85%; max-width: 300px; margin: 0 auto }
+
+  .lang-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    margin-right: 8px;
+    font-size: 22px;
+    line-height: 1;
+    font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Segoe UI Symbol",sans-serif;
+  }
+
+  .visit-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .visit-label { text-align: left; flex: 0 0 auto; }
+  .visit-value {
+    width: auto;
+    flex: 0 0 auto;
+    text-align: right;
+    white-space: nowrap;
+    overflow: visible;
+  }
 }
