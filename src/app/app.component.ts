@@ -9,12 +9,10 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'ziadbougrine';
 
-  // intro overlay state
   introVisible = true;
   introIndex = 0;
   readonly introStepsCount = 5;
 
-  // navbar state
   navbarExpanded = false;
 
   private documentClickListener: (() => void) | null = null;
@@ -37,11 +35,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // listen for clicks/touches on the whole document to detect outside clicks
     this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => this.handleOutsideClick(event));
     this.documentTouchListener = this.renderer.listen('document', 'touchstart', (event: Event) => this.handleOutsideClick(event));
 
-    // observe collapse element to mirror its "show" state into the navbar root
     const collapseEl = document.querySelector('.collapse.navbar-collapse');
     const navbarRoot = document.querySelector('.portfolio-navbar');
     if (collapseEl && navbarRoot) {
@@ -97,7 +93,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     try {
       localStorage.setItem(this.INTRO_SEEN_KEY, 'true');
     } catch {
-      // ignore storage errors
     }
   }
 
