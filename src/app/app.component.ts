@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 
 @Component({
