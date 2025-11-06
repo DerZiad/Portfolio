@@ -1,39 +1,108 @@
 <section class="portfolio-block" id="education">
   <div class="container">
-    <div class="heading" *ngIf="!(showDataActiveUMI || showDataActiveFHAachen)">
+    <header class="heading">
       <h2>Education</h2>
-    </div>
-    <div class="row" *ngIf="!(showDataActiveUMI || showDataActiveFHAachen)">
-      <div class="col-md-6" (click)="showMore('umi')">
-        <div class="card special-skill-item cancel-background card-education-box">
-          <div class="card-header card-education-image-university-moulay-ismail-meknes mx-auto">
-          </div>
-          <div class="card-body card-education-text">
-            <h3 class="card-title">University Moulay ismail Mèknes - Morocco <i class="flag flag-ma"></i></h3>
+    </header>
+    <nav class="timeline" aria-label="Education timeline">
+      <ul class="timeline-list">
+        <canvas #timelineCanvas class="timeline-canvas" aria-hidden="true"></canvas>
+        <li *ngFor="let edu of educations; let i = index" class="timeline-item" #itemRef>
+          <article
+            class="card timeline-card"
+            role="button"
+            tabindex="0"
+            (click)="navigateTo(edu.id)"
+            (keydown)="onKeydown($event, edu.id, i)"
+            [attr.data-id]="edu.id"
+          >
+            <div
+              class="logo card-logo"
+              [ngStyle]="{'background-image': 'url(' + edu.logo + ')'}"
+              role="img"
+              [attr.aria-label]="edu.name + ' logo'"
+            ></div>
 
-            <div class="card-text card-education-text">
-              <p class="text-color">2019 - 2022</p>
-              <p class="text-color"><b> Bachelor's degree</b>, Mathematics and computer science</p>
-              <p></p>
+            <div class="card-content">
+              <h3 class="university-name">{{ edu.name }}</h3>
+              <p class="degree">{{ edu.field }}</p>
+              <p class="years">{{ edu.years }}</p>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div
+    class="edu-modal-backdrop"
+    *ngIf="modalOpen"
+    (click)="closeModal()"
+    aria-hidden="true"
+  ></div>
+
+  <aside
+    class="edu-modal"
+    *ngIf="modalOpen"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="'edu-title-' + selectedEducation?.id"
+    tabindex="-1"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="edu-modal-header">
+      <div class="edu-meta">
+        <img class="edu-logo" [src]="selectedEducation?.logo" [alt]="selectedEducation?.name + ' logo'"/>
+        <div class="edu-title">
+          <h3 id="{{'edu-title-' + selectedEducation?.id}}">{{ selectedEducation?.name }}</h3>
+          <div class="edu-sub">
+            <span class="edu-field">{{ selectedEducation?.field }}</span>
+            <span class="edu-years">{{ selectedEducation?.years }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="edu-actions">
+        <button type="button" class="btn-close header-close" (click)="closeModal()" aria-label="Close details">✕</button>
+      </div>
+    </header>
+
+    <div class="edu-body">
+      <section class="edu-left">
+        <nav class="semester-tabs" role="tablist" aria-label="Semesters">
+          <button
+            *ngFor="let sem of selectedEducation?.semesters; let si = index"
+            class="tab"
+            [class.active]="si === currentSemesterIndex"
+            (click)="selectSemester(si)"
+            role="tab"
+            [attr.aria-selected]="si === currentSemesterIndex"
+          >
+            {{ sem.name }}
+          </button>
+        </nav>
+
+        <div class="semester-content" *ngIf="selectedEducation?.semesters?.length">
+          <h5 class="semester-name">{{ selectedEducation.semesters[currentSemesterIndex].name }}</h5>
+
+          <h6 class="section-title">Modules</h6>
+          <div class="module-list">
+            <div *ngFor="let m of selectedEducation.semesters[currentSemesterIndex].modules" class="module">
+              • {{ m }}
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6" (click)="showMore('fh')">
-        <div class="card special-skill-item cancel-background card-education-box">
-          <div class="card-header card-education-image-fh-aachen mx-auto">
-          </div>
-          <div class="card-body card-education-text">
-            <h3 class="card-title">FH Aachen - Germany</h3>
-            <p class="card-text text-color">2022 - 2024</p>
-            <p class="text-color"><b> Bachelor's degree</b>, Computer software engineering</p>
+
+          <h6 class="section-title">Technical stack</h6>
+          <div class="tech-stack">
+            <span class="chip" *ngFor="let t of selectedEducation.semesters[currentSemesterIndex].techStack">{{ t }}</span>
           </div>
         </div>
-      </div>
+      </section>
     </div>
 
-    <app-fhaacheninformations *ngIf="showDataActiveFHAachen" (closeAction)="onChildCloseChanged('fh',$event)"></app-fhaacheninformations>
-    <app-umiinformations *ngIf="showDataActiveUMI" (closeAction)="onChildCloseChanged('umi',$event)"></app-umiinformations>
-
-  </div>
+    <footer class="edu-modal-footer">
+      <button type="button" class="btn-close footer-close" (click)="closeModal()" aria-label="Close details">
+        <span class="close-label">Close</span>
+      </button>
+      <button type="button" class="btn-primary" (click)="viewPage(selectedEducation?.id)" aria-label="Visit university">Visit University</button>
+    </footer>
+  </aside>
 </section>

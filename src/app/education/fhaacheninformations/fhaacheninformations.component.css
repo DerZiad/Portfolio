@@ -151,7 +151,7 @@ section{
 }
 
 .card-education-image-fh-aachen{
-  background-image:url('/assets/img/logo/fh-aachen.png');
+  background-image:url('/src/assets/img/logo/fh.png');
   background-repeat: no-repeat;
   background-size: cover;
   height: 200px;
