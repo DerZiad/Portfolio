@@ -7,6 +7,9 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { ResumeComponent } from './resume/resume.component';
+import { EducationComponent } from './education/education.component';
+import { FhaacheninformationsComponent } from './education/fhaacheninformations/fhaacheninformations.component';
+import { UmiinformationsComponent } from './education/umiinformations/umiinformations.component';
 import { routes } from "./Routes";
 import {NgOptimizedImage} from "@angular/common";
 
@@ -15,7 +18,10 @@ import {NgOptimizedImage} from "@angular/common";
     AppComponent,
     ProjectsComponent,
     HomeComponent,
-    ResumeComponent
+    ResumeComponent,
+    EducationComponent,
+    FhaacheninformationsComponent,
+    UmiinformationsComponent
   ],
   imports: [
     BrowserModule,
