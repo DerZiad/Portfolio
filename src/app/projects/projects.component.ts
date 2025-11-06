@@ -12,6 +12,12 @@ export class ProjectsComponent implements OnInit {
 
   data = [
     {
+      "name": "Portfolio",
+      "type": "Web",
+      "link": "https://github.com/DerZiad/Portfolio",
+      "exist_on_github": true
+    },
+    {
       "name": "Sound Manager",
       "type": "AI",
       "link": "https://github.com/DerZiad/SoundManager",
