@@ -12,6 +12,12 @@ export class ProjectsComponent implements OnInit {
 
   data = [
     {
+      "name": "GNPT-ARP-Spoof-Visualizer",
+      "type": "Security",
+      "link": "https://github.com/DerZiad/GNPT-ARP-Spoof-Visualizer",
+      "exist_on_github": true
+    },
+    {
       "name": "Portfolio",
       "type": "Web",
       "link": "https://github.com/DerZiad/Portfolio",
@@ -36,7 +42,7 @@ export class ProjectsComponent implements OnInit {
       "exist_on_github": true
     },
     {
-      "name": "E-Learning",
+      "name": "E-Learning Platform",
       "type": "Web",
       "link": "https://github.com/DerZiad/elearning",
       "exist_on_github": true
@@ -48,27 +54,27 @@ export class ProjectsComponent implements OnInit {
       "exist_on_github": true
     },
     {
-      "name": "Study Paper of diabetics",
+      "name": "Diabetic Patients Classification Project",
       "type": "AI",
-      "link": "https://github.com/DerZiad/Diabetic",
+      "link": "https://github.com/DerZiad/AI-Based-Diabetic-Patient-Classification",
       "exist_on_github": true
     },
     {
       "name": "Line Tracker",
       "type": "Robotics",
-      "link": "https://github.com/DerZiad/LineTrackerArduino",
+      "link": "https://github.com/DerZiad/LineTracker",
       "exist_on_github": true
     },
     {
-      "name": "Rubber Ducky Using Arduino",
+      "name": "Shell Auto Execute (Arduino Leonardo HID Emulator)",
       "type": "Security",
-      "link": "https://github.com/DerZiad/ShellAutoExecuteUSB",
+      "link": "https://github.com/DerZiad/HID-Script-Trigger",
       "exist_on_github": true
     },
     {
-      "name": "Car Location Website",
+      "name": "Car Rental",
       "type": "Web",
-      "link": "https://github.com/DerZiad/CarLocationWebsite",
+      "link": "https://github.com/DerZiad/CarRental",
       "exist_on_github": true
     },
     {
