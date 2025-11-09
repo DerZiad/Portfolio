@@ -33,7 +33,6 @@
 .timeline-list {
   list-style: none;
   padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -41,7 +40,6 @@
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding-left: 0;
   position: relative;
 }
 
@@ -249,30 +247,11 @@
   box-shadow: none !important;
 }
 
-.btn-close.footer-close {
-  width: auto;
-  height: 40px;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: #0b0b0b;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 24px rgba(2,6,23,0.24);
-  padding-right: 12px;
-}
-
 .btn-close.footer-close .close-icon { display: none !important; }
 
 .btn-close.footer-close {
   width: auto;
   height: 40px;
-  padding: 8px 14px;
   border-radius: 10px;
   font-size: 0.95rem;
   font-weight: 600;
@@ -284,7 +263,7 @@
   color: #fff;
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: 0 8px 24px rgba(2,6,23,0.24);
-  padding-right: 12px;
+  padding: 8px 12px 8px 14px;
 }
 
 .btn-close.footer-close .close-icon {
@@ -572,7 +551,6 @@
     border-radius: 12px !important;
     font-size: 1rem !important;
     gap: 8px !important;
-    padding-right: 16px !important;
   }
 
   .btn-primary {

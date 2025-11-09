@@ -333,23 +333,9 @@ export class EducationComponent implements AfterViewInit, OnDestroy {
   }
 
   navigateTo(id: string) {
-    const exists = this.educations.find(e => e.id === id);
-    if (exists) {
+    const edu = this.educations.find(e => e.id === id);
+    if (edu && Array.isArray(edu.semesters) && edu.semesters.length) {
       this.openModal(id);
-      return;
-    }
-    this.router.navigate(['/education', id]);
-  }
-
-  viewPage(id?: string | null) {
-    if (!id) { return; }
-    const map: Record<string, string> = {
-      'umi': 'https://www.umi.ac.ma',
-      'fh': 'https://www.fh-aachen.de'
-    };
-    const url = map[id];
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
       return;
     }
     this.router.navigate(['/education', id]);
@@ -451,13 +437,11 @@ export class EducationComponent implements AfterViewInit, OnDestroy {
     this.currentSemesterIndex = 0;
     this.modalOpen = true;
     document.body.style.overflow = 'hidden';
-    // attach keyboard handler
     document.addEventListener('keydown', this.modalKeyHandler);
-    // small timeout to allow DOM and then focus
     setTimeout(() => {
       const modal = document.querySelector('.edu-modal') as HTMLElement | null;
       if (modal) modal.focus();
-      this.drawTimeline(); // redraw timeline in case layout changed
+      this.drawTimeline();
     }, 60);
   }
 
@@ -466,7 +450,6 @@ export class EducationComponent implements AfterViewInit, OnDestroy {
     this.selectedEducation = null;
     document.body.style.overflow = 'auto';
     document.removeEventListener('keydown', this.modalKeyHandler);
-    // restore focus
     try { (this.prevFocusedElement as HTMLElement)?.focus(); } catch {}
   }
 
