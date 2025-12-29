@@ -26,10 +26,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/assets/fonts/ionicons.min.css",
+              "node_modules/pikaday/css/pikaday.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/pikaday/pikaday.js"
             ]
           },
           "configurations": {
