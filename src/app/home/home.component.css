@@ -67,16 +67,15 @@
 }
 
 .portrait{
-  width: auto;
-  height: min(52vh, calc(100vh - 180px));
-  max-width: 44vw;
-  max-height: calc(100vh - 180px);
+  width: min(48vw, 520px);
+  height: min(70vh, calc(100vh - 200px));
+  max-height: 760px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 8%;
   display: block;
   box-shadow:
-    0 40px 100px var(--shadow),
-    0 12px 32px var(--soft-shadow);
+    0 30px 80px var(--shadow),
+    0 10px 28px var(--soft-shadow);
   opacity: 1;
   transform: none;
 }
@@ -170,8 +169,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .subheadline{ font-size: clamp(14px, 3.2vw, 18px); }
   .role{ font-size: clamp(16px, 3.2vw, 20px); }
   .portrait{
-    height: min(48vh, calc(100vh - 180px));
-    max-width: 80vw;
+    width: min(88vw, 420px);
+    height: auto;
+    max-height: 70vh;
+
+    object-fit: contain;
   }
   .hero-inner {
     transform: none;
@@ -179,5 +181,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 @media (max-height: 700px){
-  .portrait{ height: calc(100vh - 220px); width: auto; }
+  .portrait {
+    max-height: 60vh;
+    width: min(84vw, 380px);
+  }
 }
