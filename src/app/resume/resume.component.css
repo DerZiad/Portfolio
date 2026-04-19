@@ -21,11 +21,11 @@
 .abstract-card { background:#ffffff; border-radius:10px; padding:22px; box-shadow:0 6px 24px rgba(18,30,43,0.06); border:1px solid rgba(16,24,32,0.04) }
 
 .profile-card {
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  border: 1px solid rgba(16,24,32,0.04);
+  background: linear-gradient(180deg, #3a4048 0%, #2c3138 100%);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(16,24,32,0.06);
+  box-shadow: 0 16px 36px rgba(2,6,23,0.26);
   max-width: 980px;
   margin: 0 auto 24px;
 }
@@ -86,7 +86,211 @@
 .personal-grid { display:flex; flex-direction:column; gap:18px; align-items:flex-start; margin-bottom:14px }
 .personal-main { flex:1; width:100%; min-width:0 }
 .section-subtitle { font-size:15px; font-weight:700; color:#0f1720; margin:10px 0 8px 0 }
-.edu-list { list-style:disc; margin-left:18px; color:#334155; font-size:14px; line-height:1.5 }
+.education-strip {
+  overflow-x:auto;
+  padding:12px 4px 20px;
+  margin-bottom:8px;
+}
+.education-track {
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:28px;
+  min-width:620px;
+  padding:4px 8px 0;
+}
+.education-track::before {
+  content:"";
+  position:absolute;
+  left:54px;
+  right:54px;
+  top:46px;
+  height:2px;
+  background:linear-gradient(90deg, #dbe4f0 0%, #cfd8e3 100%);
+  border-radius:999px;
+}
+.education-stop {
+  position:relative;
+  z-index:1;
+  flex:1 1 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  cursor:pointer;
+  outline:none;
+}
+.education-image-shell {
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
+  border:1px solid rgba(16,24,32,0.08);
+  box-shadow:0 8px 18px rgba(16,24,32,0.08);
+  margin-bottom:12px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.education-image {
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+}
+.education-image-bachelor {
+  width:58px;
+  height:58px;
+  object-fit:contain;
+}
+.education-name {
+  font-size:13px;
+  font-weight:700;
+  color:#0f1720;
+  line-height:1.35;
+  margin-bottom:4px;
+  max-width:180px;
+}
+.education-date {
+  font-size:12px;
+  font-style:italic;
+  color:#64748b;
+  line-height:1.4;
+}
+.education-stop:hover .education-image-shell,
+.education-stop:focus .education-image-shell,
+.education-stop.active .education-image-shell {
+  transform:translateY(-3px);
+  box-shadow:0 14px 28px rgba(16,24,32,0.12);
+  border-color:rgba(11,99,214,0.22);
+}
+.education-stop:hover .education-name,
+.education-stop:focus .education-name,
+.education-stop.active .education-name {
+  color:#0b63d6;
+}
+.education-stop-bachelor .education-name {
+  max-width:140px;
+}
+.education-details {
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbff 100%);
+  border:1px solid rgba(16,24,32,0.06);
+  border-radius:12px;
+  padding:16px;
+  margin:4px 0 12px;
+  box-shadow:0 10px 24px rgba(16,24,32,0.05);
+}
+.education-details-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+.education-details-title {
+  margin:0;
+  font-size:16px;
+  font-weight:700;
+  color:#0f1720;
+}
+.education-details-subtitle {
+  margin-top:4px;
+  font-size:13px;
+  color:#475569;
+  font-weight:600;
+}
+.education-details-years {
+  font-size:12px;
+  font-style:italic;
+  color:#64748b;
+  font-weight:700;
+}
+.semester-tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:14px;
+}
+.semester-tab {
+  border:1px solid rgba(11,99,214,0.12);
+  background:#ffffff;
+  color:#334155;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.semester-tab:hover,
+.semester-tab.active {
+  background:#0b63d6;
+  color:#ffffff;
+  border-color:#0b63d6;
+  transform:translateY(-1px);
+}
+.semester-panel {
+  background:#ffffff;
+  border:1px solid rgba(16,24,32,0.05);
+  border-radius:10px;
+  padding:14px;
+}
+.semester-panel-title {
+  margin:0 0 12px;
+  font-size:14px;
+  font-weight:700;
+  color:#0f1720;
+}
+.semester-columns {
+  display:grid;
+  grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr);
+  gap:16px;
+}
+.semester-section-title {
+  font-size:12px;
+  font-weight:700;
+  color:#0f1720;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.semester-list {
+  margin:0;
+  padding-left:18px;
+  color:#334155;
+  font-size:13px;
+  line-height:1.5;
+}
+.semester-list li { margin:6px 0; }
+.semester-chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.semester-chip {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#eef4ff;
+  border:1px solid rgba(59,130,246,0.16);
+  color:#334155;
+  font-size:12px;
+  font-weight:600;
+}
+.summary-panel {
+  padding:16px;
+}
+.education-summary-text {
+  margin:0;
+  color:#334155;
+  font-size:14px;
+  line-height:1.6;
+}
 
 .experience-list { display:flex; flex-direction:column; gap:12px }
 .company-card { background:#ffffff; border:1px solid rgba(16,24,32,0.05); border-radius:10px; padding:10px 12px; box-shadow:0 6px 14px rgba(16,24,32,0.04) }
@@ -176,7 +380,23 @@
 .tech-categories { display:flex; flex-direction:column; gap:10px; margin-bottom:14px }
 .cat-title { font-weight:600; color:#0f1720; font-size:13px; margin-bottom:6px }
 .chips { display:flex; flex-wrap:wrap; gap:8px }
-.chip { display:inline-block; background:#f1f5f9; color:#0f1720; padding:6px 10px; border-radius:999px; font-size:13px; border:1px solid rgba(16,24,32,0.04) }
+.chip {
+  display:inline-block;
+  background:linear-gradient(180deg,#eef6ff 0%,#dfeeff 100%);
+  color:#12324d;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  border:1px solid rgba(59,130,246,0.18);
+  box-shadow:0 4px 10px rgba(37,99,235,0.08);
+  transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+.chip:hover {
+  transform:translateY(-1px);
+  box-shadow:0 8px 16px rgba(37,99,235,0.12);
+  background:linear-gradient(180deg,#e0f0ff 0%,#cfe5ff 100%);
+}
 
 .portfolio-block.skills { padding:18px 0 6px }
 
@@ -203,6 +423,16 @@
 @media (max-width:880px) {
   .personal-grid { flex-direction:column }
   .company-tech { font-size:12px }
+  .education-track {
+    min-width:560px;
+    gap:20px;
+  }
+  .education-name {
+    max-width:160px;
+  }
+  .semester-columns {
+    grid-template-columns:1fr;
+  }
 }
 
 @media (max-width:768px) {
@@ -259,6 +489,16 @@
     align-items:flex-start;
     gap:4px;
   }
+  .education-strip {
+    margin-right:-8px;
+    padding-right:8px;
+  }
+  .education-track {
+    min-width:520px;
+  }
+  .education-details {
+    padding:14px;
+  }
   .role-timeline {
     padding-left:18px;
   }
@@ -297,6 +537,27 @@
   }
   .lang-label { justify-content: center; gap: 8px; width: 100% }
   .lang-bar { width: 85%; max-width: 300px; margin: 0 auto }
+  .education-track {
+    min-width:480px;
+    gap:16px;
+  }
+  .education-image-shell {
+    width:84px;
+    height:84px;
+  }
+  .education-image {
+    width:58px;
+    height:58px;
+  }
+  .education-image-bachelor {
+    width:52px;
+    height:52px;
+  }
+  .education-track::before {
+    left:50px;
+    right:50px;
+    top:42px;
+  }
 
   .lang-flag {
     display: inline-flex;
