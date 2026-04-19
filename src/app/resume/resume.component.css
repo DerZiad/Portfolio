@@ -133,22 +133,22 @@
   margin-top:6px;
   padding-left:22px;
 }
-.role-timeline::before {
-  content:"";
-  position:absolute;
-  top:6px;
-  bottom:6px;
-  left:7px;
-  width:2px;
-  background:#d9dee7;
-  border-radius:999px;
-}
 .timeline-role {
   position:relative;
   padding-bottom:10px;
 }
 .timeline-role:last-child {
   padding-bottom:0;
+}
+.timeline-role:not(:last-child)::after {
+  content:"";
+  position:absolute;
+  top:14px;
+  bottom:-6px;
+  left:-14px;
+  width:2px;
+  background:#d9dee7;
+  border-radius:999px;
 }
 .timeline-role::before {
   content:"";
@@ -261,6 +261,9 @@
   }
   .role-timeline {
     padding-left:18px;
+  }
+  .timeline-role:not(:last-child)::after {
+    left:-10px;
   }
   .timeline-role::before {
     left:-15px;
