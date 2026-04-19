@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +20,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private documentTouchListener: (() => void) | null = null;
   private collapseObserver: MutationObserver | null = null;
   private introTimer: any = null;
+  private routerEventsSubscription: Subscription | null = null;
 
   private readonly INTRO_SEEN_KEY = 'introSeen';
 
   constructor(private renderer: Renderer2, private router: Router) { }
 
   ngOnInit(): void {
+    this.routerEventsSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.closeNavbar();
+      }
+    });
+
     const seen = localStorage.getItem(this.INTRO_SEEN_KEY);
     if (seen === 'true') {
       this.introVisible = false;
@@ -55,10 +63,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.documentTouchListener) { this.documentTouchListener(); this.documentTouchListener = null; }
     if (this.collapseObserver) { this.collapseObserver.disconnect(); this.collapseObserver = null; }
     if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
+    if (this.routerEventsSubscription) { this.routerEventsSubscription.unsubscribe(); this.routerEventsSubscription = null; }
   }
 
   get_background(): string {
     return this.introVisible ? "black-background" : "linear-gradient";
+  }
+
+  isHomeRoute(): boolean {
+    return this.router.url === '/';
   }
 
   skipIntro(): void {
