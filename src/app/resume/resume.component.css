@@ -171,7 +171,7 @@
 .role-period { font-weight:600; color:#475569; font-size:12px; margin-left:6px }
 .company-bullets { margin:0 0 8px 16px; padding:0; color:#334155; font-size:13px; line-height:1.45 }
 .company-bullets li { margin:6px 0 }
-.company-tech { font-size:12px; color:#475569; font-weight:600; margin-top:6px; background:#f8fafc; padding:8px; border-radius:8px; border:1px solid rgba(16,24,32,0.03) }
+.company-tech { font-size:12px; color:#334155; font-weight:600; margin-top:8px; background:#eef4ff; padding:8px 10px; border-radius:8px; border:1px solid rgba(59,130,246,0.16) }
 
 .tech-categories { display:flex; flex-direction:column; gap:10px; margin-bottom:14px }
 .cat-title { font-weight:600; color:#0f1720; font-size:13px; margin-bottom:6px }
