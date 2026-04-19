@@ -102,11 +102,92 @@
                       Experienced in automated testing using JUnit, Mockito, Selenium, and Testcontainers to support reliable software delivery. Possess working knowledge of CI/CD pipelines (GitHub Actions, Jenkins) and Docker for development and deployment. Familiar with basic application security practices, including handling common vulnerabilities and related fixes. Comfortable working in Agile (Scrum) environments and collaborating within cross-functional teams.
                     </p>
 
-                    <h3 class="section-subtitle">Education</h3>
-                    <ul class="edu-list">
-                      <li><strong>Bachelor of Applied Mathematics and Informatics</strong>, FH Aachen, Germany</li>
-                      <li>FH Aachen, Germany (2022–2024) · UMI, Morocco (2019–2022)</li>
-                    </ul>
+                    <h3 class="section-subtitle">Technical Stack</h3>
+                    <div class="tech-categories">
+                      <div class="tech-category">
+                        <div class="cat-title">Programming Languages</div>
+                        <div class="chips">
+                          <span class="chip">Java</span>
+                          <span class="chip">Kotlin</span>
+                          <span class="chip">TypeScript</span>
+                          <span class="chip">JavaScript</span>
+                          <span class="chip">Python</span>
+                          <span class="chip">C / C++</span>
+                          <span class="chip">Bash Scripting</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">Backend & Frameworks</div>
+                        <div class="chips">
+                          <span class="chip">Spring Framework</span>
+                          <span class="chip">Spring Cloud</span>
+                          <span class="chip">JEE</span>
+                          <span class="chip">Django (Beginner)</span>
+                          <span class="chip">JSP / JSTL</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">Frontend Technologies</div>
+                        <div class="chips">
+                          <span class="chip">Angular</span>
+                          <span class="chip">HTML / CSS</span>
+                          <span class="chip">Bootstrap 5</span>
+                          <span class="chip">Canvas Drawing</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">Testing & CI/CD</div>
+                        <div class="chips">
+                          <span class="chip">JUnit 5</span>
+                          <span class="chip">Mockito</span>
+                          <span class="chip">Selenium</span>
+                          <span class="chip">Testcontainers</span>
+                          <span class="chip">GitHub Actions</span>
+                          <span class="chip">Jenkins (Platform usage only)</span>
+                          <span class="chip">Git</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">DevOps & Databases</div>
+                        <div class="chips">
+                          <span class="chip">Docker</span>
+                          <span class="chip">Gradle (Beginner)</span>
+                          <span class="chip">Maven</span>
+                          <span class="chip">npm</span>
+                          <span class="chip">pip</span>
+                          <span class="chip">MySQL</span>
+                          <span class="chip">Oracle Database</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">Platforms & Operating Systems</div>
+                        <div class="chips">
+                          <span class="chip">Debian</span>
+                          <span class="chip">Windows</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category">
+                        <div class="cat-title">Core Concepts</div>
+                        <div class="chips">
+                          <span class="chip">Full-Stack Web Development</span>
+                          <span class="chip">Spring Boot & Spring Framework</span>
+                          <span class="chip">Angular & Bootstrap 5</span>
+                          <span class="chip">MySQL & Relational Database Management</span>
+                          <span class="chip">Automated Testing (Junit 5, Mockito, Selenium, Testcontainers)</span>
+                          <span class="chip">CI/CD Automation (Github Actions)</span>
+                          <span class="chip">Docker & Containerization</span>
+                          <span class="chip">UML Modelling  & Software Design</span>
+                          <span class="chip">Web Security & Secure Coding Practices</span>
+                          <span class="chip">Agile Methodologies (Scrum) & Team Collaboration</span>
+                        </div>
+                      </div>
+                    </div>
 
                     <h3 class="section-subtitle">Professional Experience</h3>
                     <div class="experience-list">
@@ -197,95 +278,79 @@
                         </div>
                       </article>
                     </div>
+
+                    <h3 class="section-subtitle">Education</h3>
+                    <div class="education-strip" aria-label="Education timeline">
+                      <div class="education-track">
+                        <article
+                          *ngFor="let education of educations"
+                          class="education-stop"
+                          [class.active]="selectedEducation.id === education.id"
+                          [class.education-stop-bachelor]="education.id === 'bachelor'"
+                          tabindex="0"
+                          (mouseenter)="selectEducation(education)"
+                          (focus)="selectEducation(education)"
+                          (click)="selectEducation(education)">
+                          <div class="education-image-shell">
+                            <img [ngSrc]="education.logo" [alt]="education.name + ' logo'" class="education-image" [class.education-image-bachelor]="education.id === 'bachelor'" width="84" height="84">
+                          </div>
+                          <div class="education-name">{{ education.name }}</div>
+                          <div class="education-date">{{ education.years }}</div>
+                        </article>
+                      </div>
+                    </div>
+                    <section class="education-details" *ngIf="selectedEducation" aria-live="polite">
+                      <div class="education-details-header">
+                        <div>
+                          <h4 class="education-details-title">{{ selectedEducation.name }}</h4>
+                          <div class="education-details-subtitle">{{ selectedEducation.field }}</div>
+                        </div>
+                        <div class="education-details-years">{{ selectedEducation.years }}</div>
+                      </div>
+
+                      <div class="semester-tabs" *ngIf="selectedEducation.semesters?.length; else educationSummary">
+                        <button
+                          *ngFor="let semester of selectedEducation.semesters; let i = index"
+                          type="button"
+                          class="semester-tab"
+                          [class.active]="currentSemesterIndex === i"
+                          (click)="selectSemester(i)">
+                          {{ semester.name }}
+                        </button>
+                      </div>
+
+                      <ng-container *ngIf="selectedEducation.semesters?.length">
+                        <div class="semester-panel">
+                          <h5 class="semester-panel-title">{{ selectedEducation.semesters[currentSemesterIndex].name }}</h5>
+
+                          <div class="semester-columns">
+                            <div class="semester-section">
+                              <div class="semester-section-title">Modules</div>
+                              <ul class="semester-list">
+                                <li *ngFor="let module of selectedEducation.semesters[currentSemesterIndex].modules">{{ module }}</li>
+                              </ul>
+                            </div>
+
+                            <div class="semester-section">
+                              <div class="semester-section-title">Technical Stack</div>
+                              <div class="semester-chips">
+                                <span class="semester-chip" *ngFor="let tech of selectedEducation.semesters[currentSemesterIndex].techStack">{{ tech }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-template #educationSummary>
+                        <div class="semester-panel summary-panel">
+                          <div class="semester-section-title">Degree Summary</div>
+                          <p class="education-summary-text">{{ selectedEducation.field }}</p>
+                        </div>
+                      </ng-template>
+                    </section>
                   </div>
                 </div>
 
-                <h3 class="section-subtitle">Technical Stack</h3>
-                <div class="tech-categories">
-                  <div class="tech-category">
-                    <div class="cat-title">Programming Languages</div>
-                    <div class="chips">
-                      <span class="chip">Java</span>
-                      <span class="chip">Kotlin</span>
-                      <span class="chip">TypeScript</span>
-                      <span class="chip">JavaScript</span>
-                      <span class="chip">Python</span>
-                      <span class="chip">C / C++</span>
-                      <span class="chip">Bash Scripting</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">Backend & Frameworks</div>
-                    <div class="chips">
-                      <span class="chip">Spring Framework</span>
-                      <span class="chip">Spring Cloud</span>
-                      <span class="chip">JEE</span>
-                      <span class="chip">Django (Beginner)</span>
-                      <span class="chip">JSP / JSTL</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">Frontend Technologies</div>
-                    <div class="chips">
-                      <span class="chip">Angular</span>
-                      <span class="chip">HTML / CSS</span>
-                      <span class="chip">Bootstrap 5</span>
-                      <span class="chip">Canvas Drawing</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">Testing & CI/CD</div>
-                    <div class="chips">
-                      <span class="chip">JUnit 5</span>
-                      <span class="chip">Mockito</span>
-                      <span class="chip">Selenium</span>
-                      <span class="chip">Testcontainers</span>
-                      <span class="chip">GitHub Actions</span>
-                      <span class="chip">Jenkins (Platform usage only)</span>
-                      <span class="chip">Git</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">DevOps & Databases</div>
-                    <div class="chips">
-                      <span class="chip">Docker</span>
-                      <span class="chip">Gradle (Beginner)</span>
-                      <span class="chip">Maven</span>
-                      <span class="chip">npm</span>
-                      <span class="chip">pip</span>
-                      <span class="chip">MySQL</span>
-                      <span class="chip">Oracle Database</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">Platforms & Operating Systems</div>
-                    <div class="chips">
-                      <span class="chip">Debian</span>
-                      <span class="chip">Windows</span>
-                    </div>
-                  </div>
-
-                  <div class="tech-category">
-                    <div class="cat-title">Core Concepts</div>
-                    <div class="chips">
-                      <span class="chip">Full-Stack Web Development</span>
-                      <span class="chip">Spring Boot & Spring Framework</span>
-                      <span class="chip">Angular & Bootstrap 5</span>
-                      <span class="chip">MySQL & Relational Database Management</span>
-                      <span class="chip">Automated Testing (Junit 5, Mockito, Selenium, Testcontainers)</span>
-                      <span class="chip">CI/CD Automation (Github Actions)</span>
-                      <span class="chip">Docker & Containerization</span>
-                      <span class="chip">UML Modelling  & Software Design</span>
-                      <span class="chip">Web Security & Secure Coding Practices</span>
-                      <span class="chip">Agile Methodologies (Scrum) & Team Collaboration</span>
-                    </div>
-                  </div>
-                </div>
               </section>
             </div>
           </div>
