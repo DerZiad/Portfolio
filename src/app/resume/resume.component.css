@@ -355,29 +355,104 @@
   text-transform:uppercase;
   letter-spacing:.04em;
 }
-.semester-list {
-  margin:0;
-  padding-left:18px;
-  color:#334155;
-  font-size:13px;
-  line-height:1.5;
-}
-.semester-list li { margin:6px 0; }
-.semester-chips {
+/* ── Content Table ──────────────────────────────────────── */
+.resume-toc {
   display:flex;
   flex-wrap:wrap;
   gap:8px;
+  margin-bottom:18px;
+  padding:12px 14px;
+  background:rgba(248,250,252,0.9);
+  border:1px solid rgba(0,0,0,0.07);
+  border-radius:12px;
 }
-.semester-chip {
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#eef4ff;
-  border:1px solid rgba(59,130,246,0.16);
-  color:#334155;
-  font-size:12px;
+.toc-item {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:8px;
+  padding:7px 13px;
+  font-size:12.5px;
   font-weight:600;
+  color:#475569;
+  cursor:pointer;
+  transition:all .15s ease;
 }
+.toc-item:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,0.08) }
+.toc-num {
+  width:18px;
+  height:18px;
+  border-radius:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:800;
+  flex-shrink:0;
+}
+.toc-blue .toc-num  { background:#1d4ed8; color:#fff }
+.toc-blue:hover     { border-color:#bfdbfe; color:#1d4ed8; background:#eff6ff }
+.toc-indigo .toc-num { background:#4338ca; color:#fff }
+.toc-indigo:hover    { border-color:#c7d2fe; color:#4338ca; background:#eef2ff }
+.toc-orange .toc-num { background:#c2410c; color:#fff }
+.toc-orange:hover    { border-color:#fed7aa; color:#c2410c; background:#fff7ed }
+.toc-emerald .toc-num { background:#065f46; color:#fff }
+.toc-emerald:hover    { border-color:#a7f3d0; color:#065f46; background:#ecfdf5 }
+
+/* ── Education module list (numbered + color cycling) ───── */
+.semester-list {
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  counter-reset:mod;
+}
+.semester-list li {
+  counter-increment:mod;
+  position:relative;
+  padding:7px 10px 7px 34px;
+  border-radius:8px;
+  font-size:12.5px;
+  line-height:1.5;
+  color:#1e293b;
+}
+.semester-list li::before {
+  content:counter(mod);
+  position:absolute;
+  left:7px;
+  top:50%;
+  transform:translateY(-50%);
+  width:20px;
+  height:20px;
+  border-radius:5px;
+  text-align:center;
+  line-height:20px;
+  font-size:10px;
+  font-weight:800;
+}
+.semester-list li:nth-child(7n+1){background:#eff6ff}.semester-list li:nth-child(7n+1)::before{background:#1d4ed8;color:#fff}
+.semester-list li:nth-child(7n+2){background:#eef2ff}.semester-list li:nth-child(7n+2)::before{background:#4338ca;color:#fff}
+.semester-list li:nth-child(7n+3){background:#ecfeff}.semester-list li:nth-child(7n+3)::before{background:#0e7490;color:#fff}
+.semester-list li:nth-child(7n+4){background:#fffbeb}.semester-list li:nth-child(7n+4)::before{background:#b45309;color:#fff}
+.semester-list li:nth-child(7n+5){background:#ecfdf5}.semester-list li:nth-child(7n+5)::before{background:#065f46;color:#fff}
+.semester-list li:nth-child(7n+6){background:#f5f3ff}.semester-list li:nth-child(7n+6)::before{background:#5b21b6;color:#fff}
+.semester-list li:nth-child(7n+0){background:#f0fdfa}.semester-list li:nth-child(7n+0)::before{background:#0f766e;color:#fff}
+
+/* ── Education tech chips (color cycling) ───────────────── */
+.semester-chips{display:flex;flex-wrap:wrap;gap:6px}
+.semester-chip{display:inline-block;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid transparent;transition:transform .14s ease}
+.semester-chip:hover{transform:translateY(-1px)}
+.semester-chip:nth-child(7n+1){background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.semester-chip:nth-child(7n+2){background:#eef2ff;color:#4338ca;border-color:#c7d2fe}
+.semester-chip:nth-child(7n+3){background:#ecfeff;color:#0e7490;border-color:#a5f3fc}
+.semester-chip:nth-child(7n+4){background:#fffbeb;color:#b45309;border-color:#fde68a}
+.semester-chip:nth-child(7n+5){background:#ecfdf5;color:#065f46;border-color:#a7f3d0}
+.semester-chip:nth-child(7n+6){background:#f5f3ff;color:#5b21b6;border-color:#ddd6fe}
+.semester-chip:nth-child(7n+0){background:#f0fdfa;color:#0f766e;border-color:#99f6e4}
 .summary-panel {
   padding:16px;
 }
@@ -471,28 +546,59 @@
 .role-period { font-weight:600; color:#475569; font-size:12px; margin-left:6px }
 .company-bullets { margin:0 0 8px 16px; padding:0; color:#334155; font-size:13px; line-height:1.45 }
 .company-bullets li { margin:6px 0 }
-.company-tech { font-size:12px; color:#334155; font-weight:600; margin-top:8px; background:#eef4ff; padding:8px 10px; border-radius:8px; border:1px solid rgba(59,130,246,0.16) }
+.role-project-note { font-size:12px; color:#475569; background:rgba(241,245,249,0.7); border-left:3px solid #3b82f6; padding:6px 10px; border-radius:0 6px 6px 0; margin:4px 0 8px 0; font-style:italic; line-height:1.5 }
+.role-project-note strong { color:#1e40af; font-style:normal }
+.company-tech { margin-top:10px }
+.company-tech .tech-categories { gap:8px; margin-bottom:0 }
+.company-tech .tech-category { padding:8px 10px }
+.company-tech .cat-title { font-size:11px; margin-bottom:6px }
+.company-tech .chip { font-size:11px; padding:4px 9px }
 
-.tech-categories { display:flex; flex-direction:column; gap:10px; margin-bottom:14px }
-.cat-title { font-weight:600; color:#0f1720; font-size:13px; margin-bottom:6px }
-.chips { display:flex; flex-wrap:wrap; gap:8px }
+.tech-categories { display:flex; flex-direction:column; gap:12px; margin-bottom:14px }
+.tech-category { padding:10px 12px; border-radius:10px; background:rgba(248,250,252,0.6); border:1px solid rgba(0,0,0,0.05) }
+.cat-title { font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px }
+.chips { display:flex; flex-wrap:wrap; gap:6px }
 .chip {
   display:inline-block;
-  background:linear-gradient(180deg,#eef6ff 0%,#dfeeff 100%);
-  color:#12324d;
-  padding:7px 12px;
+  padding:5px 11px;
   border-radius:999px;
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
-  border:1px solid rgba(59,130,246,0.18);
-  box-shadow:0 4px 10px rgba(37,99,235,0.08);
-  transition:transform .16s ease, box-shadow .16s ease, background-color .16s ease;
+  border:1px solid transparent;
+  transition:transform .15s ease, box-shadow .15s ease;
 }
-.chip:hover {
-  transform:translateY(-1px);
-  box-shadow:0 8px 16px rgba(37,99,235,0.12);
-  background:linear-gradient(180deg,#e0f0ff 0%,#cfe5ff 100%);
-}
+.chip:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,0.12) }
+
+/* ── Category colour themes ─────────────────────────────── */
+.cat-blue .cat-title  { color:#1d4ed8 }
+.cat-blue .chip       { background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe }
+
+.cat-indigo .cat-title { color:#4338ca }
+.cat-indigo .chip      { background:#eef2ff; color:#4338ca; border-color:#c7d2fe }
+
+.cat-cyan .cat-title  { color:#0e7490 }
+.cat-cyan .chip       { background:#ecfeff; color:#0e7490; border-color:#a5f3fc }
+
+.cat-amber .cat-title { color:#b45309 }
+.cat-amber .chip      { background:#fffbeb; color:#b45309; border-color:#fde68a }
+
+.cat-orange .cat-title { color:#c2410c }
+.cat-orange .chip      { background:#fff7ed; color:#c2410c; border-color:#fed7aa }
+
+.cat-emerald .cat-title { color:#065f46 }
+.cat-emerald .chip      { background:#ecfdf5; color:#065f46; border-color:#a7f3d0 }
+
+.cat-violet .cat-title { color:#5b21b6 }
+.cat-violet .chip      { background:#f5f3ff; color:#5b21b6; border-color:#ddd6fe }
+
+.cat-slate .cat-title  { color:#334155 }
+.cat-slate .chip       { background:#f8fafc; color:#334155; border-color:#cbd5e1 }
+
+.cat-teal .cat-title   { color:#0f766e }
+.cat-teal .chip        { background:#f0fdfa; color:#0f766e; border-color:#99f6e4 }
+
+.cat-rose .cat-title   { color:#be123c }
+.cat-rose .chip        { background:#fff1f2; color:#be123c; border-color:#fecdd3 }
 
 .portfolio-block.skills { padding:18px 0 6px }
 

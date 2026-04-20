@@ -24,9 +24,9 @@ export class ResumeComponent implements AfterViewInit, OnDestroy {
     {
       id: 'umi',
       name: 'University Moulay Ismail',
-      years: '2019 - 2022',
+      years: 'Sep 2019 – Jan 2022',
       field: 'Computer Software Engineering',
-      logo: '/assets/img/logo/umi.jpg',
+      logo: '/assets/img/umi.jpg',
       semesters: [
         {
           name: 'Semester 1',
@@ -127,9 +127,9 @@ export class ResumeComponent implements AfterViewInit, OnDestroy {
     {
       id: 'fh',
       name: 'FH Aachen',
-      years: '2022 - 2024',
+      years: 'Feb 2022 – Mar 2024',
       field: 'Applied Mathematics and Computer Science (FB9)',
-      logo: '/assets/img/logo/fh.png',
+      logo: '/assets/img/fh.png',
       semesters: [
         {
           name: 'Semester 6 (Integration Semester)',
@@ -187,9 +187,9 @@ export class ResumeComponent implements AfterViewInit, OnDestroy {
     {
       id: 'bachelor',
       name: 'Bachelor & Job Start',
-      years: '2024',
+      years: 'Mar 2024',
       field: "Bachelor's degree, Mathematics and Computer Science",
-      logo: '/assets/img/logo/bachelor.png',
+      logo: '/assets/img/bachelor.png',
       semesters: []
     }
   ];
@@ -258,5 +258,10 @@ export class ResumeComponent implements AfterViewInit, OnDestroy {
   closeEducation(): void {
     this.selectedEducation = null;
     this.currentSemesterIndex = 0;
+  }
+
+  scrollTo(id: string): void {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
