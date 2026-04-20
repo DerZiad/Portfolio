@@ -1,70 +1,38 @@
-<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar" [class.intro-active]="introVisible">
+<nav class="navbar fixed-top portfolio-navbar">
   <div class="container">
-    <a class="navbar-brand logo" routerLink="/" (click)="closeNavbar()" aria-label="Go to Home">
-      ZB.dev
-      <span class="brand-dot" aria-hidden="true"></span>
+    <a class="navbar-brand logo" routerLink="/" routerLinkActive="active-logo" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNavbar()" aria-label="Go to Home">
+      DerZiad
+      <span class="brand-dot" [class.home-active]="isHomeRoute()" aria-hidden="true"></span>
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="toggleNavbar()"
-      [attr.aria-expanded]="navbarExpanded"
-      aria-controls="navbarNav"
-      aria-label="Toggle navigation">
-      <span class="hamburger" aria-hidden="true">
+
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" [attr.aria-expanded]="navbarOpen" aria-label="Toggle navigation">
+      <span class="hamburger" [class.open]="navbarOpen" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
       </span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav" [class.show]="navbarExpanded">
-      <ul [hidden]="introVisible" class="navbar-nav align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active active-header"
-             [routerLinkActiveOptions]="{ exact: true }"
-             (click)="closeNavbar()">Home</a>
-        </li>
+    <div class="nav-collapse" [class.open]="navbarOpen">
+      <ul class="navbar-nav align-items-center">
         <li class="nav-item">
           <a class="nav-link" routerLink="/resume" routerLinkActive="active active-header" (click)="closeNavbar()">Resume</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/education" routerLinkActive="active active-header" (click)="closeNavbar()">Education</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/projects" routerLinkActive="active active-header" (click)="closeNavbar()">Portfolio</a>
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active active-header" (click)="closeNavbar()">Projects</a>
         </li>
       </ul>
     </div>
-
-    <button
-      type="button"
-      class="btn btn-link skip-link ms-2"
-      [hidden]="!introVisible"
-      (click)="skipIntro(); closeNavbar()"
-      aria-label="Skip intro">
-      Skip
-    </button>
   </div>
 </nav>
 
-<main [class]="get_background()" class="page landing-page">
-  <section [hidden]="!introVisible" id="introduction" class="portfolio-block block-intro" xmlns="http://www.w3.org/1999/html">
-    <div class="website-intro introduction-box">
-      <p *ngIf="introIndex == 0" class="website-intro-text-box fade-out"><span class="website-intro-text"> Welcome! 👋</span></p>
-      <p *ngIf="introIndex == 1" class="website-intro-text-box fade-out"><span class="website-intro-text">I’m Ziad Bougrine. 💼</span></p>
-      <p *ngIf="introIndex == 2" class="website-intro-text-box fade-out"><span class="website-intro-text">Fullstack Developer at MGM Technologies, Germany. 💻</span></p>
-      <p *ngIf="introIndex == 3" class="website-intro-text-box fade-out"><span class="website-intro-text">Passionate about building reliable and scalable web solutions. ⚙️</span></p>
-      <p *ngIf="introIndex == 4" class="website-intro-text-box fade-out-in slide-top"><span class="website-intro-text">Thanks for visiting my portfolio. 🚀</span></p>
-    </div>
-  </section>
-
-  <section [hidden]="introVisible" class="content">
-    <router-outlet></router-outlet>
+<main class="page landing-page">
+  <section class="content" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
   </section>
 </main>
 
-<div [hidden]="introVisible" class="page-footer">
+<div class="page-footer">
   <div class="row">
     <div class="col-md-12">
       <a class="icon slide-down" href="https://web.facebook.com/ziad.bougrine.5"><i
