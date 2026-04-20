@@ -10,19 +10,12 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'ziadbougrine';
 
-  introVisible = true;
-  introIndex = 0;
-  readonly introStepsCount = 5;
-
   navbarExpanded = false;
 
   private documentClickListener: (() => void) | null = null;
   private documentTouchListener: (() => void) | null = null;
   private collapseObserver: MutationObserver | null = null;
-  private introTimer: any = null;
   private routerEventsSubscription: Subscription | null = null;
-
-  private readonly INTRO_SEEN_KEY = 'introSeen';
 
   constructor(private renderer: Renderer2, private router: Router) { }
 
@@ -32,14 +25,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.closeNavbar();
       }
     });
-
-    const seen = localStorage.getItem(this.INTRO_SEEN_KEY);
-    if (seen === 'true') {
-      this.introVisible = false;
-      this.introIndex = this.introStepsCount;
-      return;
-    }
-    this.startIntroSequence();
   }
 
   ngAfterViewInit(): void {
@@ -62,51 +47,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.documentClickListener) { this.documentClickListener(); this.documentClickListener = null; }
     if (this.documentTouchListener) { this.documentTouchListener(); this.documentTouchListener = null; }
     if (this.collapseObserver) { this.collapseObserver.disconnect(); this.collapseObserver = null; }
-    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
     if (this.routerEventsSubscription) { this.routerEventsSubscription.unsubscribe(); this.routerEventsSubscription = null; }
-  }
-
-  get_background(): string {
-    return this.introVisible ? "black-background" : "linear-gradient";
   }
 
   isHomeRoute(): boolean {
     return this.router.url === '/';
-  }
-
-  skipIntro(): void {
-    this.markIntroSeen();
-    this.finishIntro();
-    this.router.navigate(['/']);
-  }
-
-  private startIntroSequence(): void {
-    this.introIndex = 0;
-    this.advanceIntro();
-  }
-
-  private advanceIntro(): void {
-    if (this.introIndex < this.introStepsCount) {
-      this.introTimer = setTimeout(() => {
-        this.introIndex++;
-        this.advanceIntro();
-      }, 3000);
-    } else {
-      this.finishIntro();
-    }
-  }
-
-  private finishIntro(): void {
-    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
-    this.introVisible = false;
-    this.markIntroSeen();
-  }
-
-  private markIntroSeen(): void {
-    try {
-      localStorage.setItem(this.INTRO_SEEN_KEY, 'true');
-    } catch {
-    }
   }
 
   private handleOutsideClick(event: Event): void {

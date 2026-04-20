@@ -1,4 +1,11 @@
 <section id="projects" class="portfolio-block website">
+  <!-- Video background -->
+  <video #bgVideo class="bg-video" autoplay muted playsinline loop (ended)="onVideoEnded()">
+    <source [src]="currentVideoSrc" type="video/mp4">
+  </video>
+  <div class="bg-overlay"></div>
+  <div class="bg-scanlines"></div>
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -285,12 +292,13 @@
                         <article
                           *ngFor="let education of educations"
                           class="education-stop"
-                          [class.active]="selectedEducation.id === education.id"
+                          [class.active]="selectedEducation?.id === education.id"
                           [class.education-stop-bachelor]="education.id === 'bachelor'"
                           tabindex="0"
-                          (mouseenter)="selectEducation(education)"
-                          (focus)="selectEducation(education)"
-                          (click)="selectEducation(education)">
+                          [attr.aria-expanded]="selectedEducation?.id === education.id"
+                          (click)="selectEducation(education)"
+                          (keydown.enter)="selectEducation(education)"
+                          (keydown.space)="selectEducation(education); $event.preventDefault()">
                           <div class="education-image-shell">
                             <img [ngSrc]="education.logo" [alt]="education.name + ' logo'" class="education-image" [class.education-image-bachelor]="education.id === 'bachelor'" width="84" height="84">
                           </div>
@@ -305,7 +313,16 @@
                           <h4 class="education-details-title">{{ selectedEducation.name }}</h4>
                           <div class="education-details-subtitle">{{ selectedEducation.field }}</div>
                         </div>
-                        <div class="education-details-years">{{ selectedEducation.years }}</div>
+                        <div class="education-details-actions">
+                          <div class="education-details-years">{{ selectedEducation.years }}</div>
+                          <button
+                            type="button"
+                            class="education-close"
+                            aria-label="Close education details"
+                            (click)="closeEducation()">
+                            X
+                          </button>
+                        </div>
                       </div>
 
                       <div class="semester-tabs" *ngIf="selectedEducation.semesters?.length; else educationSummary">

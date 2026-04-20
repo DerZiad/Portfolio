@@ -1,3 +1,83 @@
+/* ─── Video Background & Overlays ──────────────────────── */
+#projects {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 0 0 !important;
+  padding: 0 !important;
+  width: 100vw;
+  display: block;
+  margin-left: calc(-50vw + 50%);
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bg-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.container-fluid {
+  position: relative;
+  z-index: 3;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.container-fluid .row {
+  margin: 0 !important;
+}
+
+.row {
+  margin: 0 !important;
+}
+
+/* ─── Page transition animations ─────────────────────────── */
+:host {
+  display: block;
+  margin: 0;
+  padding: 0;
+  animation: page-enter 0.6s ease-out;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Original styles ──────────────────────────────────── */
 .abstract-title {
   color: #0f1720;
   font-size: 24px;
@@ -21,13 +101,13 @@
 .abstract-card { background:#ffffff; border-radius:10px; padding:22px; box-shadow:0 6px 24px rgba(18,30,43,0.06); border:1px solid rgba(16,24,32,0.04) }
 
 .profile-card {
-  background: linear-gradient(180deg, #3a4048 0%, #2c3138 100%);
+  background: white;
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 16px 36px rgba(2,6,23,0.26);
   max-width: 980px;
-  margin: 0 auto 24px;
+  margin: 30px auto 24px;
 }
 
 .profile-grid { display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap }
@@ -161,15 +241,15 @@
   color:#64748b;
   line-height:1.4;
 }
-.education-stop:hover .education-image-shell,
-.education-stop:focus .education-image-shell,
 .education-stop.active .education-image-shell {
   transform:translateY(-3px);
   box-shadow:0 14px 28px rgba(16,24,32,0.12);
   border-color:rgba(11,99,214,0.22);
 }
-.education-stop:hover .education-name,
-.education-stop:focus .education-name,
+.education-stop:focus-visible {
+  border-radius:14px;
+  box-shadow:0 0 0 3px rgba(11,99,214,0.18);
+}
 .education-stop.active .education-name {
   color:#0b63d6;
 }
@@ -192,6 +272,11 @@
   margin-bottom:14px;
   flex-wrap:wrap;
 }
+.education-details-actions {
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
 .education-details-title {
   margin:0;
   font-size:16px;
@@ -209,6 +294,29 @@
   font-style:italic;
   color:#64748b;
   font-weight:700;
+}
+.education-close {
+  width:32px;
+  height:32px;
+  border:none;
+  border-radius:999px;
+  background:#dc2626;
+  color:#ffffff;
+  font-size:14px;
+  font-weight:700;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(220,38,38,0.2);
+  transition:background-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.education-close:hover {
+  background:#b91c1c;
+  transform:translateY(-1px);
+  box-shadow:0 12px 22px rgba(185,28,28,0.24);
+}
+.education-close:focus-visible {
+  outline:3px solid rgba(220,38,38,0.22);
+  outline-offset:2px;
 }
 .semester-tabs {
   display:flex;
