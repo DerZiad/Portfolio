@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -7,7 +8,6 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { ResumeComponent } from './resume/resume.component';
-import { EducationComponent } from './education/education.component';
 import { routes } from "./Routes";
 import {NgOptimizedImage} from "@angular/common";
 
@@ -16,11 +16,11 @@ import {NgOptimizedImage} from "@angular/common";
     AppComponent,
     ProjectsComponent,
     HomeComponent,
-    ResumeComponent,
-    EducationComponent
+    ResumeComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),

@@ -1,38 +1,133 @@
-:root{
-  --bg-from: #2f2f2f;
-  --bg-to:   #2f2f2f;
-  --text:    #ffffff;
-  --muted:   #bfc9d4;
-  --shadow:  rgba(0,0,0,0.6);
-  --soft-shadow: rgba(0,0,0,0.45);
-  --gap: 48px;
-  --home-offset-x: 36px;
+:root {
+  --neon: #29b81f;
+  --neon-glow-sm: 0 0 8px rgba(41, 184, 31, 0.7), 0 0 20px rgba(41, 184, 31, 0.3);
+  --neon-glow-md: 0 0 14px rgba(41, 184, 31, 0.6), 0 0 40px rgba(41, 184, 31, 0.25), 0 0 80px rgba(41, 184, 31, 0.1);
+  --neon-text-glow: 0 0 10px rgba(41, 184, 31, 0.9), 0 0 26px rgba(41, 184, 31, 0.5), 0 0 55px rgba(41, 184, 31, 0.2);
+  --red: #ff2d2d;
+  --red-glow: 0 0 8px rgba(255, 45, 45, 0.9), 0 0 20px rgba(255, 45, 45, 0.5);
+  --capgemini: #0070ad;
+  --text: #ffffff;
+  --muted: #d8e2ee;
+  --text-shadow-strong: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.6);
+  --gap: 72px;
   font-family: "Inter", "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-:host, :host(.home-dark-host) {
+/* ─── Host ─────────────────────────────────────────────── */
+:host {
   display: block;
   min-height: 100vh;
   margin-top: calc(-1 * var(--navbar-height, 64px));
-  padding-top: var(--navbar-height, 64px);
-  background-color: #2f2f2f;
-  color: #ffffff;
+  background-color: #060606;
+  color: var(--text);
   box-sizing: border-box;
-  --hacker-green: #29b81f;
 }
 
-.hero{
-  min-height: calc(100vh - var(--navbar-height, 64px));
+/* ─── Hero shell ────────────────────────────────────────── */
+/* min-height: 100vh so the hero fills the viewport even though :host
+   uses margin-top: -navbar-height to pull under the fixed navbar.
+   padding-top reserves space for the navbar so centered content never
+   sits behind it. */
+.hero {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  color: var(--text);
-  padding: 18px 18px 32px 18px;
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--navbar-height, 64px) + 12px) 18px 40px;
   box-sizing: border-box;
 }
 
-.hero-inner{
+/* ─── Intro overlay ─────────────────────────────────────── */
+/* Removed - see version history for intro overlay styles */
+
+/* ─── Video background ──────────────────────────────────── */
+/* All bg layers extend upward into the navbar area (hidden behind
+   the fixed navbar) so there is no visible gap if the navbar's real
+   rendered height differs from --navbar-height. */
+.bg-video {
+  position: absolute;
+  top: calc(-1 * var(--navbar-height, 64px));
+  left: 0;
+  width: 100%;
+  height: calc(100% + var(--navbar-height, 64px));
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Gradient overlay: left (text side) much darker for readability,
+   right (portrait) slightly lighter so portrait still reads. */
+.bg-overlay {
+  position: absolute;
+  top: calc(-1 * var(--navbar-height, 64px));
+  left: 0;
+  width: 100%;
+  height: calc(100% + var(--navbar-height, 64px));
+  background:
+    linear-gradient(
+      105deg,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.80) 38%,
+      rgba(0, 0, 0, 0.58) 75%,
+      rgba(0, 0, 0, 0.50) 100%
+    ),
+    radial-gradient(ellipse 70% 90% at 22% 55%, rgba(0, 0, 0, 0.55) 0%, transparent 65%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Subtle scanlines on top of video */
+.bg-scanlines {
+  position: absolute;
+  top: calc(-1 * var(--navbar-height, 64px));
+  left: 0;
+  width: 100%;
+  height: calc(100% + var(--navbar-height, 64px));
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.055) 3px,
+    rgba(0, 0, 0, 0.055) 4px
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ─── Corner decorations ────────────────────────────────── */
+.corner-deco {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  pointer-events: none;
+  z-index: 10;
+}
+.corner-deco.corner-tl { top: 22px; left: 22px; }
+.corner-deco.corner-br { bottom: 22px; right: 22px; }
+
+.corner-deco span {
+  position: absolute;
+  background: var(--neon);
+  box-shadow: var(--neon-glow-sm);
+  opacity: 0.6;
+  border-radius: 1px;
+  animation: corner-fade 4s ease-in-out infinite;
+}
+.corner-tl span:first-child { top: 0; left: 0; width: 28px; height: 2px; }
+.corner-tl span:last-child  { top: 0; left: 0; width: 2px; height: 28px; }
+.corner-br span:first-child { bottom: 0; right: 0; width: 28px; height: 2px; }
+.corner-br span:last-child  { bottom: 0; right: 0; width: 2px; height: 28px; }
+
+@keyframes corner-fade {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 0.25; }
+}
+
+/* ─── Hero layout ───────────────────────────────────────── */
+.hero-inner {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,149 +135,305 @@
   width: 100%;
   max-width: 1200px;
   box-sizing: border-box;
-  padding-top: 0;
-  max-height: calc(100vh - 24px);
-  transform: translateX(var(--home-offset-x));
+  position: relative;
+  z-index: 3;
 }
 
-.hero-content{
-  max-width: 760px;
+/* ─── Content column ────────────────────────────────────── */
+.hero-content {
+  max-width: 800px;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  z-index: 2;
-  margin-left: 0;
-  padding: 10px;
-  color: var(--text);
-  justify-content: center;
+  gap: 16px;
+  align-items: center;
   text-align: center;
+  padding-right: 0;
+}
+
+/* ─── DerZiad handle badge ──────────────────────────────── */
+.handle-badge {
+  display: inline-flex;
   align-items: center;
+  gap: 9px;
+  animation: fade-up 0.55s ease both;
+  animation-delay: 0.08s;
 }
 
-.hero-media{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+.handle-dot {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: var(--red-glow);
+  transition: box-shadow 0.4s ease, background 0.4s ease;
 }
 
-.portrait{
-  width: min(48vw, 520px);
-  height: min(70vh, calc(100vh - 200px));
-  max-height: 760px;
-  object-fit: cover;
-  border-radius: 8%;
-  display: block;
-  box-shadow:
-    0 30px 80px var(--shadow),
-    0 10px 28px var(--soft-shadow);
-  opacity: 1;
-  transform: none;
+.handle-dot.blinking {
+  animation: red-blink 0.95s ease-in-out infinite;
 }
 
-.headline{
-  margin: 0 0 6px 0;
-  font-size: clamp(34px, 6.2vw, 72px);
-  line-height: 1.02;
-  font-weight: 900;
-  color: var(--text);
-  letter-spacing: -0.02em;
-  opacity: 1;
-  transform: none;
+@keyframes red-blink {
+  0%, 100% { opacity: 1;   box-shadow: var(--red-glow); }
+  50%       { opacity: 0.15; box-shadow: none; }
 }
 
-.subheadline{
-  margin: 0 0 8px 0;
-  color: var(--muted);
-  font-size: clamp(16px, 2.4vw, 22px);
-  font-weight: 500;
-  opacity: 1;
-}
-
-.role{
-  margin: 0;
-  color: var(--text);
-  font-size: clamp(18px, 2.6vw, 28px);
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  opacity: 1;
-  transform: none;
-}
-.role-prefix{ color: var(--muted); font-weight: 500; }
-
-.actions{ display:flex; gap: 16px; margin-top: 12px; }
-.btn{
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--text);
-}
-
-.btn-primary{
-  background: #0d6efd; /* Bootstrap primary blue */
+.handle-text {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: #ffffff;
-  box-shadow: 0 6px 18px rgba(13,110,253,0.16);
-  border: none;
-  text-decoration: none;
+  text-shadow: var(--text-shadow-strong);
 }
-.btn-primary:hover{
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(13,110,253,0.18);
-}
-.btn-secondary{
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.btn-secondary:hover{ transform: translateY(-2px); }
 
-.role .hacker-color,
-.hero .role .hacker-color {
-  color: var(--hacker-green, #29b81f);
+/* ─── Capgemini status badge ────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(0, 112, 173, 0.12);
+  border: 1px solid rgba(0, 112, 173, 0.35);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: #5bbce4;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: fade-up 0.55s ease both;
+  animation-delay: 0.2s;
+}
+
+.status-icon {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5bbce4;
+  flex-shrink: 0;
+}
+
+/* ─── Headline ──────────────────────────────────────────── */
+.headline {
+  margin: 0;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.05;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+  text-shadow: var(--text-shadow-strong);
+  animation: fade-up 0.7s ease both;
+  animation-delay: 0.32s;
+}
+
+.name-neon {
+  color: var(--neon);
+  text-shadow: var(--neon-text-glow);
+  display: inline-block;
+  animation: name-flicker 9s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+@keyframes name-flicker {
+  0%, 93%, 95.5%, 100% {
+    opacity: 1;
+    text-shadow: var(--neon-text-glow);
+  }
+  94%, 94.8% {
+    opacity: 0.8;
+    text-shadow: 0 0 4px rgba(41, 184, 31, 0.4);
+  }
+}
+
+/* ─── Subheadline ───────────────────────────────────────── */
+.subheadline {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 500;
+  line-height: 1.65;
+  text-shadow: var(--text-shadow-strong);
+  animation: fade-up 0.7s ease both;
+  animation-delay: 0.48s;
+}
+
+/* ─── Role typewriter ───────────────────────────────────── */
+.role {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(16px, 2.3vw, 24px);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+  animation: fade-up 0.7s ease both;
+  animation-delay: 0.62s;
+}
+.role-prefix   { color: var(--muted); font-weight: 500; }
+.hacker-color  { 
+  display: inline;
+  color: #29b81f !important; 
+  font-weight: 700 !important; 
+  text-shadow: 0 0 12px rgba(41, 184, 31, 0.9), 0 0 24px rgba(41, 184, 31, 0.5) !important;
+}
+.caret.hacker-color { 
+  display: inline;
+  color: #29b81f !important; 
+  text-shadow: 0 0 12px rgba(41, 184, 31, 0.9) !important; 
+}
+
+/* ─── Buttons ───────────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 4px;
+  animation: fade-up 0.7s ease both;
+  animation-delay: 0.78s;
+}
+
+.btn {
+  padding: 11px 26px;
+  border-radius: 3px;
   font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, transform 0.18s ease, border-color 0.22s ease;
 }
 
-.caret.hacker-color,
-.hero .caret.hacker-color {
-  color: var(--hacker-green, #29b81f);
+.btn-primary {
+  background: #0d6efd;
+  color: #ffffff;
+  border: 1px solid #0d6efd;
+  box-shadow: 0 4px 16px rgba(13, 110, 253, 0.35);
+}
+.btn-primary:hover {
+  background: #0b5ed7;
+  border-color: #0a58ca;
+  color: #ffffff;
+  box-shadow: 0 6px 22px rgba(13, 110, 253, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(20, 20, 20, 0.55);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+}
+.btn-secondary:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ─── Portrait column (removed - keeping for reference) ───────── */
+.hero-media {
+  display: none;
+}
+
+.fc-tl { top: -9px;    left: -9px; }
+.fc-tr { top: -9px;    right: -9px;  transform: scaleX(-1); }
+.fc-bl { bottom: -9px; left: -9px;   transform: scaleY(-1); }
+.fc-br { bottom: -9px; right: -9px;  transform: scale(-1);  }
+
+/* ─── Entrance animations ───────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes portrait-enter {
+  from { opacity: 0; transform: translateX(48px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ─── Scroll indicator ──────────────────────────────────── */
+.scroll-indicator {
+  margin-top: 24px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.scroll-indicator.visible {
   opacity: 1;
+  animation: scroll-bounce 1.8s ease-in-out infinite;
 }
 
+.scroll-indicator .arrow {
+  font-size: 28px;
+  color: var(--neon);
+  text-shadow: var(--neon-glow-md);
+  display: block;
+}
+
+/* ─── Focus / a11y ──────────────────────────────────────── */
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus { outline: none; }
 :focus-visible {
-  outline: 3px solid rgba(41,184,31,0.18);
-  outline-offset: 4px;
-  border-radius: 8px;
+  outline: 2px solid rgba(41, 184, 31, 0.55);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 [aria-live] { outline: none; }
 
-@media (max-width: 900px){
-  .hero-inner{ flex-direction: column-reverse; gap: 20px; padding: 8px; }
-  .hero-content{ text-align: center; align-items: center; max-width: none; }
-  .headline{ font-size: clamp(28px, 8.5vw, 44px); }
-  .subheadline{ font-size: clamp(14px, 3.2vw, 18px); }
-  .role{ font-size: clamp(16px, 3.2vw, 20px); }
-  .portrait{
-    width: min(88vw, 420px);
-    height: auto;
-    max-height: 70vh;
-
-    object-fit: contain;
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero {
+    padding: calc(var(--navbar-height, 64px) + 8px) 14px 28px;
+    align-items: center;
   }
   .hero-inner {
-    transform: none;
+    gap: 28px;
+    padding: 10px;
+  }
+  .hero-content {
+    max-width: none;
+  }
+  .actions { justify-content: center; }
+  .headline { font-size: clamp(30px, 9vw, 48px); }
+  .subheadline { font-size: clamp(15px, 3vw, 18px); }
+  .role { font-size: clamp(15px, 3.2vw, 20px); }
+  .corner-deco { display: none; }
+  
+  /* Intro overlay mobile adjustments */
+  .intro-title {
+    font-size: clamp(36px, 7vw, 64px);
+    margin-bottom: 20px;
+  }
+  .intro-subtitle {
+    font-size: clamp(24px, 4.5vw, 40px);
+    margin-bottom: 30px;
+  }
+  .intro-typewriter {
+    font-size: clamp(16px, 2.5vw, 24px);
+  }
+  
+  /* Flat dark overlay on mobile (left-weighted gradient doesn't fit
+     the stacked layout). Video still shows through. */
+  .bg-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.70) 0%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
   }
 }
 
-@media (max-height: 700px){
-  .portrait {
-    max-height: 60vh;
-    width: min(84vw, 380px);
-  }
+@media (max-height: 700px) {
+  .portrait { max-height: 52vh; }
 }
