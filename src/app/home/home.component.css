@@ -42,6 +42,20 @@
 /* ─── Intro overlay ─────────────────────────────────────── */
 /* Removed - see version history for intro overlay styles */
 
+/* ─── Video loading overlay ─────────────────────────────── */
+.video-loader {
+  position: absolute;
+  inset: 0;
+  background: #060606;
+  z-index: 10;
+  transition: opacity 0.6s ease;
+}
+
+.video-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ─── Video background ──────────────────────────────────── */
 /* All bg layers extend upward into the navbar area (hidden behind
    the fixed navbar) so there is no visible gap if the navbar's real

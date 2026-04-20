@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   currentPhraseIndex = 0;
   scrollY = 0;
 
+  videoReady = false;
+
   private readonly backgroundVideos = [
     '/assets/videos/background.mp4',
     '/assets/videos/background_1.mp4',
@@ -96,6 +98,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onIntroComplete() {
     // Intro removed - this method is kept for reference but no longer needed
+  }
+
+  onVideoCanPlay() {
+    this.videoReady = true;
   }
 
   onVideoEnded() {

@@ -1,7 +1,11 @@
 <section id="home" class="hero" aria-label="Home">
 
+  <!-- Loading overlay shown until first video is ready -->
+  <div class="video-loader" [class.hidden]="videoReady" aria-hidden="true"></div>
+
   <!-- Video background -->
-  <video #bgVideo class="bg-video" autoplay muted playsinline loop (ended)="onVideoEnded()">
+  <video #bgVideo class="bg-video" autoplay muted playsinline loop
+    (canplaythrough)="onVideoCanPlay()" (ended)="onVideoEnded()">
     <source [src]="currentVideoSrc" type="video/mp4">
   </video>
   <div class="bg-overlay"></div>
