@@ -4,7 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {ProjectsComponent} from "./projects/projects.component";
 
 export const routes:Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'resume', component: ResumeComponent },
-  { path: 'projects', component: ProjectsComponent }
+  { path: '', component: HomeComponent, pathMatch: 'full', data: { animation: 'HomePage' } },
+  { path: 'resume', component: ResumeComponent, data: { animation: 'ResumePage' } },
+  { path: 'projects', component: ProjectsComponent, data: { animation: 'ProjectsPage' } }
 ];

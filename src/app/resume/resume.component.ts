@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -6,7 +6,19 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css']
 })
-export class ResumeComponent {
+export class ResumeComponent implements AfterViewInit, OnDestroy {
+
+  @ViewChild('bgVideo') bgVideo?: ElementRef<HTMLVideoElement>;
+
+  private readonly backgroundVideos = [
+    '/assets/videos/background.mp4',
+    '/assets/videos/background_1.mp4',
+    '/assets/videos/background_2.mp4',
+    '/assets/videos/background_3.mp4'
+  ];
+  private currentVideoIndex = 0;
+  currentVideoSrc = this.backgroundVideos[0];
+  private timers: any[] = [];
 
   educations = [
     {
@@ -182,10 +194,42 @@ export class ResumeComponent {
     }
   ];
 
-  selectedEducation = this.educations[0];
+  selectedEducation: (typeof this.educations)[number] | null = null;
   currentSemesterIndex = 0;
 
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this.timers.push(setTimeout(() => {
+      this.playVideo();
+    }, 100));
+  }
+
+  ngOnDestroy(): void {
+    this.timers.forEach(t => clearTimeout(t));
+    this.timers = [];
+  }
+
+  private playVideo(): void {
+    if (this.bgVideo?.nativeElement) {
+      const videoEl = this.bgVideo.nativeElement;
+      videoEl.currentTime = 0;
+      const playPromise = videoEl.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => console.log('Video autoplay prevented:', err));
+      }
+    }
+  }
+
+  onVideoEnded(): void {
+    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.backgroundVideos.length;
+    this.currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.playVideo();
+    }, 100);
+  }
 
   downloadFile(): void {
     this.http.get("/assets/pdf/CV_Ziad_Bougrine_EN.pdf", { responseType: 'blob' }).subscribe((response: Blob) => {
@@ -198,11 +242,21 @@ export class ResumeComponent {
   }
 
   selectEducation(education: any): void {
+    if (this.selectedEducation?.id === education.id) {
+      this.closeEducation();
+      return;
+    }
+
     this.selectedEducation = education;
     this.currentSemesterIndex = 0;
   }
 
   selectSemester(index: number): void {
     this.currentSemesterIndex = index;
+  }
+
+  closeEducation(): void {
+    this.selectedEducation = null;
+    this.currentSemesterIndex = 0;
   }
 }

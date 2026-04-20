@@ -1,18 +1,3 @@
-.linear-background{
-  background: #ffffff;
-  color: #111111;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.header-element{ cursor: pointer; }
-.header-element:hover{ cursor: pointer; }
-
-.home-background{
-  background-image: url("https://i.pinimg.com/564x/b9/71/f2/b971f2f7bdbe38e0edbede6a80b6bc7b.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .padding-list{ padding-left: 15px; }
 
 .slide-down { position: relative; animation: slideDown 1.4s ease-in-out; }
@@ -20,37 +5,6 @@
 
 .slide-right { position: relative; animation: slideRight 1.4s ease-in-out; }
 @keyframes slideRight { 0% { left: -100%; } 100% { left: 0; } }
-
-.website-intro{
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: white;
-  padding: 1rem;
-  border: 1px solid white;
-  z-index: 1040;
-}
-.website-intro-text-box{
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-.website-intro-text{
-  color: black;
-  font-size: 26px;
-  font-weight: bold;
-  max-width: 90%;
-}
-
-.fade-in { animation: fadeInAnim 2000ms ease-in forwards; }
-.fade-out { animation: fadeOutAnim 2000ms ease-out forwards; }
-@keyframes fadeInAnim { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeOutAnim { from { opacity: 1; } to { opacity: 0; } }
 
 .icon{
   font-size: 25px;
@@ -97,11 +51,6 @@
   box-shadow: 0 0 0 4px rgba(34,197,94,0.18), 0 1px 4px rgba(0,0,0,0.35);
 }
 
-.navbar-toggler{ border: none; padding: 0.25rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
-.hamburger{ display: inline-block; width: 20px; height: 14px; position: relative; }
-.hamburger span{ position: absolute; left: 0; right: 0; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
-.hamburger span:nth-child(1){ top: 0; } .hamburger span:nth-child(2){ top: 6px; } .hamburger span:nth-child(3){ top: 12px; }
-
 .navbar-nav .nav-link{
   color: rgba(255,255,255,0.92);
   padding: 0.5rem 0.9rem;
@@ -133,44 +82,84 @@
 
 .skip-link{ color: rgba(255,255,255,0.75); font-weight: 600; }
 
-@media (max-width: 991.98px) {
-  .collapse.navbar-collapse {
-    transition: transform 320ms ease, opacity 320ms ease;
+.portfolio-navbar .container { display: flex; align-items: center; justify-content: space-between; }
+
+/* ── Hamburger (phone only) ─────────────────────────────── */
+.navbar-toggler {
+  display: none;
+  border: none;
+  background: transparent;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 14px;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.24s ease, opacity 0.18s ease;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ── Nav always inline on ≥576px ─────────────────────────── */
+.nav-collapse {
+  display: flex;
+  align-items: center;
+}
+.navbar-nav { display: flex; flex-direction: row; gap: 0.25rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+.navbar-nav .nav-item { display: flex; align-items: center; }
+
+/* ── Phone collapse (<576px) ─────────────────────────────── */
+@media (max-width: 575.98px) {
+  .navbar-toggler { display: flex; }
+  .nav-collapse {
+    display: none;
     position: absolute;
-    top: 56px;
+    top: 100%;
     left: 0;
     right: 0;
-    z-index: 2050;
-    margin: 0;
-    border-radius: 0;
-    padding: 1rem 1.25rem;
-    transform-origin: top center;
-    opacity: 0;
-    pointer-events: none;
     background: #0b0b0b;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.6);
+    padding: 0.6rem 1rem;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+    z-index: 1059;
   }
-  .collapse.navbar-collapse.show {
-    opacity: 1;
-    pointer-events: auto;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.55);
-  }
-  .navbar-nav { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
-  .navbar-nav .nav-link{ padding: 0.9rem 1rem; font-size: 1.05rem; border-radius: 8px; }
-  .portfolio-navbar.intro-active .navbar-toggler { display: none !important; }
-  .portfolio-navbar.intro-active .collapse.navbar-collapse { display: none !important; opacity: 0 !important; pointer-events: none !important; }
-}
-
-@media (min-width: 992px) {
-  .navbar-toggler { display: none !important; }
-  .collapse.navbar-collapse { display: flex !important; position: static !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; opacity: 1 !important; pointer-events: auto !important; }
-  .navbar-nav { flex-direction: row; gap: 0.25rem; }
-  .navbar-nav .nav-item { display: flex; align-items: center; }
-  .navbar-nav .nav-link { padding: 0.5rem 0.8rem; }
+  .nav-collapse.open { display: flex; }
+  .navbar-nav { flex-direction: column; align-items: stretch; width: 100%; gap: 2px; }
+  .navbar-nav .nav-link { padding: 0.75rem 1rem; font-size: 1rem; }
 }
 
 :root { --navbar-height: 64px; }
-.page.landing-page { display: block; }
+.page.landing-page {
+  display: block;
+  padding-top: 64px;
+  margin-top: 0;
+  background: #060606;
+}
+
+.page.landing-page > .content {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  overflow-x: hidden;
+}
 
 .page.landing-page > app-personalinformations,
 .page.landing-page > app-abstract,
@@ -235,8 +224,6 @@ main.page.landing-page { flex: 1 0 auto; }
 .navbar-brand.logo,
 .navbar-nav .nav-link,
 .navbar-toggler,
-.skip-link,
-.hamburger,
 .portfolio-navbar .brand-dot {
   cursor: pointer !important;
 }

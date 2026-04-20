@@ -1,147 +1,70 @@
-import { AfterViewInit, Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { trigger, transition, style, animate, query, group } from '@angular/animations';
 import { Subscription } from 'rxjs';
+
+const routeAnimations = trigger('routeAnimations', [
+  transition('* => *', [
+    query(':enter, :leave', [
+      style({ position: 'absolute', top: 0, left: 0, width: '100%' })
+    ], { optional: true }),
+    query(':enter', style({ opacity: 0 }), { optional: true }),
+    group([
+      query(':leave', animate('160ms ease', style({ opacity: 0 })), { optional: true }),
+      query(':enter', animate('360ms 100ms ease', style({ opacity: 1 })), { optional: true }),
+    ])
+  ])
+]);
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [routeAnimations]
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'ziadbougrine';
+  navbarOpen = false;
 
-  introVisible = true;
-  introIndex = 0;
-  readonly introStepsCount = 5;
+  private routerSub: Subscription | null = null;
+  private outsideClickCleanup: (() => void) | null = null;
 
-  navbarExpanded = false;
-
-  private documentClickListener: (() => void) | null = null;
-  private documentTouchListener: (() => void) | null = null;
-  private collapseObserver: MutationObserver | null = null;
-  private introTimer: any = null;
-  private routerEventsSubscription: Subscription | null = null;
-
-  private readonly INTRO_SEEN_KEY = 'introSeen';
-
-  constructor(private renderer: Renderer2, private router: Router) { }
+  constructor(private router: Router, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.routerEventsSubscription = this.router.events.subscribe((event) => {
+    this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        this.closeNavbar();
+        window.scrollTo(0, 0);
+      }
+    });
+    this.outsideClickCleanup = this.renderer.listen('document', 'click', (e: Event) => {
+      const nav = document.querySelector('.portfolio-navbar');
+      if (this.navbarOpen && nav && !nav.contains(e.target as Node)) {
         this.closeNavbar();
       }
     });
-
-    const seen = localStorage.getItem(this.INTRO_SEEN_KEY);
-    if (seen === 'true') {
-      this.introVisible = false;
-      this.introIndex = this.introStepsCount;
-      return;
-    }
-    this.startIntroSequence();
-  }
-
-  ngAfterViewInit(): void {
-    this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => this.handleOutsideClick(event));
-    this.documentTouchListener = this.renderer.listen('document', 'touchstart', (event: Event) => this.handleOutsideClick(event));
-
-    const collapseEl = document.querySelector('.collapse.navbar-collapse');
-    const navbarRoot = document.querySelector('.portfolio-navbar');
-    if (collapseEl && navbarRoot) {
-      this.navbarExpanded = (collapseEl as Element).classList.contains('show');
-      this.collapseObserver = new MutationObserver(() => {
-        this.navbarExpanded = (collapseEl as Element).classList.contains('show');
-        navbarRoot.classList.toggle('menu-open', this.navbarExpanded);
-      });
-      this.collapseObserver.observe(collapseEl, { attributes: true, attributeFilter: ['class'] });
-    }
   }
 
   ngOnDestroy(): void {
-    if (this.documentClickListener) { this.documentClickListener(); this.documentClickListener = null; }
-    if (this.documentTouchListener) { this.documentTouchListener(); this.documentTouchListener = null; }
-    if (this.collapseObserver) { this.collapseObserver.disconnect(); this.collapseObserver = null; }
-    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
-    if (this.routerEventsSubscription) { this.routerEventsSubscription.unsubscribe(); this.routerEventsSubscription = null; }
-  }
-
-  get_background(): string {
-    return this.introVisible ? "black-background" : "linear-gradient";
+    this.routerSub?.unsubscribe();
+    this.outsideClickCleanup?.();
   }
 
   isHomeRoute(): boolean {
     return this.router.url === '/';
   }
 
-  skipIntro(): void {
-    this.markIntroSeen();
-    this.finishIntro();
-    this.router.navigate(['/']);
-  }
-
-  private startIntroSequence(): void {
-    this.introIndex = 0;
-    this.advanceIntro();
-  }
-
-  private advanceIntro(): void {
-    if (this.introIndex < this.introStepsCount) {
-      this.introTimer = setTimeout(() => {
-        this.introIndex++;
-        this.advanceIntro();
-      }, 3000);
-    } else {
-      this.finishIntro();
-    }
-  }
-
-  private finishIntro(): void {
-    if (this.introTimer) { clearTimeout(this.introTimer); this.introTimer = null; }
-    this.introVisible = false;
-    this.markIntroSeen();
-  }
-
-  private markIntroSeen(): void {
-    try {
-      localStorage.setItem(this.INTRO_SEEN_KEY, 'true');
-    } catch {
-    }
-  }
-
-  private handleOutsideClick(event: Event): void {
-    const navbarCollapse = document.querySelector('.navbar-collapse');
-    const navbarRoot = document.querySelector('.navbar');
-    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-      if (navbarRoot && !navbarRoot.contains(event.target as Node)) {
-        this.closeNavbar();
-      }
-    }
-  }
-
   toggleNavbar(): void {
-    this.navbarExpanded = !this.navbarExpanded;
-    const navbarRoot = document.querySelector('.portfolio-navbar');
-    if (navbarRoot) {
-      navbarRoot.classList.toggle('menu-open', this.navbarExpanded);
-    }
-    const collapseEl = document.querySelector('.collapse.navbar-collapse');
-    if (collapseEl) {
-      collapseEl.classList.toggle('show', this.navbarExpanded);
-    }
-    const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
-    if (toggler) {
-      toggler.setAttribute('aria-expanded', String(this.navbarExpanded));
-    }
+    this.navbarOpen = !this.navbarOpen;
   }
 
   closeNavbar(): void {
-    this.navbarExpanded = false;
-    const navbar = document.querySelector('.navbar-collapse');
-    if (navbar && navbar.classList.contains('show')) { navbar.classList.remove('show'); }
-    const toggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
-    if (toggler) { toggler.setAttribute('aria-expanded', 'false'); }
-    const navbarRoot = document.querySelector('.portfolio-navbar');
-    if (navbarRoot) { navbarRoot.classList.remove('menu-open'); }
+    this.navbarOpen = false;
+  }
+
+  prepareRoute(outlet: RouterOutlet): string {
+    return outlet?.activatedRouteData?.['animation'] ?? '';
   }
 }
