@@ -24,8 +24,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     '/assets/videos/background_2.mp4',
     '/assets/videos/background_3.mp4'
   ];
-  private currentVideoIndex = 0;
-  currentVideoSrc = this.backgroundVideos[0];
+  private currentVideoIndex = Math.floor(Math.random() * 4);
+  currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
 
   private timers: any[] = [];
 

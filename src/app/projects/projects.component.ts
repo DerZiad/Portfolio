@@ -1,11 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('bgVideo') bgVideo?: ElementRef<HTMLVideoElement>;
+
+  private readonly backgroundVideos = [
+    '/assets/videos/background.mp4',
+    '/assets/videos/background_1.mp4',
+    '/assets/videos/background_2.mp4',
+    '/assets/videos/background_3.mp4'
+  ];
+  private currentVideoIndex = Math.floor(Math.random() * 4);
+  currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
+  private timers: ReturnType<typeof setTimeout>[] = [];
 
   selectedTypeOfProject: string = "All"
   projectTypes: string[] = [];
@@ -97,7 +109,33 @@ export class ProjectsComponent implements OnInit {
     }
   ]
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this.timers.push(setTimeout(() => this.playVideo(), 100));
+  }
+
+  ngOnDestroy(): void {
+    this.timers.forEach(t => clearTimeout(t));
+    this.timers = [];
+  }
+
+  private playVideo(): void {
+    if (this.bgVideo?.nativeElement) {
+      const videoEl = this.bgVideo.nativeElement;
+      videoEl.currentTime = 0;
+      const playPromise = videoEl.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => console.log('Video autoplay prevented:', err));
+      }
+    }
+  }
+
+  onVideoEnded(): void {
+    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.backgroundVideos.length;
+    this.currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
+    this.cdr.detectChanges();
+    this.timers.push(setTimeout(() => this.playVideo(), 100));
   }
 
   ngOnInit(): void {
