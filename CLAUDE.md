@@ -36,7 +36,7 @@ Note: the README states tests are not required. Spec files (`*.spec.ts`) exist a
   - `projects` → `ProjectsComponent`
 - `src/app/app-routing.module.ts` exists but is a **dead file** — it declares an empty `routes` array and is not imported by `AppModule`. Do not add routes here; use `Routes.ts`.
 - `AppComponent` owns the fixed navbar (custom hamburger toggle, outside-click-to-close via `Renderer2`), scroll-to-top on navigation, the `routeAnimations` fade transition between pages, and the **branded full-screen app loader** (shown on first load until `LoadingService` reports ready, with a 4s fallback).
-- **`VideoBackgroundComponent`** (`src/app/shared/video-background/`) is the single shared background-video implementation used by all three pages: picks a random `/assets/videos/background*.mp4`, fades in on `canplay`, cycles on `ended`, and notifies `LoadingService`. Do not reintroduce per-page video logic.
+- **`VideoBackgroundComponent`** (`src/app/shared/video-background/`) is the single shared background-video implementation used by all three pages: plays `/assets/videos/background_1.mp4` muted on `loop`, fades in on `canplay`, and notifies `LoadingService`. Do not reintroduce per-page video logic. (`background_1.mp4` is the only video kept; the others were removed.)
 - **`LoadingService`** (`src/app/loading.service.ts`) is a latching ready-flag (`ready$`); the loader only ever shows once per app load.
 - Background videos are compressed to **720p/muted/~0.5–4 MB each** (re-encoded from 4K originals). If adding a video, keep it ≤ ~4 MB, muted, H.264, `faststart`.
 
