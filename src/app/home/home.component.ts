@@ -1,66 +1,41 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, HostListener, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChild('bgVideo') bgVideo?: ElementRef<HTMLVideoElement>;
+export class HomeComponent implements OnInit, OnDestroy {
 
   cursor = '|';
   animatedText = '';
   introComplete = false;
   phrases = ['Software Engineer', 'Full-Stack Developer', 'Problem Solver', 'Tech Enthusiast'];
   currentPhraseIndex = 0;
-  scrollY = 0;
 
-  videoReady = false;
+  private timers: ReturnType<typeof setTimeout>[] = [];
 
-  private readonly backgroundVideos = [
-    '/assets/videos/background.mp4',
-    '/assets/videos/background_1.mp4',
-    '/assets/videos/background_2.mp4',
-    '/assets/videos/background_3.mp4'
-  ];
-  private currentVideoIndex = Math.floor(Math.random() * 4);
-  currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
-
-  private timers: any[] = [];
-
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  @HostListener('window:scroll')
-  onScroll() {
-    this.scrollY = window.scrollY;
-  }
-
-  get portraitTransform(): string {
-    return `translateY(${this.scrollY * -0.12}px)`;
-  }
+  constructor(
+    private readonly zone: NgZone,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.timers.push(setTimeout(() => this.toggleCaret(), 200));
-    this.timers.push(setTimeout(() => this.showWord(0), 400));
-  }
-
-  ngAfterViewInit(): void {
-    // Play video after view is fully initialized
-    this.timers.push(setTimeout(() => {
-      this.playVideo();
-    }, 100));
-  }
-
-  private playVideo(): void {
-    if (this.bgVideo?.nativeElement) {
-      const videoEl = this.bgVideo.nativeElement;
-      videoEl.currentTime = 0;
-      const playPromise = videoEl.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => console.log('Video autoplay prevented:', err));
-      }
-    }
+    // The typewriter ticks every 55–95ms. Running the timers outside the
+    // Angular zone keeps them from triggering app-wide change detection;
+    // we refresh only this component's view on each tick.
+    this.zone.runOutsideAngular(() => {
+      this.schedule(() => this.toggleCaret(), 200);
+      this.schedule(() => this.showWord(0), 400);
+    });
   }
 
   ngOnDestroy(): void {
@@ -68,50 +43,37 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.timers = [];
   }
 
-  private toggleCaret() {
-    this.cursor = this.cursor === '|' ? '' : '|';
-    this.timers.push(setTimeout(() => this.toggleCaret(), 520));
+  private schedule(fn: () => void, delay: number): void {
+    this.timers.push(setTimeout(fn, delay));
   }
 
-  showWord(n: number) {
+  private toggleCaret(): void {
+    this.cursor = this.cursor === '|' ? '' : '|';
+    this.cdr.detectChanges();
+    this.schedule(() => this.toggleCaret(), 520);
+  }
+
+  private showWord(n: number): void {
     const current = this.phrases[this.currentPhraseIndex];
     this.animatedText = current.substring(0, n);
     if (++n > current.length) {
-      // First phrase fully typed → intro is done, stop red dot blinking
-      this.onIntroComplete();
-      this.timers.push(setTimeout(() => this.hideWord(current.length), 2200));
+      this.introComplete = true;
+      this.schedule(() => this.hideWord(current.length), 2200);
     } else {
-      this.timers.push(setTimeout(() => this.showWord(n), 95));
+      this.schedule(() => this.showWord(n), 95);
     }
+    this.cdr.detectChanges();
   }
 
-  hideWord(n: number) {
+  private hideWord(n: number): void {
     const current = this.phrases[this.currentPhraseIndex];
     this.animatedText = current.substring(0, n);
     if (--n < 0) {
       this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.phrases.length;
-      this.timers.push(setTimeout(() => this.showWord(0), 320));
+      this.schedule(() => this.showWord(0), 320);
     } else {
-      this.timers.push(setTimeout(() => this.hideWord(n), 55));
+      this.schedule(() => this.hideWord(n), 55);
     }
-  }
-
-  onIntroComplete() {
-    // Intro removed - this method is kept for reference but no longer needed
-  }
-
-  onVideoCanPlay() {
-    this.videoReady = true;
-  }
-
-  onVideoEnded() {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.backgroundVideos.length;
-    this.currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
     this.cdr.detectChanges();
-
-    // Play the next video after a small delay to ensure it's loaded
-    setTimeout(() => {
-      this.playVideo();
-    }, 100);
   }
 }

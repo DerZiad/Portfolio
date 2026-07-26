@@ -1,26 +1,23 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
+interface Project {
+  name: string;
+  type: string;
+  link: string;
+  exist_on_github: boolean;
+}
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+  styleUrls: ['./projects.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChild('bgVideo') bgVideo?: ElementRef<HTMLVideoElement>;
-
-  private readonly backgroundVideos = [
-    '/assets/videos/background.mp4',
-    '/assets/videos/background_1.mp4',
-    '/assets/videos/background_2.mp4',
-    '/assets/videos/background_3.mp4'
-  ];
-  private currentVideoIndex = Math.floor(Math.random() * 4);
-  currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
-  private timers: ReturnType<typeof setTimeout>[] = [];
+export class ProjectsComponent implements OnInit {
 
   selectedTypeOfProject: string = "All"
   projectTypes: string[] = [];
+  filteredProjects: Project[] = [];
 
   data = [
     {
@@ -109,35 +106,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   ]
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  ngAfterViewInit(): void {
-    this.timers.push(setTimeout(() => this.playVideo(), 100));
-  }
-
-  ngOnDestroy(): void {
-    this.timers.forEach(t => clearTimeout(t));
-    this.timers = [];
-  }
-
-  private playVideo(): void {
-    if (this.bgVideo?.nativeElement) {
-      const videoEl = this.bgVideo.nativeElement;
-      videoEl.currentTime = 0;
-      const playPromise = videoEl.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => console.log('Video autoplay prevented:', err));
-      }
-    }
-  }
-
-  onVideoEnded(): void {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.backgroundVideos.length;
-    this.currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
-    this.cdr.detectChanges();
-    this.timers.push(setTimeout(() => this.playVideo(), 100));
-  }
-
   ngOnInit(): void {
     const types = Array.from(new Set(
       this.data
@@ -146,13 +114,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         .filter(t => t.trim().length > 0)
     ));
     this.projectTypes = ['All', ...types];
+    this.applyFilter();
   }
 
-  goToLink(dataEntity: any): void {
+  goToLink(dataEntity: Project): void {
     document.location.replace(dataEntity.link)
   }
 
-  openInNewTab(dataEntity: any, event: Event): void {
+  openInNewTab(dataEntity: Project, event: Event): void {
     event.stopPropagation();
     if (!dataEntity || !dataEntity.link) return;
     window.open(dataEntity.link, '_blank', 'noopener');
@@ -160,12 +129,21 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectType(type: string): void {
     this.selectedTypeOfProject = type;
+    this.applyFilter();
   }
 
-  filter(dict: any) {
-    if (!Array.isArray(dict)) return [];
-    // always exclude projects that do not exist on GitHub
-    if (this.selectedTypeOfProject === 'All') return dict.filter((element: any) => element.exist_on_github);
-    return dict.filter((element: any) => element.type === this.selectedTypeOfProject && element.exist_on_github)
+  trackByProject(_index: number, project: Project): string {
+    return project.link;
+  }
+
+  /**
+   * Computed once per filter change (not on every change-detection cycle).
+   * Projects that do not exist on GitHub are always excluded.
+   */
+  private applyFilter(): void {
+    this.filteredProjects = this.data.filter(p =>
+      p.exist_on_github &&
+      (this.selectedTypeOfProject === 'All' || p.type === this.selectedTypeOfProject)
+    );
   }
 }

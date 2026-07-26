@@ -1,0 +1,4 @@
+<video #bgVideo class="bg-video" [class.visible]="videoReady" autoplay [muted]="true" playsinline preload="auto"
+  [src]="currentVideoSrc" (canplay)="onVideoCanPlay()" (error)="onVideoError()" (ended)="onVideoEnded()"
+  aria-hidden="true" tabindex="-1">
+</video>

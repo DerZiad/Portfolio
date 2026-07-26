@@ -1,24 +1,13 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-resume',
   templateUrl: './resume.component.html',
-  styleUrls: ['./resume.component.css']
+  styleUrls: ['./resume.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResumeComponent implements AfterViewInit, OnDestroy {
-
-  @ViewChild('bgVideo') bgVideo?: ElementRef<HTMLVideoElement>;
-
-  private readonly backgroundVideos = [
-    '/assets/videos/background.mp4',
-    '/assets/videos/background_1.mp4',
-    '/assets/videos/background_2.mp4',
-    '/assets/videos/background_3.mp4'
-  ];
-  private currentVideoIndex = Math.floor(Math.random() * 4);
-  currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
-  private timers: any[] = [];
+export class ResumeComponent {
 
   educations = [
     {
@@ -197,38 +186,22 @@ export class ResumeComponent implements AfterViewInit, OnDestroy {
   selectedEducation: (typeof this.educations)[number] | null = null;
   currentSemesterIndex = 0;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  /** Which company blocks are expanded. Collapsed by default so their
+   *  (large) contents are not rendered until the user opens them. */
+  private readonly expandedCompanies = new Set<string>();
 
-  ngAfterViewInit(): void {
-    this.timers.push(setTimeout(() => {
-      this.playVideo();
-    }, 100));
-  }
+  constructor(private http: HttpClient) {}
 
-  ngOnDestroy(): void {
-    this.timers.forEach(t => clearTimeout(t));
-    this.timers = [];
-  }
-
-  private playVideo(): void {
-    if (this.bgVideo?.nativeElement) {
-      const videoEl = this.bgVideo.nativeElement;
-      videoEl.currentTime = 0;
-      const playPromise = videoEl.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => console.log('Video autoplay prevented:', err));
-      }
+  toggleCompany(id: string): void {
+    if (this.expandedCompanies.has(id)) {
+      this.expandedCompanies.delete(id);
+    } else {
+      this.expandedCompanies.add(id);
     }
   }
 
-  onVideoEnded(): void {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.backgroundVideos.length;
-    this.currentVideoSrc = this.backgroundVideos[this.currentVideoIndex];
-    this.cdr.detectChanges();
-
-    setTimeout(() => {
-      this.playVideo();
-    }, 100);
+  isCompanyOpen(id: string): boolean {
+    return this.expandedCompanies.has(id);
   }
 
   downloadFile(): void {

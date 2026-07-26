@@ -1,25 +1,14 @@
 <section id="home" class="hero" aria-label="Home">
 
-  <!-- Loading overlay shown until first video is ready -->
-  <div class="video-loader" [class.hidden]="videoReady" aria-hidden="true"></div>
-
-  <!-- Video background -->
-  <video #bgVideo class="bg-video" autoplay muted playsinline loop
-    (canplaythrough)="onVideoCanPlay()" (ended)="onVideoEnded()">
-    <source [src]="currentVideoSrc" type="video/mp4">
-  </video>
-  <div class="bg-overlay"></div>
-  <div class="bg-scanlines"></div>
-
-  <!-- Corner decorations -->
-  <div class="corner-deco corner-tl" aria-hidden="true"><span></span><span></span></div>
-  <div class="corner-deco corner-br" aria-hidden="true"><span></span><span></span></div>
+  <!-- Shared looping video background (only backdrop) -->
+  <app-video-background></app-video-background>
+  <div class="bg-glow" aria-hidden="true"></div>
 
   <div class="hero-inner">
 
     <div class="hero-content">
 
-      <!-- Handle with blinking red dot (stops after intro) -->
+      <!-- Handle -->
       <div class="handle-badge" aria-label="Username DerZiad">
         <span class="handle-dot" [class.blinking]="!introComplete" aria-hidden="true"></span>
         <span class="handle-text">DerZiad</span>
@@ -32,14 +21,15 @@
       </div>
 
       <h1 class="headline">
-        Hello,<br>I'm <span class="name-neon">Ziad Bougrine</span>
+        Hello,<br>I'm <span class="name-gradient">Ziad Bougrine</span>
       </h1>
 
       <p class="subheadline">Full&#8209;stack developer building fast, accessible web experiences</p>
 
       <p class="role">
         <span class="role-prefix">I am a</span>
-        <span class="hacker-color" aria-live="polite" role="status">{{animatedText}}</span><span class="caret hacker-color" aria-hidden="true">{{cursor}}</span>
+        <span class="role-accent" aria-live="polite" role="status">{{animatedText}}</span><span
+          class="caret role-accent" aria-hidden="true">{{cursor}}</span>
       </p>
 
       <div class="actions" role="group" aria-label="Primary actions">
@@ -49,7 +39,7 @@
 
       <!-- Scroll indicator appears after intro completes -->
       <div class="scroll-indicator" [class.visible]="introComplete" aria-hidden="true">
-        <span class="arrow">↓</span>
+        <span class="arrow">&#8595;</span>
       </div>
 
     </div>

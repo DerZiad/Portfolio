@@ -1,33 +1,25 @@
-:root {
-  --neon: #29b81f;
-  --neon-glow-sm: 0 0 8px rgba(41, 184, 31, 0.7), 0 0 20px rgba(41, 184, 31, 0.3);
-  --neon-glow-md: 0 0 14px rgba(41, 184, 31, 0.6), 0 0 40px rgba(41, 184, 31, 0.25), 0 0 80px rgba(41, 184, 31, 0.1);
-  --neon-text-glow: 0 0 10px rgba(41, 184, 31, 0.9), 0 0 26px rgba(41, 184, 31, 0.5), 0 0 55px rgba(41, 184, 31, 0.2);
-  --red: #ff2d2d;
-  --red-glow: 0 0 8px rgba(255, 45, 45, 0.9), 0 0 20px rgba(255, 45, 45, 0.5);
-  --capgemini: #0070ad;
-  --text: #ffffff;
-  --muted: #d8e2ee;
-  --text-shadow-strong: 0 2px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.6);
-  --gap: 72px;
-  font-family: "Inter", "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-/* ─── Host ─────────────────────────────────────────────── */
+/* ─── Design tokens ─────────────────────────────────────── */
 :host {
+  --bg: #08080c;
+  --text: #fafafa;
+  --muted: #a1a1aa;
+  --faint: #71717a;
+  --accent: #facc15;
+  --accent-soft: #fde047;
+  --border: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.05);
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
   display: block;
   min-height: 100vh;
   margin-top: calc(-1 * var(--navbar-height, 64px));
-  background-color: #060606;
+  background-color: var(--bg);
   color: var(--text);
+  font-family: var(--font);
   box-sizing: border-box;
 }
 
 /* ─── Hero shell ────────────────────────────────────────── */
-/* min-height: 100vh so the hero fills the viewport even though :host
-   uses margin-top: -navbar-height to pull under the fixed navbar.
-   padding-top reserves space for the navbar so centered content never
-   sits behind it. */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -35,188 +27,103 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: calc(var(--navbar-height, 64px) + 12px) 18px 40px;
+  padding: calc(var(--navbar-height, 64px) + 12px) 20px 48px;
   box-sizing: border-box;
 }
 
-/* ─── Intro overlay ─────────────────────────────────────── */
-/* Removed - see version history for intro overlay styles */
-
-/* ─── Video loading overlay ─────────────────────────────── */
-.video-loader {
+/* ─── Background treatment ──────────────────────────────── */
+/* Soft accent glow behind the content */
+.bg-glow {
   position: absolute;
-  inset: 0;
-  background: #060606;
-  z-index: 10;
-  transition: opacity 0.6s ease;
-}
-
-.video-loader.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ─── Video background ──────────────────────────────────── */
-/* All bg layers extend upward into the navbar area (hidden behind
-   the fixed navbar) so there is no visible gap if the navbar's real
-   rendered height differs from --navbar-height. */
-.bg-video {
-  position: absolute;
-  top: calc(-1 * var(--navbar-height, 64px));
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--navbar-height, 64px));
-  object-fit: cover;
-  object-position: center center;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Gradient overlay: left (text side) much darker for readability,
-   right (portrait) slightly lighter so portrait still reads. */
-.bg-overlay {
-  position: absolute;
-  top: calc(-1 * var(--navbar-height, 64px));
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--navbar-height, 64px));
-  background:
-    linear-gradient(
-      105deg,
-      rgba(0, 0, 0, 0.92) 0%,
-      rgba(0, 0, 0, 0.80) 38%,
-      rgba(0, 0, 0, 0.58) 75%,
-      rgba(0, 0, 0, 0.50) 100%
-    ),
-    radial-gradient(ellipse 70% 90% at 22% 55%, rgba(0, 0, 0, 0.55) 0%, transparent 65%);
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: min(760px, 90vw);
+  height: 420px;
+  background: radial-gradient(ellipse at center, rgba(250, 204, 21, 0.1) 0%, transparent 65%);
   z-index: 1;
   pointer-events: none;
+  filter: blur(10px);
 }
 
-/* Subtle scanlines on top of video */
-.bg-scanlines {
-  position: absolute;
-  top: calc(-1 * var(--navbar-height, 64px));
-  left: 0;
-  width: 100%;
-  height: calc(100% + var(--navbar-height, 64px));
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.055) 3px,
-    rgba(0, 0, 0, 0.055) 4px
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* ─── Corner decorations ────────────────────────────────── */
-.corner-deco {
-  position: absolute;
-  width: 72px;
-  height: 72px;
-  pointer-events: none;
-  z-index: 10;
-}
-.corner-deco.corner-tl { top: 22px; left: 22px; }
-.corner-deco.corner-br { bottom: 22px; right: 22px; }
-
-.corner-deco span {
-  position: absolute;
-  background: var(--neon);
-  box-shadow: var(--neon-glow-sm);
-  opacity: 0.6;
-  border-radius: 1px;
-  animation: corner-fade 4s ease-in-out infinite;
-}
-.corner-tl span:first-child { top: 0; left: 0; width: 28px; height: 2px; }
-.corner-tl span:last-child  { top: 0; left: 0; width: 2px; height: 28px; }
-.corner-br span:first-child { bottom: 0; right: 0; width: 28px; height: 2px; }
-.corner-br span:last-child  { bottom: 0; right: 0; width: 2px; height: 28px; }
-
-@keyframes corner-fade {
-  0%, 100% { opacity: 0.6; }
-  50%       { opacity: 0.25; }
-}
-
-/* ─── Hero layout ───────────────────────────────────────── */
+/* ─── Layout ────────────────────────────────────────────── */
 .hero-inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--gap);
   width: 100%;
-  max-width: 1200px;
-  box-sizing: border-box;
+  max-width: 1080px;
   position: relative;
   z-index: 3;
 }
 
-/* ─── Content column ────────────────────────────────────── */
 .hero-content {
-  max-width: 800px;
-  flex: 1;
-  min-width: 0;
+  max-width: 760px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
   text-align: center;
-  padding-right: 0;
+  /* Content card: no full-page scrim anymore, so the text sits in its own
+     near-opaque panel over the video (matching Resume / Projects). */
+  background: rgba(13, 13, 19, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 72px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
-/* ─── DerZiad handle badge ──────────────────────────────── */
+/* ─── Handle badge ──────────────────────────────────────── */
 .handle-badge {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   animation: fade-up 0.55s ease both;
   animation-delay: 0.08s;
 }
 
 .handle-dot {
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--red);
-  box-shadow: var(--red-glow);
-  transition: box-shadow 0.4s ease, background 0.4s ease;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
+  transition: opacity 0.4s ease;
 }
 
 .handle-dot.blinking {
-  animation: red-blink 0.95s ease-in-out infinite;
+  animation: dot-blink 1s ease-in-out infinite;
 }
 
-@keyframes red-blink {
-  0%, 100% { opacity: 1;   box-shadow: var(--red-glow); }
-  50%       { opacity: 0.15; box-shadow: none; }
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
 }
 
 .handle-text {
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: var(--text-shadow-strong);
+  color: var(--muted);
 }
 
-/* ─── Capgemini status badge ────────────────────────────── */
+/* ─── Status badge ──────────────────────────────────────── */
 .status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  background: rgba(0, 112, 173, 0.12);
-  border: 1px solid rgba(0, 112, 173, 0.35);
-  border-radius: 20px;
-  padding: 5px 14px;
+  gap: 8px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 15px;
   font-size: 12px;
-  color: #5bbce4;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  color: #d4d4d8;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   animation: fade-up 0.55s ease both;
   animation-delay: 0.2s;
 }
@@ -226,50 +133,40 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #5bbce4;
+  background: #facc15;
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.7);
   flex-shrink: 0;
 }
 
 /* ─── Headline ──────────────────────────────────────────── */
 .headline {
   margin: 0;
-  font-size: clamp(36px, 5vw, 60px);
-  line-height: 1.05;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.025em;
-  text-shadow: var(--text-shadow-strong);
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1.06;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
   animation: fade-up 0.7s ease both;
   animation-delay: 0.32s;
 }
 
-.name-neon {
-  color: var(--neon);
-  text-shadow: var(--neon-text-glow);
-  display: inline-block;
-  animation: name-flicker 9s ease-in-out infinite;
-  animation-delay: 3s;
-}
-
-@keyframes name-flicker {
-  0%, 93%, 95.5%, 100% {
-    opacity: 1;
-    text-shadow: var(--neon-text-glow);
-  }
-  94%, 94.8% {
-    opacity: 0.8;
-    text-shadow: 0 0 4px rgba(41, 184, 31, 0.4);
-  }
+.name-gradient {
+  background: linear-gradient(115deg, #fef08a 0%, #facc15 55%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* ─── Subheadline ───────────────────────────────────────── */
 .subheadline {
   margin: 0;
-  color: #ffffff;
-  font-size: clamp(16px, 2vw, 20px);
-  font-weight: 500;
+  color: var(--muted);
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 400;
   line-height: 1.65;
-  text-shadow: var(--text-shadow-strong);
+  max-width: 560px;
   animation: fade-up 0.7s ease both;
   animation-delay: 0.48s;
 }
@@ -277,107 +174,84 @@
 /* ─── Role typewriter ───────────────────────────────────── */
 .role {
   margin: 0;
-  color: #ffffff;
-  font-size: clamp(16px, 2.3vw, 24px);
+  color: var(--text);
+  font-size: clamp(16px, 2.2vw, 22px);
   display: flex;
-  gap: 10px;
-  align-items: center;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+  gap: 9px;
+  align-items: baseline;
+  min-height: 1.6em;
   animation: fade-up 0.7s ease both;
   animation-delay: 0.62s;
 }
-.role-prefix   { color: var(--muted); font-weight: 500; }
-.hacker-color  { 
-  display: inline;
-  color: #29b81f !important; 
-  font-weight: 700 !important; 
-  text-shadow: 0 0 12px rgba(41, 184, 31, 0.9), 0 0 24px rgba(41, 184, 31, 0.5) !important;
+
+.role-prefix {
+  color: var(--faint);
+  font-weight: 400;
 }
-.caret.hacker-color { 
-  display: inline;
-  color: #29b81f !important; 
-  text-shadow: 0 0 12px rgba(41, 184, 31, 0.9) !important; 
+
+.role-accent {
+  color: var(--accent-soft);
+  font-weight: 600;
+}
+
+.caret {
+  font-weight: 400;
 }
 
 /* ─── Buttons ───────────────────────────────────────────── */
 .actions {
   display: flex;
-  gap: 14px;
-  margin-top: 4px;
+  gap: 12px;
+  margin-top: 10px;
   animation: fade-up 0.7s ease both;
   animation-delay: 0.78s;
 }
 
 .btn {
-  padding: 11px 26px;
-  border-radius: 3px;
-  font-weight: 700;
-  font-size: 13px;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, transform 0.18s ease, border-color 0.22s ease;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.18s ease, border-color 0.2s ease;
 }
 
 .btn-primary {
-  background: #0d6efd;
-  color: #ffffff;
-  border: 1px solid #0d6efd;
-  box-shadow: 0 4px 16px rgba(13, 110, 253, 0.35);
+  background: #facc15;
+  color: #09090b;
+  border: 1px solid #facc15;
+  box-shadow: 0 4px 18px rgba(250, 204, 21, 0.25);
 }
+
 .btn-primary:hover {
-  background: #0b5ed7;
-  border-color: #0a58ca;
-  color: #ffffff;
-  box-shadow: 0 6px 22px rgba(13, 110, 253, 0.5);
+  background: #fde047;
+  border-color: #fde047;
+  color: #09090b;
   transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(250, 204, 21, 0.35);
 }
 
 .btn-secondary {
-  background: rgba(20, 20, 20, 0.55);
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  background: var(--glass);
+  color: var(--text);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
+
 .btn-secondary:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: #ffffff;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
-}
-
-/* ─── Portrait column (removed - keeping for reference) ───────── */
-.hero-media {
-  display: none;
-}
-
-.fc-tl { top: -9px;    left: -9px; }
-.fc-tr { top: -9px;    right: -9px;  transform: scaleX(-1); }
-.fc-bl { bottom: -9px; left: -9px;   transform: scaleY(-1); }
-.fc-br { bottom: -9px; right: -9px;  transform: scale(-1);  }
-
-/* ─── Entrance animations ───────────────────────────────── */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes portrait-enter {
-  from { opacity: 0; transform: translateX(48px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.6; }
-  50% { transform: translateY(8px); opacity: 1; }
 }
 
 /* ─── Scroll indicator ──────────────────────────────────── */
 .scroll-indicator {
-  margin-top: 24px;
+  margin-top: 26px;
   opacity: 0;
   transition: opacity 0.8s ease;
   pointer-events: none;
@@ -385,69 +259,60 @@
 
 .scroll-indicator.visible {
   opacity: 1;
-  animation: scroll-bounce 1.8s ease-in-out infinite;
+  animation: scroll-bounce 1.9s ease-in-out infinite;
 }
 
 .scroll-indicator .arrow {
-  font-size: 28px;
-  color: var(--neon);
-  text-shadow: var(--neon-glow-md);
+  font-size: 22px;
+  color: var(--faint);
   display: block;
+}
+
+/* ─── Animations ────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handle-badge, .status-badge, .headline, .subheadline, .role, .actions {
+    animation: none;
+  }
+  .scroll-indicator.visible { animation: none; }
+  .handle-dot.blinking { animation: none; }
 }
 
 /* ─── Focus / a11y ──────────────────────────────────────── */
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus { outline: none; }
 :focus-visible {
-  outline: 2px solid rgba(41, 184, 31, 0.55);
+  outline: 2px solid rgba(250, 204, 21, 0.65);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 [aria-live] { outline: none; }
 
 /* ─── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero {
-    padding: calc(var(--navbar-height, 64px) + 8px) 14px 28px;
-    align-items: center;
+    padding: calc(var(--navbar-height, 64px) + 8px) 16px 32px;
   }
-  .hero-inner {
-    gap: 28px;
-    padding: 10px;
-  }
-  .hero-content {
-    max-width: none;
-  }
-  .actions { justify-content: center; }
-  .headline { font-size: clamp(30px, 9vw, 48px); }
-  .subheadline { font-size: clamp(15px, 3vw, 18px); }
-  .role { font-size: clamp(15px, 3.2vw, 20px); }
-  .corner-deco { display: none; }
-  
-  /* Intro overlay mobile adjustments */
-  .intro-title {
-    font-size: clamp(36px, 7vw, 64px);
-    margin-bottom: 20px;
-  }
-  .intro-subtitle {
-    font-size: clamp(24px, 4.5vw, 40px);
-    margin-bottom: 30px;
-  }
-  .intro-typewriter {
-    font-size: clamp(16px, 2.5vw, 24px);
-  }
-  
-  /* Flat dark overlay on mobile (left-weighted gradient doesn't fit
-     the stacked layout). Video still shows through. */
-  .bg-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.70) 0%,
-      rgba(0, 0, 0, 0.78) 100%
-    );
-  }
+  .hero-content { max-width: 100%; padding: 40px 40px; }
+  .headline { font-size: clamp(32px, 8vw, 48px); white-space: normal; }
+  .subheadline { font-size: clamp(15px, 3vw, 17px); }
+  .role { font-size: clamp(15px, 3.2vw, 19px); }
 }
 
-@media (max-height: 700px) {
-  .portrait { max-height: 52vh; }
+@media (max-width: 480px) {
+  .hero-content { padding: 32px 22px; border-radius: 20px; }
+  .actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .btn { text-align: center; }
 }

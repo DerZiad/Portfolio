@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { trigger, transition, style, animate, query, group } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { LoadingService } from './loading.service';
 
 const routeAnimations = trigger('routeAnimations', [
   transition('* => *', [
@@ -26,13 +27,27 @@ const routeAnimations = trigger('routeAnimations', [
 export class AppComponent implements OnInit, OnDestroy {
   title = 'ziadbougrine';
   navbarOpen = false;
+  appReady = false;
 
   private routerSub: Subscription | null = null;
+  private loadingSub: Subscription | null = null;
   private outsideClickCleanup: (() => void) | null = null;
+  private loaderFallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private router: Router, private renderer: Renderer2) {}
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+    private loading: LoadingService
+  ) {}
 
   ngOnInit(): void {
+    this.loadingSub = this.loading.ready$.subscribe(ready => {
+      if (ready) {
+        this.appReady = true;
+      }
+    });
+    // Never keep the loader up longer than 2.5s, even if the video stalls.
+    this.loaderFallbackTimer = setTimeout(() => this.loading.markReady(), 2500);
     this.routerSub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.closeNavbar();
@@ -49,7 +64,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSub?.unsubscribe();
+    this.loadingSub?.unsubscribe();
     this.outsideClickCleanup?.();
+    if (this.loaderFallbackTimer !== null) {
+      clearTimeout(this.loaderFallbackTimer);
+    }
   }
 
   isHomeRoute(): boolean {

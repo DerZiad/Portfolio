@@ -1,9 +1,13 @@
 <section id="projects" class="portfolio-block" >
-  <video #bgVideo autoplay muted playsinline loop class="background-video" (ended)="onVideoEnded()">
-    <source [src]="currentVideoSrc" type="video/mp4">
-  </video>
+  <!-- Shared looping video background (only backdrop; content sits in the card) -->
+  <app-video-background></app-video-background>
    <div class="container">
-     <div class="row" style="margin-bottom: 20px; margin-left: 15px; align-items: center;">
+    <article class="projects-card">
+     <header class="projects-header">
+       <h1 class="projects-title">Projects</h1>
+       <p class="projects-subtitle">A selection of things I've built — from web apps to security tooling</p>
+     </header>
+     <div class="row filter-row">
        <div class="col-md-12">
          <div class="type-tabs" role="tablist" aria-label="Project types">
            <button *ngFor="let t of projectTypes"
@@ -20,11 +24,11 @@
      </div>
      <div class="container-fluid">
        <div class="row">
-         <div class="col-md-4 col-sm-12 box-height" *ngFor="let dataEntity of filter(data); let i = index" style="padding: 10px">
+         <div class="col-md-4 col-sm-12 box-height" *ngFor="let dataEntity of filteredProjects; trackBy: trackByProject" style="padding: 10px">
           <div class="project-block" (click)="goToLink(dataEntity)" role="button" tabindex="0" (keydown.enter)="goToLink(dataEntity)">
             <div class="image-wrap">
               <img ngSrc="/assets/img/project.png" alt="{{dataEntity.name}} thumbnail" class="project-image" loading="lazy"
-                   height="1031" width="1900"/>
+                   height="434" width="800"/>
               <div class="eye-icon" role="link" tabindex="0" (click)="openInNewTab(dataEntity, $event)" (keydown.enter)="openInNewTab(dataEntity, $event)" aria-hidden="false">
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -59,5 +63,6 @@
         </div>
        </div>
      </div>
+    </article>
    </div>
  </section>

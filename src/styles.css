@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-html *
-{
-  font-family: sans-serif !important;
+html * {
+  font-family: "Inter", "Lato", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+html {
+  background: #08080c;
 }

@@ -1,10 +1,6 @@
-<section id="projects" class="portfolio-block website">
-  <!-- Video background -->
-  <video #bgVideo class="bg-video" autoplay muted playsinline loop (ended)="onVideoEnded()">
-    <source [src]="currentVideoSrc" type="video/mp4">
-  </video>
-  <div class="bg-overlay"></div>
-  <div class="bg-scanlines"></div>
+<section id="resume" class="resume-page">
+  <!-- Shared looping video background (only backdrop; content sits in the card) -->
+  <app-video-background></app-video-background>
 
   <div class="container-fluid">
     <div class="row">
@@ -13,8 +9,8 @@
           <div class="profile-grid">
             <header class="profile-left">
               <div class="avatar-wrapper" aria-hidden="true">
-                <img ngSrc="/assets/img/avatar.png" alt="Ziad Bougrine portrait" class="avatar" height="4032"
-                  width="4188">
+                <img ngSrc="/assets/img/avatar.png" alt="Ziad Bougrine portrait" class="avatar" height="400"
+                  width="400">
               </div>
               <div class="quick-meta">
                 <div class="info-card" role="group" aria-label="Profile information">
@@ -102,7 +98,7 @@
             <div class="profile-right">
               <section class="personal-card" aria-labelledby="personal-info-title">
                 <header class="section-header">
-                  <h2 id="personal-info-title" class="abstract-title">Personal Informations</h2>
+                  <h2 id="personal-info-title" class="abstract-title">Personal Information</h2>
                   <span class="badge">Profile</span>
                 </header>
 
@@ -110,17 +106,17 @@
                   <div class="personal-main">
 
                     <nav class="resume-toc" aria-label="Resume sections">
-                      <button class="toc-item toc-blue" (click)="scrollTo('sec-abstract')">
+                      <button class="toc-item" (click)="scrollTo('sec-abstract')">
                         <span class="toc-num">1</span>Abstract
                       </button>
-                      <button class="toc-item toc-indigo" (click)="scrollTo('sec-skills')">
-                        <span class="toc-num">2</span>Technical Stack
+                      <button class="toc-item" (click)="scrollTo('sec-education')">
+                        <span class="toc-num">2</span>Education
                       </button>
-                      <button class="toc-item toc-orange" (click)="scrollTo('sec-experience')">
+                      <button class="toc-item" (click)="scrollTo('sec-experience')">
                         <span class="toc-num">3</span>Professional Experience
                       </button>
-                      <button class="toc-item toc-emerald" (click)="scrollTo('sec-education')">
-                        <span class="toc-num">4</span>Education
+                      <button class="toc-item" (click)="scrollTo('sec-skills')">
+                        <span class="toc-num">4</span>Technical Stack
                       </button>
                     </nav>
 
@@ -132,177 +128,87 @@
                       experience collaborating in agile Scrum teams and reliably works with team members and
                       stakeholders to implement business requirements.
                     </p>
-                    <h3 class="section-subtitle" id="sec-skills">Technical Stack</h3>
-                    <div class="tech-categories">
-
-                      <div class="tech-category cat-blue">
-                        <div class="cat-title">Programming Languages</div>
-                        <div class="chips">
-                          <span class="chip">Java</span>
-                          <span class="chip">Kotlin</span>
-                          <span class="chip">TypeScript</span>
-                          <span class="chip">JavaScript</span>
-                          <span class="chip">Python</span>
-                          <span class="chip">C++</span>
-                          <span class="chip">Bash</span>
-                          <span class="chip">Asciidoc</span>
-                          <span class="chip">HTML</span>
-                          <span class="chip">CSS</span>
-                        </div>
+                    <h3 class="section-subtitle" id="sec-education">Education</h3>
+                    <div class="education-strip" aria-label="Education timeline">
+                      <div class="education-track">
+                        <article *ngFor="let education of educations" class="education-stop"
+                          [class.active]="selectedEducation?.id === education.id"
+                          [class.education-stop-bachelor]="education.id === 'bachelor'" tabindex="0"
+                          [attr.aria-expanded]="selectedEducation?.id === education.id"
+                          (click)="selectEducation(education)" (keydown.enter)="selectEducation(education)"
+                          (keydown.space)="selectEducation(education); $event.preventDefault()">
+                          <div class="education-image-shell">
+                            <img [ngSrc]="education.logo" [alt]="education.name + ' logo'" class="education-image"
+                              [class.education-image-bachelor]="education.id === 'bachelor'" width="84" height="84">
+                          </div>
+                          <div class="education-name">{{ education.name }}</div>
+                          <div class="education-date">{{ education.years }}</div>
+                        </article>
                       </div>
-
-                      <div class="tech-category cat-indigo">
-                        <div class="cat-title">Backend Frameworks</div>
-                        <div class="chips">
-                          <span class="chip">Spring Boot</span>
-                          <span class="chip">Spring Security</span>
-                          <span class="chip">Spring Data</span>
-                          <span class="chip">Spring Cloud</span>
-                          <span class="chip">Spring Batch</span>
-                          <span class="chip">Spring WebFlux</span>
-                          <span class="chip">Hibernate</span>
-                          <span class="chip">Jakarta EE (JSP / JSTL)</span>
-                          <span class="chip">Camunda BPMN</span>
-                          <span class="chip">Django</span>
-                          <span class="chip">JWT</span>
-                          <span class="chip">JAXB</span>
-                          <span class="chip">Resilience4J</span>
-                          <span class="chip">API Gateway</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-cyan">
-                        <div class="cat-title">Frontend Technologies</div>
-                        <div class="chips">
-                          <span class="chip">Angular</span>
-                          <span class="chip">Bootstrap</span>
-                          <span class="chip">JavaFX</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-amber">
-                        <div class="cat-title">Testing & Quality</div>
-                        <div class="chips">
-                          <span class="chip">JUnit</span>
-                          <span class="chip">Mockito</span>
-                          <span class="chip">Selenium</span>
-                          <span class="chip">Testcontainers</span>
-                          <span class="chip">Unit Testing</span>
-                          <span class="chip">Integration Testing</span>
-                          <span class="chip">Test Environment</span>
-                          <span class="chip">OWASP ZAP</span>
-                          <span class="chip">SonarQube</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-orange">
-                        <div class="cat-title">DevOps & Build</div>
-                        <div class="chips">
-                          <span class="chip">Docker</span>
-                          <span class="chip">Kubernetes</span>
-                          <span class="chip">Containerization</span>
-                          <span class="chip">Maven</span>
-                          <span class="chip">Gradle</span>
-                          <span class="chip">Jenkins</span>
-                          <span class="chip">GitHub Actions</span>
-                          <span class="chip">Git</span>
-                          <span class="chip">CI/CD</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-emerald">
-                        <div class="cat-title">Databases</div>
-                        <div class="chips">
-                          <span class="chip">PostgreSQL</span>
-                          <span class="chip">MySQL</span>
-                          <span class="chip">MongoDB</span>
-                          <span class="chip">Oracle Database</span>
-                          <span class="chip">NoSQL</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-violet">
-                        <div class="cat-title">Data Science & ML</div>
-                        <div class="chips">
-                          <span class="chip">TensorFlow</span>
-                          <span class="chip">Scikit-learn</span>
-                          <span class="chip">Pandas</span>
-                          <span class="chip">NumPy</span>
-                          <span class="chip">Matplotlib</span>
-                          <span class="chip">Deep Learning</span>
-                          <span class="chip">Machine Learning</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-slate">
-                        <div class="cat-title">Tools & IDEs</div>
-                        <div class="chips">
-                          <span class="chip">GitHub</span>
-                          <span class="chip">Bitbucket</span>
-                          <span class="chip">GitHub Copilot</span>
-                          <span class="chip">IntelliJ IDEA</span>
-                          <span class="chip">VS Code</span>
-                          <span class="chip">WebStorm</span>
-                          <span class="chip">Postman</span>
-                          <span class="chip">OpenAPI</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-teal">
-                        <div class="cat-title">Platforms & Infrastructure</div>
-                        <div class="chips">
-                          <span class="chip">Apache Kafka</span>
-                          <span class="chip">Keycloak</span>
-                          <span class="chip">Raspberry Pi</span>
-                          <span class="chip">Arduino</span>
-                          <span class="chip">Ubuntu</span>
-                          <span class="chip">Windows</span>
-                          <span class="chip">Modbus</span>
-                          <span class="chip">Socket Programming</span>
-                        </div>
-                      </div>
-
-                      <div class="tech-category cat-rose">
-                        <div class="cat-title">Core Concepts & Methods</div>
-                        <div class="chips">
-                          <span class="chip">Full-Stack Development</span>
-                          <span class="chip">Microservices</span>
-                          <span class="chip">REST API</span>
-                          <span class="chip">IT Architecture</span>
-                          <span class="chip">Software Design</span>
-                          <span class="chip">Design Patterns</span>
-                          <span class="chip">Clean Code</span>
-                          <span class="chip">Refactoring</span>
-                          <span class="chip">Code Optimization</span>
-                          <span class="chip">Code Review</span>
-                          <span class="chip">Debugging</span>
-                          <span class="chip">Troubleshooting</span>
-                          <span class="chip">Problem Solving</span>
-                          <span class="chip">Algorithmics</span>
-                          <span class="chip">Multithreading</span>
-                          <span class="chip">Real-Time Data Processing</span>
-                          <span class="chip">Fault Tolerance</span>
-                          <span class="chip">Database Design</span>
-                          <span class="chip">Migration</span>
-                          <span class="chip">IT Security</span>
-                          <span class="chip">Authentication & Authorization</span>
-                          <span class="chip">Agile (Scrum)</span>
-                          <span class="chip">Pair Programming</span>
-                          <span class="chip">BPMN</span>
-                          <span class="chip">Low-Code Development</span>
-                          <span class="chip">Technical Documentation</span>
-                          <span class="chip">UML</span>
-                          <span class="chip">Cross-Functional Teamwork</span>
-                        </div>
-                      </div>
-
                     </div>
-                    <h3 class="section-subtitle" id="sec-experience">Professional Experience</h3>
+                    <section class="education-details" *ngIf="selectedEducation" aria-live="polite">
+                      <div class="education-details-header">
+                        <div>
+                          <h4 class="education-details-title">{{ selectedEducation.name }}</h4>
+                          <div class="education-details-subtitle">{{ selectedEducation.field }}</div>
+                        </div>
+                        <div class="education-details-actions">
+                          <div class="education-details-years">{{ selectedEducation.years }}</div>
+                          <button type="button" class="education-close" aria-label="Close education details"
+                            (click)="closeEducation()">
+                            &#215;
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="semester-tabs" *ngIf="selectedEducation.semesters?.length; else educationSummary">
+                        <button *ngFor="let semester of selectedEducation.semesters; let i = index" type="button"
+                          class="semester-tab" [class.active]="currentSemesterIndex === i" (click)="selectSemester(i)">
+                          {{ semester.name }}
+                        </button>
+                      </div>
+
+                      <ng-container *ngIf="selectedEducation.semesters?.length">
+                        <div class="semester-panel">
+                          <h5 class="semester-panel-title">{{ selectedEducation.semesters[currentSemesterIndex].name }}
+                          </h5>
+
+                          <div class="semester-columns">
+                            <div class="semester-section">
+                              <div class="semester-section-title">Modules</div>
+                              <ul class="semester-list">
+                                <li *ngFor="let module of selectedEducation.semesters[currentSemesterIndex].modules">{{
+                                  module }}</li>
+                              </ul>
+                            </div>
+
+                            <div class="semester-section">
+                              <div class="semester-section-title">Technical Stack</div>
+                              <div class="semester-chips">
+                                <span class="semester-chip"
+                                  *ngFor="let tech of selectedEducation.semesters[currentSemesterIndex].techStack">{{
+                                  tech }}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-template #educationSummary>
+                        <div class="semester-panel summary-panel">
+                          <div class="semester-section-title">Degree Summary</div>
+                          <p class="education-summary-text">{{ selectedEducation.field }}</p>
+                        </div>
+                      </ng-template>
+                    </section><h3 class="section-subtitle" id="sec-experience">Professional Experience</h3>
                     <div class="experience-list">
 
                       <!-- CAPGEMINI -->
-                      <article class="company-card">
-                        <div class="company-header">
+                      <article class="company-card" [class.open]="isCompanyOpen('capgemini')">
+                        <div class="company-header" role="button" tabindex="0"
+                          [attr.aria-expanded]="isCompanyOpen('capgemini')" (click)="toggleCompany('capgemini')"
+                          (keydown.enter)="toggleCompany('capgemini')"
+                          (keydown.space)="toggleCompany('capgemini'); $event.preventDefault()">
                           <div class="company-logo" aria-hidden="true">
                             <img ngSrc="/assets/img/capgemini.png" class="company-logo-image" width="56" height="56">
                           </div>
@@ -310,16 +216,22 @@
                             <div class="company-name">Capgemini — Germany</div>
                             <div class="company-period">Apr 2026 – Present</div>
                           </div>
+                          <span class="company-chevron" aria-hidden="true"></span>
                         </div>
-                        <div class="role-block">
-                          <div class="role-title">Software Engineer</div>
-                          <div class="role-meta">Full-time · Cologne, Germany</div>
+                        <div class="company-body" *ngIf="isCompanyOpen('capgemini')">
+                          <div class="role-block">
+                            <div class="role-title">Software Engineer</div>
+                            <div class="role-meta">Full-time · Cologne, Germany</div>
+                          </div>
                         </div>
                       </article>
 
                       <!-- MGM -->
-                      <article class="company-card">
-                        <div class="company-header">
+                      <article class="company-card" [class.open]="isCompanyOpen('mgm')">
+                        <div class="company-header" role="button" tabindex="0"
+                          [attr.aria-expanded]="isCompanyOpen('mgm')" (click)="toggleCompany('mgm')"
+                          (keydown.enter)="toggleCompany('mgm')"
+                          (keydown.space)="toggleCompany('mgm'); $event.preventDefault()">
                           <div class="company-logo" aria-hidden="true">
                             <img ngSrc="/assets/img/mgm.png" class="company-logo-image" width="56" height="56">
                           </div>
@@ -327,8 +239,10 @@
                             <div class="company-name">mgm technology partners GmbH — Germany</div>
                             <div class="company-period">Oct 2023 – Mar 2026</div>
                           </div>
+                          <span class="company-chevron" aria-hidden="true"></span>
                         </div>
 
+                        <div class="company-body" *ngIf="isCompanyOpen('mgm')">
                         <ul class="company-bullets">
                           <li>Actively participated in all agile ceremonies — daily stand-ups, sprint planning, reviews, and retrospectives — while contributing to continuous improvement of team processes.</li>
                           <li>Performed pair programming and peer code reviews to raise code quality, promote knowledge sharing, and collaboratively resolve technical challenges.</li>
@@ -581,11 +495,15 @@
                           </div>
 
                         </div>
+                        </div>
                       </article>
 
                       <!-- FH AACHEN -->
-                      <article class="company-card">
-                        <div class="company-header">
+                      <article class="company-card" [class.open]="isCompanyOpen('fh')">
+                        <div class="company-header" role="button" tabindex="0"
+                          [attr.aria-expanded]="isCompanyOpen('fh')" (click)="toggleCompany('fh')"
+                          (keydown.enter)="toggleCompany('fh')"
+                          (keydown.space)="toggleCompany('fh'); $event.preventDefault()">
                           <div class="company-logo" aria-hidden="true">
                             <img ngSrc="/assets/img/fh.png" class="company-logo-image" width="56" height="56">
                           </div>
@@ -593,7 +511,9 @@
                             <div class="company-name">SIJ, FH Aachen — Germany</div>
                             <div class="company-period">Feb 2023 – May 2023</div>
                           </div>
+                          <span class="company-chevron" aria-hidden="true"></span>
                         </div>
+                        <div class="company-body" *ngIf="isCompanyOpen('fh')">
                         <div class="role-block">
                           <div class="role-title">Working Student — Full-Stack Development</div>
                           <div class="role-meta">Part-time · Jülich · Energy / E-Mobility — <em>PVeCarPort</em></div>
@@ -692,83 +612,177 @@
                             </div>
                           </div>
                         </div>
+                        </div>
                       </article>
 
                     </div>
 
-                    <h3 class="section-subtitle" id="sec-education">Education</h3>
-                    <div class="education-strip" aria-label="Education timeline">
-                      <div class="education-track">
-                        <article *ngFor="let education of educations" class="education-stop"
-                          [class.active]="selectedEducation?.id === education.id"
-                          [class.education-stop-bachelor]="education.id === 'bachelor'" tabindex="0"
-                          [attr.aria-expanded]="selectedEducation?.id === education.id"
-                          (click)="selectEducation(education)" (keydown.enter)="selectEducation(education)"
-                          (keydown.space)="selectEducation(education); $event.preventDefault()">
-                          <div class="education-image-shell">
-                            <img [ngSrc]="education.logo" [alt]="education.name + ' logo'" class="education-image"
-                              [class.education-image-bachelor]="education.id === 'bachelor'" width="84" height="84">
-                          </div>
-                          <div class="education-name">{{ education.name }}</div>
-                          <div class="education-date">{{ education.years }}</div>
-                        </article>
+                    <h3 class="section-subtitle" id="sec-skills">Technical Stack</h3>
+                    <div class="tech-categories">
+
+                      <div class="tech-category cat-blue">
+                        <div class="cat-title">Programming Languages</div>
+                        <div class="chips">
+                          <span class="chip">Java</span>
+                          <span class="chip">Kotlin</span>
+                          <span class="chip">TypeScript</span>
+                          <span class="chip">JavaScript</span>
+                          <span class="chip">Python</span>
+                          <span class="chip">C++</span>
+                          <span class="chip">Bash</span>
+                          <span class="chip">Asciidoc</span>
+                          <span class="chip">HTML</span>
+                          <span class="chip">CSS</span>
+                        </div>
                       </div>
+
+                      <div class="tech-category cat-indigo">
+                        <div class="cat-title">Backend Frameworks</div>
+                        <div class="chips">
+                          <span class="chip">Spring Boot</span>
+                          <span class="chip">Spring Security</span>
+                          <span class="chip">Spring Data</span>
+                          <span class="chip">Spring Cloud</span>
+                          <span class="chip">Spring Batch</span>
+                          <span class="chip">Spring WebFlux</span>
+                          <span class="chip">Hibernate</span>
+                          <span class="chip">Jakarta EE (JSP / JSTL)</span>
+                          <span class="chip">Camunda BPMN</span>
+                          <span class="chip">Django</span>
+                          <span class="chip">JWT</span>
+                          <span class="chip">JAXB</span>
+                          <span class="chip">Resilience4J</span>
+                          <span class="chip">API Gateway</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-cyan">
+                        <div class="cat-title">Frontend Technologies</div>
+                        <div class="chips">
+                          <span class="chip">Angular</span>
+                          <span class="chip">Bootstrap</span>
+                          <span class="chip">JavaFX</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-amber">
+                        <div class="cat-title">Testing & Quality</div>
+                        <div class="chips">
+                          <span class="chip">JUnit</span>
+                          <span class="chip">Mockito</span>
+                          <span class="chip">Selenium</span>
+                          <span class="chip">Testcontainers</span>
+                          <span class="chip">Unit Testing</span>
+                          <span class="chip">Integration Testing</span>
+                          <span class="chip">Test Environment</span>
+                          <span class="chip">OWASP ZAP</span>
+                          <span class="chip">SonarQube</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-orange">
+                        <div class="cat-title">DevOps & Build</div>
+                        <div class="chips">
+                          <span class="chip">Docker</span>
+                          <span class="chip">Kubernetes</span>
+                          <span class="chip">Containerization</span>
+                          <span class="chip">Maven</span>
+                          <span class="chip">Gradle</span>
+                          <span class="chip">Jenkins</span>
+                          <span class="chip">GitHub Actions</span>
+                          <span class="chip">Git</span>
+                          <span class="chip">CI/CD</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-emerald">
+                        <div class="cat-title">Databases</div>
+                        <div class="chips">
+                          <span class="chip">PostgreSQL</span>
+                          <span class="chip">MySQL</span>
+                          <span class="chip">MongoDB</span>
+                          <span class="chip">Oracle Database</span>
+                          <span class="chip">NoSQL</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-violet">
+                        <div class="cat-title">Data Science & ML</div>
+                        <div class="chips">
+                          <span class="chip">TensorFlow</span>
+                          <span class="chip">Scikit-learn</span>
+                          <span class="chip">Pandas</span>
+                          <span class="chip">NumPy</span>
+                          <span class="chip">Matplotlib</span>
+                          <span class="chip">Deep Learning</span>
+                          <span class="chip">Machine Learning</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-slate">
+                        <div class="cat-title">Tools & IDEs</div>
+                        <div class="chips">
+                          <span class="chip">GitHub</span>
+                          <span class="chip">Bitbucket</span>
+                          <span class="chip">GitHub Copilot</span>
+                          <span class="chip">IntelliJ IDEA</span>
+                          <span class="chip">VS Code</span>
+                          <span class="chip">WebStorm</span>
+                          <span class="chip">Postman</span>
+                          <span class="chip">OpenAPI</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-teal">
+                        <div class="cat-title">Platforms & Infrastructure</div>
+                        <div class="chips">
+                          <span class="chip">Apache Kafka</span>
+                          <span class="chip">Keycloak</span>
+                          <span class="chip">Raspberry Pi</span>
+                          <span class="chip">Arduino</span>
+                          <span class="chip">Ubuntu</span>
+                          <span class="chip">Windows</span>
+                          <span class="chip">Modbus</span>
+                          <span class="chip">Socket Programming</span>
+                        </div>
+                      </div>
+
+                      <div class="tech-category cat-rose">
+                        <div class="cat-title">Core Concepts & Methods</div>
+                        <div class="chips">
+                          <span class="chip">Full-Stack Development</span>
+                          <span class="chip">Microservices</span>
+                          <span class="chip">REST API</span>
+                          <span class="chip">IT Architecture</span>
+                          <span class="chip">Software Design</span>
+                          <span class="chip">Design Patterns</span>
+                          <span class="chip">Clean Code</span>
+                          <span class="chip">Refactoring</span>
+                          <span class="chip">Code Optimization</span>
+                          <span class="chip">Code Review</span>
+                          <span class="chip">Debugging</span>
+                          <span class="chip">Troubleshooting</span>
+                          <span class="chip">Problem Solving</span>
+                          <span class="chip">Algorithmics</span>
+                          <span class="chip">Multithreading</span>
+                          <span class="chip">Real-Time Data Processing</span>
+                          <span class="chip">Fault Tolerance</span>
+                          <span class="chip">Database Design</span>
+                          <span class="chip">Migration</span>
+                          <span class="chip">IT Security</span>
+                          <span class="chip">Authentication & Authorization</span>
+                          <span class="chip">Agile (Scrum)</span>
+                          <span class="chip">Pair Programming</span>
+                          <span class="chip">BPMN</span>
+                          <span class="chip">Low-Code Development</span>
+                          <span class="chip">Technical Documentation</span>
+                          <span class="chip">UML</span>
+                          <span class="chip">Cross-Functional Teamwork</span>
+                        </div>
+                      </div>
+
                     </div>
-                    <section class="education-details" *ngIf="selectedEducation" aria-live="polite">
-                      <div class="education-details-header">
-                        <div>
-                          <h4 class="education-details-title">{{ selectedEducation.name }}</h4>
-                          <div class="education-details-subtitle">{{ selectedEducation.field }}</div>
-                        </div>
-                        <div class="education-details-actions">
-                          <div class="education-details-years">{{ selectedEducation.years }}</div>
-                          <button type="button" class="education-close" aria-label="Close education details"
-                            (click)="closeEducation()">
-                            X
-                          </button>
-                        </div>
-                      </div>
-
-                      <div class="semester-tabs" *ngIf="selectedEducation.semesters?.length; else educationSummary">
-                        <button *ngFor="let semester of selectedEducation.semesters; let i = index" type="button"
-                          class="semester-tab" [class.active]="currentSemesterIndex === i" (click)="selectSemester(i)">
-                          {{ semester.name }}
-                        </button>
-                      </div>
-
-                      <ng-container *ngIf="selectedEducation.semesters?.length">
-                        <div class="semester-panel">
-                          <h5 class="semester-panel-title">{{ selectedEducation.semesters[currentSemesterIndex].name }}
-                          </h5>
-
-                          <div class="semester-columns">
-                            <div class="semester-section">
-                              <div class="semester-section-title">Modules</div>
-                              <ul class="semester-list">
-                                <li *ngFor="let module of selectedEducation.semesters[currentSemesterIndex].modules">{{
-                                  module }}</li>
-                              </ul>
-                            </div>
-
-                            <div class="semester-section">
-                              <div class="semester-section-title">Technical Stack</div>
-                              <div class="semester-chips">
-                                <span class="semester-chip"
-                                  *ngFor="let tech of selectedEducation.semesters[currentSemesterIndex].techStack">{{
-                                  tech }}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </ng-container>
-
-                      <ng-template #educationSummary>
-                        <div class="semester-panel summary-panel">
-                          <div class="semester-section-title">Degree Summary</div>
-                          <p class="education-summary-text">{{ selectedEducation.field }}</p>
-                        </div>
-                      </ng-template>
-                    </section>
+                    
                   </div>
                 </div>
 

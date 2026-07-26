@@ -1,3 +1,14 @@
+<!-- Branded app loader: shown until the first background video is ready (4s max) -->
+<div class="app-loader" [class.done]="appReady" aria-hidden="true">
+  <div class="app-loader-inner">
+    <div class="loader-ring">
+      <span class="loader-monogram">ZB</span>
+    </div>
+    <div class="loader-name">Ziad Bougrine</div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
 <nav class="navbar fixed-top portfolio-navbar">
   <div class="container">
     <a class="navbar-brand logo" routerLink="/" routerLinkActive="active-logo" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNavbar()" aria-label="Go to Home">

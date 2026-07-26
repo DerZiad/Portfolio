@@ -1,0 +1,28 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  background: #08080c;
+  z-index: 0;
+}
+
+/* The video is fixed to the viewport, not stretched over the full
+   (potentially very tall) page — it always renders at screen size,
+   which keeps GPU compositing cost constant while scrolling. */
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+
+.bg-video.visible {
+  opacity: 1;
+}
